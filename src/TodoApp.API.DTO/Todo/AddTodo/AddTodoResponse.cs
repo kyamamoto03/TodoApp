@@ -8,9 +8,9 @@ public class AddTodoResponse
     public DateTime ScheduleStartDate { get; set; } = default!;
     public DateTime ScheduleEndDate { get; set; } = default!;
 
-    public TodoItemResponse[] TodoItemResponses { get; set; } = default!;
+    public AddTodoItemResponse[] AddTodoItemResponses { get; set; } = default!;
 
-    public record TodoItemResponse
+    public record AddTodoItemResponse
     {
         public string TodoItemId { get; set; } = default!;
         public string Title { get; set; } = default!;

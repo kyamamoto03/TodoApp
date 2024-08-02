@@ -44,7 +44,7 @@ public static class TodoApi
         addTodoResponse.Description = response.Description;
         addTodoResponse.ScheduleStartDate = response.ScheduleStartDate;
         addTodoResponse.ScheduleEndDate = response.ScheduleEndDate;
-        addTodoResponse.TodoItemResponses = response.AddTodoUsecaseItemRequests.Select(x => new AddTodoResponse.TodoItemResponse
+        addTodoResponse.AddTodoItemResponses = response.AddTodoUsecaseItemRequests.Select(x => new AddTodoResponse.AddTodoItemResponse
         {
             TodoItemId = x.TodoItemId,
             Title = x.Title,
@@ -69,7 +69,7 @@ public static class TodoApi
         findByIdResponse.Description = response.Description;
         findByIdResponse.ScheduleStartDate = response.ScheduleStartDate;
         findByIdResponse.ScheduleEndDate = response.ScheduleEndDate;
-        findByIdResponse.TodoItemRequests = response.TodoItemRequests.Select(x => new FindByIdResponse.TodoItemResponse
+        findByIdResponse.FindByIdTodoItemResponses = response.TodoItemRequests.Select(x => new FindByIdResponse.FindByIdTodoItemResponse
         {
             TodoItemId = x.TodoItemId,
             Title = x.Title,

@@ -7,9 +7,9 @@ public class FindByIdResponse
     public DateTime ScheduleStartDate { get; set; } = default!;
     public DateTime ScheduleEndDate { get; set; } = default!;
 
-    public TodoItemResponse[] TodoItemRequests { get; set; } = default!;
+    public FindByIdTodoItemResponse[] FindByIdTodoItemResponses { get; set; } = default!;
 
-    public record TodoItemResponse
+    public record FindByIdTodoItemResponse
     {
         public string TodoItemId { get; set; } = default!;
         public string Title { get; set; } = default!;
