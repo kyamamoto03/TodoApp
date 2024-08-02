@@ -1,20 +1,23 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Todo.Domain;
 using Todo.Usecase.Todos;
 using TodoApp.API.DTO.Todo.AddTodo;
 using TodoApp.API.DTO.Todo.FindById;
 
-namespace TodoApp.API.Controllers;
+namespace TodoApp.API.APIs;
 
-[Route("api/[controller]")]
-[ApiController]
-public class TodoController(IAddTodoUsecase addTodoUsecase,IFindByIdUsecase findByIdUsecase) : ControllerBase
+public static class TodoApi
 {
-    private readonly IAddTodoUsecase _addTodoUsecase = addTodoUsecase;
-    private readonly IFindByIdUsecase _findByIdUsecase = findByIdUsecase;
+    public static RouteGroupBuilder MapTodoApiV1(this IEndpointRouteBuilder app)
+    {
+        var api = app.MapGroup("api/todo");
 
-    [HttpPost("AddTodo")]
-    public async Task<ActionResult<AddTodoResponse>> AddAsync([FromBody] AddTodoRequest request)
+        api.MapPost("/AddTodo", AddTodoAsync);
+        api.MapGet("/FindById/{TodoId}", FindByIdAsync);
+
+        return api;
+    }
+
+    public static async Task<AddTodoResponse> AddTodoAsync([FromBody] AddTodoRequest request, IAddTodoUsecase addTodoUsecase)
     {
 
         //AddTodoUsecaseRequestに詰め替える
@@ -32,7 +35,7 @@ public class TodoController(IAddTodoUsecase addTodoUsecase,IFindByIdUsecase find
             ScheduleEndDate = x.ScheduleEndDate
         }).ToArray();
 
-        var response = await _addTodoUsecase.AddAsync(addTodoUsecaseRequest);
+        var response = await addTodoUsecase.AddAsync(addTodoUsecaseRequest);
 
         //responseをAddTodoResponseに詰め替える
         AddTodoResponse addTodoResponse = new AddTodoResponse();
@@ -49,13 +52,11 @@ public class TodoController(IAddTodoUsecase addTodoUsecase,IFindByIdUsecase find
             ScheduleEndDate = x.ScheduleEndDate
         }).ToArray();
 
-        return Ok(addTodoResponse);
+        return addTodoResponse;
     }
-
-    [HttpGet("FindById/{TodoId}")]
-    public async Task<ActionResult<FindByIdResponse?>> FindByIdAsync(string TodoId)
+    public static async Task<FindByIdResponse?> FindByIdAsync(string TodoId, IFindByIdUsecase findByIdUsecase)
     {
-        var response = await _findByIdUsecase.ExecuteAsync(TodoId);
+        var response = await findByIdUsecase.ExecuteAsync(TodoId);
 
         //FindByIdResponseにresponseを詰め替える
         if (response == null)
@@ -79,4 +80,5 @@ public class TodoController(IAddTodoUsecase addTodoUsecase,IFindByIdUsecase find
         }).ToArray();
         return findByIdResponse;
     }
+
 }
