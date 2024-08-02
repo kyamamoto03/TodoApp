@@ -47,11 +47,42 @@ public class Todo
 
         return todo;
     }
+    public static Todo Create(string todoId,string title, string description, DateTime scheduleStartDate, DateTime scheduleEndDate)
+    {
+        Todo todo = new Todo();
+
+        todo.TodoId = todoId;
+        todo.Title = title;
+        todo.Description = description;
+        todo.ScheduleStartDate = scheduleStartDate;
+        todo.ScheduleEndDate = scheduleEndDate;
+
+        return todo;
+    }
 
     public static TodoItem CreateNewTodoItem(string title, DateTime shceduleStartDate, DateTime shceduleEndDate)
     {
         TodoItem todoItem = new TodoItem();
         todoItem.TodoItemId = Guid.NewGuid().ToString();
+        todoItem.Title = title;
+        todoItem.ScheduleStartDate = shceduleStartDate;
+        todoItem.ScheduleEndDate = shceduleEndDate;
+
+        todoItem.StartDate = null;
+        todoItem.EndDate = null;
+        todoItem.TodoItemStatus = TodoItemStatus.未開始;
+
+        if (todoItem.ScheduleStartDate > todoItem.ScheduleEndDate)
+        {
+            throw new ArgumentException("開始日よりも前の日付は設定できません");
+        }
+
+        return todoItem;
+    }
+    public static TodoItem CreateTodoItem(string todoItemId,string title, DateTime shceduleStartDate, DateTime shceduleEndDate)
+    {
+        TodoItem todoItem = new TodoItem();
+        todoItem.TodoItemId = todoItemId;
         todoItem.Title = title;
         todoItem.ScheduleStartDate = shceduleStartDate;
         todoItem.ScheduleEndDate = shceduleEndDate;

@@ -12,7 +12,13 @@ public class AddTodoUsecase(ITodoReposity todoReposity) : IAddTodoUsecase
 
     public async Task<AddTodoUsecaseReponse> AddAsync(AddTodoUsecaseRequest addTodoUsecaseRequest)
     {
-        Domain.Todo todo = Domain.Todo.CreateNew(addTodoUsecaseRequest.Title, addTodoUsecaseRequest.Description, addTodoUsecaseRequest.ScheduleStartDate, addTodoUsecaseRequest.ScheduleEndDate);
+        Domain.Todo todo = Domain.Todo.Create(
+            addTodoUsecaseRequest.TodoId,
+            addTodoUsecaseRequest.Title, 
+            addTodoUsecaseRequest.Description, 
+            addTodoUsecaseRequest.ScheduleStartDate, 
+            addTodoUsecaseRequest.ScheduleEndDate);
+
         foreach (var item in addTodoUsecaseRequest.AddTodoUsecaseItemRequests)
         {
             TodoItem todoItem = Domain.Todo.CreateNewTodoItem(item.Title, item.ScheduleStartDate, item.ScheduleEndDate);
@@ -42,7 +48,7 @@ public class AddTodoUsecase(ITodoReposity todoReposity) : IAddTodoUsecase
 
 public class AddTodoUsecaseRequest
 {
-
+    public string TodoId { get; set; } = default!;
     public string Title { get; set; } = default!;
     public string Description { get; set; } = default!;
     public DateTime ScheduleStartDate { get; set; } = default!;
@@ -51,6 +57,7 @@ public class AddTodoUsecaseRequest
 
     public class AddTodoUsecaseItemRequest
     {
+        public string TodoItemId { get; set; } = default!;
         public string Title { get; set; } = default!;
         public DateTime ScheduleStartDate { get; set; } = default!;
         public DateTime ScheduleEndDate { get; set; } = default!;

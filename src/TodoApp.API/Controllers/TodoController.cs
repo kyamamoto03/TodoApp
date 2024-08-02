@@ -19,12 +19,14 @@ public class TodoController(IAddTodoUsecase addTodoUsecase,IFindByIdUsecase find
 
         //AddTodoUsecaseRequestに詰め替える
         AddTodoUsecaseRequest addTodoUsecaseRequest = new AddTodoUsecaseRequest();
+        addTodoUsecaseRequest.TodoId = request.TodoId;
         addTodoUsecaseRequest.Title = request.Title;
         addTodoUsecaseRequest.Description = request.Description;
         addTodoUsecaseRequest.ScheduleStartDate = request.ScheduleStartDate;
         addTodoUsecaseRequest.ScheduleEndDate = request.ScheduleEndDate;
         addTodoUsecaseRequest.AddTodoUsecaseItemRequests = request.TodoItemRequests.Select(x => new AddTodoUsecaseRequest.AddTodoUsecaseItemRequest
         {
+            TodoItemId = x.TodoItemId,
             Title = x.Title,
             ScheduleStartDate = x.ScheduleStartDate,
             ScheduleEndDate = x.ScheduleEndDate

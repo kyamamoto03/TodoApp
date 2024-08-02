@@ -11,8 +11,4 @@
     <ProjectReference Include="..\Todo.Infra\Todo.Infra.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="TodoItems\" />
-  </ItemGroup>
-
 </Project>
