@@ -54,14 +54,14 @@ public static class TodoApi
 
         return addTodoResponse;
     }
-    public static async Task<FindByIdResponse?> FindByIdAsync(string TodoId, IFindByIdUsecase findByIdUsecase)
+    public static async Task<IResult> FindByIdAsync(string TodoId, IFindByIdUsecase findByIdUsecase)
     {
         var response = await findByIdUsecase.ExecuteAsync(TodoId);
 
         //FindByIdResponseにresponseを詰め替える
         if (response == null)
         {
-            return null;
+            return TypedResults.Ok();
         }
         FindByIdResponse findByIdResponse = new FindByIdResponse();
         findByIdResponse.TodoId = response.TodoId;
@@ -69,7 +69,7 @@ public static class TodoApi
         findByIdResponse.Description = response.Description;
         findByIdResponse.ScheduleStartDate = response.ScheduleStartDate;
         findByIdResponse.ScheduleEndDate = response.ScheduleEndDate;
-        findByIdResponse.FindByIdTodoItemResponses = response.TodoItemRequests.Select(x => new FindByIdResponse.FindByIdTodoItemResponse
+        findByIdResponse.TodoItemResponses = response.TodoItemRequests.Select(x => new FindByIdResponse.TodoItemResponse
         {
             TodoItemId = x.TodoItemId,
             Title = x.Title,
@@ -78,7 +78,7 @@ public static class TodoApi
             StartDate = x.StartDate,
             EndDate = x.EndDate
         }).ToArray();
-        return findByIdResponse;
+        return TypedResults.Ok(findByIdResponse);
     }
 
 }

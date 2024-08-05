@@ -22,7 +22,7 @@ public class TodoRepository(TodoMemDbContext todoMemDbContext) : ITodoReposity
     {
         return _todoMemDbContext.Todos
             .Include(x => x.TodoItems)
-            .SingleOrDefaultAsync(x => x.TodoId == todoId);
+            .FirstOrDefaultAsync(x => x.TodoId == todoId);
     }
 
     public async Task<Domain.Todo> SaveAsync(Domain.Todo todo)
