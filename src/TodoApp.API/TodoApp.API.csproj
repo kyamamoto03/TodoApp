@@ -7,12 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.7" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Todo.Usecase\Todo.Usecase.csproj" />
     <ProjectReference Include="..\TodoApp.API.DTO\TodoApp.API.DTO.csproj" />
+    <ProjectReference Include="..\TodoApp.Client\TodoApp.Client.csproj" />
   </ItemGroup>
 
 </Project>
