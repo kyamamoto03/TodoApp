@@ -1,8 +1,8 @@
-using Microsoft.AspNetCore.Components.Web;
-using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using MudBlazor.Services;
-using TodoApp.Client;
-using TodoApp.Client.PageModel;
+global using Microsoft.AspNetCore.Components.Web;
+global using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+global using MudBlazor.Services;
+global using TodoApp.Client;
+global using TodoApp.Client.PageModel;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");

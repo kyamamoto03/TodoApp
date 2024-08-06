@@ -1,4 +1,4 @@
-namespace Todo.Domain.Test.Domain;
+namespace Domain.Todos;
 
 public class TodoTest
 {

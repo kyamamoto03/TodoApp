@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Todo.Infra.Configuration;
+﻿using Domain.Todos;
+using Infra.Configuration;
+using Microsoft.EntityFrameworkCore;
 
 
-namespace Todo.Infra;
+namespace Infra;
 
 public class TodoMemDbContext : DbContext
 {
@@ -10,8 +11,8 @@ public class TodoMemDbContext : DbContext
     {
     }
 
-    public DbSet<Domain.Todo> Todos { get; set; } = default!;
-    public DbSet<Domain.TodoItem> TodoItems { get; set; } = default!;
+    public DbSet<Todo> Todos { get; set; } = default!;
+    public DbSet<TodoItem> TodoItems { get; set; } = default!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

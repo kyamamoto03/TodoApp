@@ -1,11 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Domain.Todos;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Todo.Infra.Configuration;
+namespace Infra.Configuration;
 
-internal class TodoConfiguration : IEntityTypeConfiguration<Domain.Todo>
+internal class TodoConfiguration : IEntityTypeConfiguration<Todo>
 {
-    public void Configure(EntityTypeBuilder<Domain.Todo> builder)
+    public void Configure(EntityTypeBuilder<Todo> builder)
     {
         builder.HasKey(x => x.TodoId);
         builder.Property(x => x.TodoId).UsePropertyAccessMode(PropertyAccessMode.Field);

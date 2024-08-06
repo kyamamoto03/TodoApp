@@ -1,10 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Domain.Todos;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Todo.Domain;
 
-namespace Todo.Infra.Configuration;
+namespace Infra.Configuration;
 
-internal class TodoItemConfiguration : IEntityTypeConfiguration<Domain.TodoItem>
+internal class TodoItemConfiguration : IEntityTypeConfiguration<TodoItem>
 {
     public void Configure(EntityTypeBuilder<TodoItem> builder)
     {

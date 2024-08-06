@@ -17,8 +17,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Todo.Domain\Todo.Domain.csproj" />
-    <ProjectReference Include="..\Todo.Infra\Todo.Infra.csproj" />
+    <ProjectReference Include="..\Todo.Domain\Domain.csproj" />
+    <ProjectReference Include="..\Todo.Infra\Infra.csproj" />
   </ItemGroup>
 
   <ItemGroup>

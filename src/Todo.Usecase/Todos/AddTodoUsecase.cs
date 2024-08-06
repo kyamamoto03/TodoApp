@@ -1,6 +1,7 @@
-﻿using Todo.Domain;
+﻿
+using Domain.Todos;
 
-namespace Todo.Usecase.Todos;
+namespace Usecase.Todos;
 
 public interface IAddTodoUsecase
 {
@@ -12,7 +13,7 @@ public class AddTodoUsecase(ITodoReposity todoReposity) : IAddTodoUsecase
 
     public async Task<AddTodoUsecaseReponse> AddAsync(AddTodoUsecaseRequest addTodoUsecaseRequest)
     {
-        Domain.Todo todo = Domain.Todo.Create(
+        Todo todo = Todo.Create(
             addTodoUsecaseRequest.TodoId,
             addTodoUsecaseRequest.Title, 
             addTodoUsecaseRequest.Description, 
@@ -21,7 +22,7 @@ public class AddTodoUsecase(ITodoReposity todoReposity) : IAddTodoUsecase
 
         foreach (var item in addTodoUsecaseRequest.AddTodoUsecaseItemRequests)
         {
-            TodoItem todoItem = Domain.Todo.CreateNewTodoItem(item.Title, item.ScheduleStartDate, item.ScheduleEndDate);
+            TodoItem todoItem = Todo.CreateNewTodoItem(item.Title, item.ScheduleStartDate, item.ScheduleEndDate);
             todo.AddTodoItem(todoItem);
         }
 

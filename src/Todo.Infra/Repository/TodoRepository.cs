@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Todo.Domain;
+﻿using Domain.Todos;
+using Microsoft.EntityFrameworkCore;
 
-namespace Todo.Infra.Repository;
+namespace Infra.Repository;
 
 public class TodoRepository(TodoMemDbContext todoMemDbContext) : ITodoReposity
 {
@@ -18,14 +18,14 @@ public class TodoRepository(TodoMemDbContext todoMemDbContext) : ITodoReposity
         await _todoMemDbContext.SaveChangesAsync();
     }
 
-    public Task<Domain.Todo?> FindByIdAsync(string todoId)
+    public Task<Todo?> FindByIdAsync(string todoId)
     {
         return _todoMemDbContext.Todos
             .Include(x => x.TodoItems)
             .FirstOrDefaultAsync(x => x.TodoId == todoId);
     }
 
-    public async Task<Domain.Todo> SaveAsync(Domain.Todo todo)
+    public async Task<Todo> SaveAsync(Todo todo)
     {
         _todoMemDbContext.Todos.Add(todo);
         await _todoMemDbContext.SaveChangesAsync();

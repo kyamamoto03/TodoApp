@@ -1,10 +1,9 @@
-using FluentValidation;
+using Domain.Todos;
+using Infra;
+using Infra.Repository;
 using Microsoft.EntityFrameworkCore;
-using Todo.Domain;
-using Todo.Infra;
-using Todo.Infra.Repository;
-using Todo.Usecase.Todos;
 using TodoApp.API.APIs;
+using Usecase.Todos;
 
 var builder = WebApplication.CreateBuilder(args);
 

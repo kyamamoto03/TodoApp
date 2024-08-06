@@ -1,4 +1,4 @@
-﻿namespace Todo.Domain;
+﻿namespace Domain.Todos;
 
 public interface ITodoReposity
 {

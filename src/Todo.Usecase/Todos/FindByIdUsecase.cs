@@ -1,6 +1,7 @@
-﻿using Todo.Domain;
+﻿
+using Domain.Todos;
 
-namespace Todo.Usecase.Todos;
+namespace Usecase.Todos;
 
 public interface IFindByIdUsecase
 {

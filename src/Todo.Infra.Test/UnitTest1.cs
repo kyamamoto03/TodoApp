@@ -1,9 +1,7 @@
+using Domain.Todos;
+using Infra.Repository;
 using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
-using Todo.Domain;
-using Todo.Infra.Repository;
-
-namespace Todo.Infra.Test;
+namespace Infra.Test;
 
 public class UnitTest1 : IDisposable
 {
@@ -27,8 +25,8 @@ public class UnitTest1 : IDisposable
         var startDate = DateTime.Now;
         var endDate = startDate.AddDays(1);
 
-        Domain.Todo todo = Domain.Todo.CreateNew("TodoTitle", "TodoDescription", startDate, endDate);
-        TodoItem todoItem = Domain.Todo.CreateNewTodoItem("TodoItemTitle", startDate, endDate);
+        Todo todo = Todo.CreateNew("TodoTitle", "TodoDescription", startDate, endDate);
+        TodoItem todoItem = Todo.CreateNewTodoItem("TodoItemTitle", startDate, endDate);
         todo.AddTodoItem(todoItem);
 
         await todoRepository.SaveAsync(todo);
@@ -46,12 +44,12 @@ public class UnitTest1 : IDisposable
         var startDate = DateTime.Now;
         var endDate = startDate.AddDays(1);
 
-        Domain.Todo todo = Domain.Todo.CreateNew("TodoTitle", "TodoDescription", startDate, endDate);
+        Todo todo = Todo.CreateNew("TodoTitle", "TodoDescription", startDate, endDate);
 
-        TodoItem todoItem = Domain.Todo.CreateNewTodoItem("TodoItemTitle", startDate, endDate);
+        TodoItem todoItem = Todo.CreateNewTodoItem("TodoItemTitle", startDate, endDate);
         todo.AddTodoItem(todoItem);
 
-        TodoItem todoItem2 = Domain.Todo.CreateNewTodoItem("TodoItemTitle2", startDate, endDate);
+        TodoItem todoItem2 = Todo.CreateNewTodoItem("TodoItemTitle2", startDate, endDate);
         todo.AddTodoItem(todoItem2);
 
 
@@ -61,7 +59,7 @@ public class UnitTest1 : IDisposable
         Assert.NotNull(savedTodo);
         Assert.Equal(todo.Title, savedTodo.Title);
 
-        Assert.Equal(2,savedTodo.TodoItems.Count);
+        Assert.Equal(2, savedTodo.TodoItems.Count);
         Assert.Equal(todoItem2.Title, savedTodo.TodoItems.ElementAt(1).Title);
     }
 }

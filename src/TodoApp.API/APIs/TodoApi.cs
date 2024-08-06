@@ -1,10 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Todo.Usecase.Todos;
+﻿using FluentValidation;
+using Microsoft.AspNetCore.Mvc;
 using TodoApp.API.DTO;
 using TodoApp.API.DTO.Todo.AddTodo;
 using TodoApp.API.DTO.Todo.FindById;
-using FluentValidation;
-using FluentValidation.Results;
+using Usecase.Todos;
 
 namespace TodoApp.API.APIs;
 
