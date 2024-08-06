@@ -1,12 +1,11 @@
 ﻿namespace TodoApp.Client.PageModel;
 
-public interface IHomePageModel
-{
-    void CreateTodo();
-}
 
-public class HomePageModel() : IHomePageModel
+public class HomePageModel() 
 {
+    private List<Todo.Domain.Todo> _todos = new();
+
+    public List<Todo.Domain.Todo> Todos => _todos;
 
     public void CreateTodo()
     {
@@ -15,6 +14,8 @@ public class HomePageModel() : IHomePageModel
 
 
         todo.AddTodoItem(todoItem);
+
+        Todos.Add(todo);
     }
 
 }

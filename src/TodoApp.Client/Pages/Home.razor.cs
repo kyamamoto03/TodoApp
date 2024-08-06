@@ -6,5 +6,5 @@ namespace TodoApp.Client.Pages;
 public partial class Home
 {
     [Inject]
-    public IHomePageModel _homePageModel { get; set; } = default!;
+    public HomePageModel _homePageModel { get; set; } = default!;
 }

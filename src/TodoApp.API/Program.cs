@@ -51,8 +51,8 @@ app.UseStaticFiles();
 app.UseAuthorization();
 
 app.MapControllers();
-app.MapFallbackToFile("index.html");
 
 var todo = app.MapTodoApiV1();
+app.MapFallbackToFile("index.html");
 
 app.Run();
