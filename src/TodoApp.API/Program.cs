@@ -1,3 +1,4 @@
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Todo.Domain;
 using Todo.Infra;
@@ -28,6 +29,7 @@ builder.Services.AddScoped<IAddTodoUsecase, AddTodoUsecase>();
 builder.Services.AddScoped<IFindByIdUsecase, FindByIdUsecase>();
 
 builder.Services.AddScoped<ITodoReposity, TodoRepository>();
+
 
 var app = builder.Build();
 

@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Todo.Usecase.Todos;
+using TodoApp.API.DTO;
 using TodoApp.API.DTO.Todo.AddTodo;
 using TodoApp.API.DTO.Todo.FindById;
+using FluentValidation;
+using FluentValidation.Results;
 
 namespace TodoApp.API.APIs;
 
@@ -12,11 +15,53 @@ public static class TodoApi
         var api = app.MapGroup("api/todo");
 
         api.MapPost("/AddTodo", AddTodoAsync);
-        api.MapGet("/FindById/{TodoId}", FindByIdAsync);
+        api.MapPost("/FindById", FindByIdAsync);
+        api.MapPost("/test", Test);
 
         return api;
     }
 
+    public static TestResponse Test([FromBody] TestRequest request)
+    {
+        TestResponse testResponse = new TestResponse();
+        if (!request.IsValid())
+        {
+            testResponse.Fail(request.validationResult);
+
+        }
+        else
+        {
+            testResponse.Success();
+        }
+        return testResponse;
+    }
+
+    public class TestRequest : IRequestBase
+    {
+        public string TestId { get; set; }
+
+        public int Value { get; set; }
+
+        public override bool IsValid()
+        {
+            var validator = new InlineValidator<TestRequest>
+            {
+                v => v.RuleFor(x => x.TestId).NotEmpty(),
+                v => v.RuleFor(x => x.Value).GreaterThan(10)
+
+            };
+            validationResult = validator.Validate(this);
+
+            return validationResult.IsValid;
+
+        }
+    }
+    public class TestResponse : IResponseBase
+    {
+        public string TestId { get; set; }
+        public int Value { get; set; }
+
+    }
     public static async Task<AddTodoResponse> AddTodoAsync([FromBody] AddTodoRequest request, IAddTodoUsecase addTodoUsecase)
     {
 
@@ -54,16 +99,16 @@ public static class TodoApi
 
         return addTodoResponse;
     }
-    public static async Task<IResult> FindByIdAsync(string TodoId, IFindByIdUsecase findByIdUsecase)
+    public static async Task<FindByIdResponse> FindByIdAsync([FromBody] FindByIdRequest findByIdRequest, IFindByIdUsecase findByIdUsecase)
     {
-        var response = await findByIdUsecase.ExecuteAsync(TodoId);
-
+        var response = await findByIdUsecase.ExecuteAsync(findByIdRequest.TodoId);
+        FindByIdResponse findByIdResponse = new FindByIdResponse();
         //FindByIdResponseにresponseを詰め替える
         if (response == null)
         {
-            return TypedResults.Ok();
+            findByIdResponse.Fail("Todoが見つかりませんでした");
+            return findByIdResponse;
         }
-        FindByIdResponse findByIdResponse = new FindByIdResponse();
         findByIdResponse.TodoId = response.TodoId;
         findByIdResponse.Title = response.Title;
         findByIdResponse.Description = response.Description;
@@ -78,7 +123,9 @@ public static class TodoApi
             StartDate = x.StartDate,
             EndDate = x.EndDate
         }).ToArray();
-        return TypedResults.Ok(findByIdResponse);
+        findByIdResponse.Success();
+
+        return findByIdResponse;
     }
 
 }
