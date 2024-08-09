@@ -13,7 +13,7 @@ internal class TodoItemConfiguration : IEntityTypeConfiguration<TodoItem>
         builder.Property(x => x.Title).UsePropertyAccessMode(PropertyAccessMode.Field);
         builder.Property(x => x.ScheduleStartDate).UsePropertyAccessMode(PropertyAccessMode.Field);
         builder.Property(x => x.ScheduleEndDate).UsePropertyAccessMode(PropertyAccessMode.Field);
-        builder.Property(x => x.TodoItemStatus).UsePropertyAccessMode(PropertyAccessMode.Field);
-
+        builder.Property(x => x.StartDate).UsePropertyAccessMode(PropertyAccessMode.Field);
+        builder.Property(x => x.EndDate).UsePropertyAccessMode(PropertyAccessMode.Field);
     }
 }

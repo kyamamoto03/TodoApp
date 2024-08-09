@@ -24,7 +24,7 @@ public class AddTodoUsecase(ITodoReposity todoReposity) : IAddTodoUsecase
 
         foreach (var item in addTodoUsecaseRequest.TodoItems)
         {
-            TodoItem todoItem = Todo.CreateNewTodoItem(item.Title, item.ScheduleStartDate, item.ScheduleEndDate);
+            TodoItem todoItem = Todo.CreateTodoItem(item.TodoItemId,item.Title, item.ScheduleStartDate, item.ScheduleEndDate);
             todo.AddTodoItem(todoItem);
         }
 

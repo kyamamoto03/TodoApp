@@ -32,4 +32,10 @@ public class TodoRepository(TodoMemDbContext todoMemDbContext) : ITodoReposity
 
         return todo;
     }
+
+    public async Task UpdateAsync(Todo todo)
+    {
+        _todoMemDbContext.Entry(todo).State = EntityState.Modified;
+        await _todoMemDbContext.SaveChangesAsync();
+    }
 }

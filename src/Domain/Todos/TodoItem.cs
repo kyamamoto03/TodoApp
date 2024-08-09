@@ -9,7 +9,24 @@ public class TodoItem
     public DateTime ScheduleEndDate { get; internal set; } = default!;
     public DateTime? StartDate { get; internal set; } = default!;
     public DateTime? EndDate { get; internal set; } = default!;
-    public TodoItemStatus TodoItemStatus { get; internal set; } = default!;
+    public TodoItemStatus TodoItemStatus
+    {
+        get
+        {
+            if (StartDate is null && EndDate is null)
+            {
+                return TodoItemStatus.未開始;
+            }
+            else if (StartDate is not null && EndDate is null)
+            {
+                return TodoItemStatus.進行中;
+            }
+            else
+            {
+                return TodoItemStatus.完了;
+            }
+        }
+    }
 
     /// <summary>
     /// 税抜き金額
@@ -30,7 +47,6 @@ public class TodoItem
     public void TaskStart(DateTime startDate)
     {
         StartDate = startDate;
-        TodoItemStatus = TodoItemStatus.進行中;
     }
 
     public void TaskEnd(DateTime endDate)
@@ -44,7 +60,6 @@ public class TodoItem
             throw new ArgumentException("開始日よりも前の日付は設定できません");
         }
         EndDate = endDate;
-        TodoItemStatus = TodoItemStatus.完了;
     }
 
     public void SetAmount(decimal amount)
@@ -64,4 +79,13 @@ public class TodoItem
         return amount * (1 + TAX);
     }
 
+    internal void SetStart(DateTime startDate)
+    {
+        StartDate = startDate;
+    }
+
+    internal void SetEnd(DateTime endDate)
+    {
+        EndDate = endDate;
+    }
 }

@@ -1,7 +1,11 @@
 ﻿using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
+using TodoApp.Api.DTO.Todo.GetStatus;
+using TodoApp.Api.DTO.Todo.StartTodo;
 using TodoApp.Api.Usecase.Todos.Add;
 using TodoApp.Api.Usecase.Todos.FindById;
+using TodoApp.Api.Usecase.Todos.GetStatus;
+using TodoApp.Api.Usecase.Todos.StartTodo;
 using TodoApp.API.DTO;
 using TodoApp.API.DTO.Todo.AddTodo;
 using TodoApp.API.DTO.Todo.FindById;
@@ -16,6 +20,8 @@ public static class TodoApi
 
         api.MapPost("/AddTodo", AddTodoAsync);
         api.MapPost("/FindById", FindByIdAsync);
+        api.MapPost("/StartTodo", StartTodoAsync);
+        api.MapPost("/GetStatus", GetStatusAsync);
         api.MapPost("/test", Test);
 
         return api;
@@ -128,4 +134,36 @@ public static class TodoApi
         return findByIdResponse;
     }
 
+    public static async Task<StartTodoResponse> StartTodoAsync([FromBody] StartTodoRequest request, IStartTodoUsecase startTodoUsecase)
+    {
+        StartTodoResponse response = new StartTodoResponse();
+        try
+        {
+            await startTodoUsecase.ExecuteAsync(new StartTodoCommand(request.TodoId,request.TodoItemId, request.StartDate));
+            response.Success();
+        }
+        catch (Exception ex)
+        {
+            response.Fail(ex.ToString());
+        }
+
+        return response;
+    }
+
+    public static async Task<GetStatusResponse> GetStatusAsync([FromBody] GetStatusRequest request,IGetStatusUsecase getStatusUsecase)
+    {
+        GetStatusResponse response = new GetStatusResponse();
+        try
+        {
+            var result = await getStatusUsecase.Execute(new GetStatusCommand(request.TodoId));
+            response.Status = result.Status;
+            response.Success();
+        }
+        catch (Exception ex)
+        {
+            response.Fail(ex.ToString());
+        }
+
+        return response;
+    }
 }

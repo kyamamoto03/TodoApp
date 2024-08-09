@@ -7,9 +7,13 @@ public class TodoTest
     {
         var startDate = DateTime.Now;
         var endDate = startDate.AddDays(1);
-        TodoItem todoItem = Todo.CreateNewTodoItem("TodoItemTitle", startDate, endDate);
 
-        Todo todo = Todo.CreateNew("TodoTitle", "TodoDescription", startDate, endDate);
+        var todoId = Guid.NewGuid().ToString();
+        Todo todo = Todo.Create(todoId,"TodoTitle", "TodoDescription", startDate, endDate);
+
+        var todoItemId = Guid.NewGuid().ToString();
+
+        TodoItem todoItem = Todo.CreateTodoItem(todoItemId, "TodoItemTitle", startDate, endDate);
         todo.AddTodoItem(todoItem);
 
         Assert.Equal(TodoItemStatus.未開始, todo.TodoItemStatus);
@@ -21,8 +25,12 @@ public class TodoTest
         var startDate = DateTime.Now;
         var endDate = startDate.AddDays(1);
 
-        Todo todo = Todo.CreateNew("TodoTitle", "TodoDescription", startDate, endDate);
-        TodoItem todoItem = Todo.CreateNewTodoItem("TodoItemTitle", startDate, endDate);
+        var todoId = Guid.NewGuid().ToString();
+        Todo todo = Todo.Create(todoId, "TodoTitle", "TodoDescription", startDate, endDate);
+
+        var todoItemId = Guid.NewGuid().ToString();
+
+        TodoItem todoItem = Todo.CreateTodoItem(todoItemId, "TodoItemTitle", startDate, endDate);
         todo.AddTodoItem(todoItem);
 
         todo.TodoItems.First().TaskStart(DateTime.Now);
@@ -36,9 +44,12 @@ public class TodoTest
         var startDate = DateTime.Now;
         var endDate = startDate.AddDays(1);
 
-        Todo todo = Todo.CreateNew("TodoTitle", "TodoDescription", startDate, endDate);
+        var todoId = Guid.NewGuid().ToString();
+        Todo todo = Todo.Create(todoId, "TodoTitle", "TodoDescription", startDate, endDate);
 
-        TodoItem todoItem = Todo.CreateNewTodoItem("TodoItemTitle", startDate, endDate);
+        var todoItemId = Guid.NewGuid().ToString();
+
+        TodoItem todoItem = Todo.CreateTodoItem(todoItemId, "TodoItemTitle", startDate, endDate);
         todo.AddTodoItem(todoItem);
 
         todo.TodoItems.First().TaskStart(DateTime.Now);
@@ -53,11 +64,17 @@ public class TodoTest
         var startDate = DateTime.Now;
         var endDate = startDate.AddDays(1);
 
-        Todo todo = Todo.CreateNew("TodoTitle", "TodoDescription", startDate, endDate);
-        TodoItem todoItem = Todo.CreateNewTodoItem("TodoItemTitle", startDate, endDate);
+        var todoId = Guid.NewGuid().ToString();
+        Todo todo = Todo.Create(todoId, "TodoTitle", "TodoDescription", startDate, endDate);
+
+        var todoItemId = Guid.NewGuid().ToString();
+
+        TodoItem todoItem = Todo.CreateTodoItem(todoItemId, "TodoItemTitle", startDate, endDate);
         todo.AddTodoItem(todoItem);
 
-        TodoItem todoItem2 = Todo.CreateNewTodoItem("TodoItemTitle2", startDate, endDate);
+        var todoItemId2 = Guid.NewGuid().ToString();
+
+        TodoItem todoItem2 = Todo.CreateTodoItem(todoItemId2, "TodoItemTitle2", startDate, endDate);
 
         todo.AddTodoItem(todoItem2);
 
@@ -72,11 +89,17 @@ public class TodoTest
         var startDate = DateTime.Now;
         var endDate = startDate.AddDays(1);
 
-        Todo todo = Todo.CreateNew("TodoTitle", "TodoDescription", startDate, endDate);
-        TodoItem todoItem = Todo.CreateNewTodoItem("TodoItemTitle", startDate, endDate);
+        var todoId = Guid.NewGuid().ToString();
+        Todo todo = Todo.Create(todoId, "TodoTitle", "TodoDescription", startDate, endDate);
+
+        var todoItemId = Guid.NewGuid().ToString();
+
+        TodoItem todoItem = Todo.CreateTodoItem(todoItemId, "TodoItemTitle", startDate, endDate);
         todo.AddTodoItem(todoItem);
 
-        TodoItem todoItem2 = Todo.CreateNewTodoItem("TodoItemTitle2", startDate, endDate);
+        var todoItemId2 = Guid.NewGuid().ToString();
+
+        TodoItem todoItem2 = Todo.CreateTodoItem(todoItemId2, "TodoItemTitle2", startDate, endDate);
         todo.AddTodoItem(todoItem2);
 
         // すべてのTodoItemを開始し終了する
@@ -94,7 +117,9 @@ public class TodoTest
     {
         var startDate = DateTime.Now;
         var endDate = startDate.AddDays(1);
-        TodoItem todoItem = Todo.CreateNewTodoItem("TodoItemTitle", startDate, endDate);
+
+        var todoItemId = Guid.NewGuid().ToString();
+        TodoItem todoItem = Todo.CreateTodoItem(todoItemId,"TodoItemTitle", startDate, endDate);
 
         todoItem.SetAmount(100);
 
@@ -105,7 +130,8 @@ public class TodoTest
     {
         var startDate = DateTime.Now;
         var endDate = startDate.AddDays(1);
-        TodoItem todoItem = Todo.CreateNewTodoItem("TodoItemTitle", startDate, endDate);
+        var todoItemId = Guid.NewGuid().ToString();
+        TodoItem todoItem = Todo.CreateTodoItem(todoItemId, "TodoItemTitle", startDate, endDate);
 
         todoItem.SetAmount(100);
 
@@ -118,10 +144,12 @@ public class TodoTest
         var startDate = DateTime.Now;
         var endDate = startDate.AddDays(1);
 
-        Todo todo = Todo.CreateNew("TodoTitle", "TodoDescription", startDate, endDate);
+        var todoId = Guid.NewGuid().ToString();
+        Todo todo = Todo.Create(todoId, "TodoTitle", "TodoDescription", startDate, endDate);
         for (int i = 0; i < 10; i++)
         {
-            TodoItem todoItem = Todo.CreateNewTodoItem("TodoItemTitle", startDate, endDate);
+            var todoItemId = Guid.NewGuid().ToString();
+            TodoItem todoItem = Todo.CreateTodoItem(todoItemId, "TodoItemTitle", startDate, endDate);
 
             todoItem.SetAmount(100);
             todo.AddTodoItem(todoItem);
@@ -136,10 +164,12 @@ public class TodoTest
         var startDate = DateTime.Now;
         var endDate = startDate.AddDays(1);
 
-        Todo todo = Todo.CreateNew("TodoTitle", "TodoDescription", startDate, endDate);
+        var todoId = Guid.NewGuid().ToString();
+        Todo todo = Todo.Create(todoId, "TodoTitle", "TodoDescription", startDate, endDate);
         for (int i = 0; i < 10; i++)
         {
-            TodoItem todoItem = Todo.CreateNewTodoItem("TodoItemTitle", startDate, endDate);
+            var todoItemId = Guid.NewGuid().ToString();
+            TodoItem todoItem = Todo.CreateTodoItem(todoItemId, "TodoItemTitle", startDate, endDate);
 
             todoItem.SetAmount(100);
             todo.AddTodoItem(todoItem);
@@ -147,4 +177,63 @@ public class TodoTest
 
         Assert.Equal(1100, todo.TotalTaxIncludedAmount);
     }
+
+    [Fact]
+    public void 開始テスト_進行中になること()
+    {
+
+        var startDate = DateTime.Now;
+        var endDate = startDate.AddDays(1);
+
+        var todoId = Guid.NewGuid().ToString();
+        Todo todo = Todo.Create(todoId, "TodoTitle", "TodoDescription", startDate, endDate);
+        var todoItemId = Guid.NewGuid().ToString();
+        TodoItem todoItem = Todo.CreateTodoItem(todoItemId, "TodoItemTitle", startDate, endDate);
+
+        todo.AddTodoItem(todoItem);
+
+        //未開始を確認
+        Assert.Equal(TodoItemStatus.未開始, todo.TodoItemStatus);
+
+        //開始する
+        var StartDate = DateTime.Now;
+        todo.StartTodoItem(todoItem.TodoItemId, StartDate);
+
+
+        //開始になったことを確認する
+        Assert.Equal(TodoItemStatus.進行中, todo.TodoItemStatus);
+    }
+
+    [Fact]
+    public void 終了テスト_完了になること()
+    {
+
+        var startDate = DateTime.Now;
+        var endDate = startDate.AddDays(1);
+
+        var todoId = Guid.NewGuid().ToString();
+        Todo todo = Todo.Create(todoId, "TodoTitle", "TodoDescription", startDate, endDate);
+        var todoItemId = Guid.NewGuid().ToString();
+        TodoItem todoItem = Todo.CreateTodoItem(todoItemId, "TodoItemTitle", startDate, endDate);
+
+        todo.AddTodoItem(todoItem);
+
+        //未開始を確認
+        Assert.Equal(TodoItemStatus.未開始, todo.TodoItemStatus);
+
+        //開始する
+        var StartDate = DateTime.Now;
+        todo.StartTodoItem(todoItem.TodoItemId, StartDate);
+
+        //開始になったことを確認する
+        Assert.Equal(TodoItemStatus.進行中, todo.TodoItemStatus);
+
+        //終了する
+        var EndDate = DateTime.Now;
+        todo.EndTodoItem(todoItem.TodoItemId, EndDate);
+
+        //開始になったことを確認する
+        Assert.Equal(TodoItemStatus.完了, todo.TodoItemStatus);
+    }
+
 }

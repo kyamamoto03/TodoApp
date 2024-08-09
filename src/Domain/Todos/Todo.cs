@@ -57,18 +57,6 @@ public class Todo
     {
     }
 
-    public static Todo CreateNew(string title, string description, DateTime scheduleStartDate, DateTime scheduleEndDate)
-    {
-        Todo todo = new Todo();
-
-        todo.TodoId = Guid.NewGuid().ToString();
-        todo.Title = title;
-        todo.Description = description;
-        todo.ScheduleStartDate = scheduleStartDate;
-        todo.ScheduleEndDate = scheduleEndDate;
-
-        return todo;
-    }
     public static Todo Create(string todoId, string title, string description, DateTime scheduleStartDate, DateTime scheduleEndDate)
     {
         Todo todo = new Todo();
@@ -82,25 +70,6 @@ public class Todo
         return todo;
     }
 
-    public static TodoItem CreateNewTodoItem(string title, DateTime shceduleStartDate, DateTime shceduleEndDate)
-    {
-        TodoItem todoItem = new TodoItem();
-        todoItem.TodoItemId = Guid.NewGuid().ToString();
-        todoItem.Title = title;
-        todoItem.ScheduleStartDate = shceduleStartDate;
-        todoItem.ScheduleEndDate = shceduleEndDate;
-
-        todoItem.StartDate = null;
-        todoItem.EndDate = null;
-        todoItem.TodoItemStatus = TodoItemStatus.未開始;
-
-        if (todoItem.ScheduleStartDate > todoItem.ScheduleEndDate)
-        {
-            throw new ArgumentException("開始日よりも前の日付は設定できません");
-        }
-
-        return todoItem;
-    }
     public static TodoItem CreateTodoItem(string todoItemId, string title, DateTime shceduleStartDate, DateTime shceduleEndDate)
     {
         TodoItem todoItem = new TodoItem();
@@ -111,7 +80,6 @@ public class Todo
 
         todoItem.StartDate = null;
         todoItem.EndDate = null;
-        todoItem.TodoItemStatus = TodoItemStatus.未開始;
 
         if (todoItem.ScheduleStartDate > todoItem.ScheduleEndDate)
         {
@@ -121,9 +89,43 @@ public class Todo
         return todoItem;
     }
 
+    public void SetTitle(string title)
+    {
+        this.Title = title;
+    }
+
     public void AddTodoItem(TodoItem todoItem)
     {
         todoItem.TodoId = this.TodoId;
         _todoItems.Add(todoItem);
     }
+
+    /// <summary>
+    /// TodoItemを開始する
+    /// </summary>
+    /// <param name="todoItemId"></param>
+    /// <param name="startDate"></param>
+    /// <exception cref="ArgumentException"></exception>
+    public void StartTodoItem(string todoItemId,DateTime startDate)
+    {
+        var todoItem = _todoItems.SingleOrDefault(x => x.TodoItemId == todoItemId);
+        if (todoItem == null)
+        {
+            throw new ArgumentException("TodoItemが見つかりません");
+        }
+
+        todoItem.SetStart(startDate);
+    }
+
+    public void EndTodoItem(string todoItemId, DateTime endDate)
+    {
+        var todoItem = _todoItems.SingleOrDefault(x => x.TodoItemId == todoItemId);
+        if (todoItem == null)
+        {
+            throw new ArgumentException("TodoItemが見つかりません");
+        }
+
+        todoItem.SetEnd(endDate);
+    }
+
 }

@@ -16,8 +16,5 @@ public record AddTodoRequest
         public string Title { get; init; } = default!;
         public DateTime ScheduleStartDate { get; init; } = default!;
         public DateTime ScheduleEndDate { get; init; } = default!;
-
-        public DateTime StartDate { get; init; } = default!;
-        public DateTime EndDate { get; init; } = default!;
     }
 }
