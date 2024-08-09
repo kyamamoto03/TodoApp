@@ -38,5 +38,7 @@ public class AddTest
         await usecase.ExecuteAsync(addTodoCommand);
 
         // Assert
+        // AddAsyncが１回呼ばれていること
+        todoRepository.Verify(x => x.AddAsync(It.IsAny<Todo>()), Times.Once);
     }
 }
