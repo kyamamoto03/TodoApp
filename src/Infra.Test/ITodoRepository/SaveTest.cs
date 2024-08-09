@@ -1,15 +1,14 @@
 ﻿using Domain.Todos;
 using Infra.Repository;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Frozen;
 
 namespace Infra.Test.ITodoRepository;
 
-public class SaeTest : IAsyncDisposable
+public class SaveTest : IAsyncDisposable
 {
 
     private readonly TodoMemDbContext _todoMemDbContext;
-    public SaeTest()
+    public SaveTest()
     {
         _todoMemDbContext = new TodoMemDbContext(new DbContextOptionsBuilder<TodoMemDbContext>()
             .UseInMemoryDatabase("TodoMemDbContext")
