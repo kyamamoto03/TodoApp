@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infra;
 
-public class TodoMemDbContext : DbContext
+public class TodoDbContext : DbContext
 {
-    public TodoMemDbContext(DbContextOptions<TodoMemDbContext> options) : base(options)
+    public TodoDbContext(DbContextOptions<TodoDbContext> options) : base(options)
     {
     }
 

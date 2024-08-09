@@ -19,7 +19,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 #region db
-builder.Services.AddDbContext<TodoMemDbContext>(options =>
+builder.Services.AddDbContext<TodoDbContext>(options =>
 {
     options.UseInMemoryDatabase("TodoMemDb");
 });

@@ -28,7 +28,7 @@ public class AddTodoUsecase(ITodoReposity todoReposity) : IAddTodoUsecase
             todo.AddTodoItem(todoItem);
         }
 
-        var saveTodo = await _todoReposity.SaveAsync(todo);
+        var saveTodo = await _todoReposity.AddAsync(todo);
 
         //saveTodoをAddTodoUsecaseReponseに詰め替える
         AddTodoResult addTodoUsecaseReponse = new AddTodoResult();

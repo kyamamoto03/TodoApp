@@ -4,26 +4,26 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infra.Test.ITodoRepository;
 
-public class SaveTest : IAsyncDisposable
+public class AddeTest : IAsyncDisposable
 {
 
-    private readonly TodoMemDbContext _todoMemDbContext;
-    public SaveTest()
+    private readonly TodoDbContext _todoDbContext;
+    public AddeTest()
     {
-        _todoMemDbContext = new TodoMemDbContext(new DbContextOptionsBuilder<TodoMemDbContext>()
+        _todoDbContext = new TodoDbContext(new DbContextOptionsBuilder<TodoDbContext>()
             .UseInMemoryDatabase("TodoMemDbContext")
             .Options);
     }
 
     public async ValueTask DisposeAsync()
     {
-        await _todoMemDbContext.DisposeAsync();
+        await _todoDbContext.DisposeAsync();
     }
 
     [Fact]
-    public async Task Todo_Save_OK()
+    public async Task Todo_Add_OK()
     {
-        ITodoReposity todoRepository = new TodoRepository(_todoMemDbContext);
+        ITodoReposity todoRepository = new TodoRepository(_todoDbContext);
 
         var startDate = DateTime.Now;
         var endDate = startDate.AddDays(1);
@@ -32,7 +32,7 @@ public class SaveTest : IAsyncDisposable
         TodoItem todoItem = Todo.CreateTodoItem(Guid.NewGuid().ToString(), "TodoItemTitle", startDate, endDate);
         todo.AddTodoItem(todoItem);
 
-        await todoRepository.SaveAsync(todo);
+        await todoRepository.AddAsync(todo);
 
         var savedTodo = await todoRepository.FindByIdAsync(todo.TodoId);
         Assert.NotNull(savedTodo);
@@ -40,9 +40,9 @@ public class SaveTest : IAsyncDisposable
     }
 
     [Fact]
-    public async Task Todo_Save_TodoItem_Save_OK()
+    public async Task Todo_Add_TodoItem_Save_OK()
     {
-        ITodoReposity todoRepository = new TodoRepository(_todoMemDbContext);
+        ITodoReposity todoRepository = new TodoRepository(_todoDbContext);
 
         var startDate = DateTime.Now;
         var endDate = startDate.AddDays(1);
@@ -56,7 +56,7 @@ public class SaveTest : IAsyncDisposable
         todo.AddTodoItem(todoItem2);
 
 
-        await todoRepository.SaveAsync(todo);
+        await todoRepository.AddAsync(todo);
 
         var savedTodo = await todoRepository.FindByIdAsync(todo.TodoId);
         Assert.NotNull(savedTodo);
@@ -67,9 +67,9 @@ public class SaveTest : IAsyncDisposable
     }
 
     [Fact]
-    public async Task Todo_Saveし更新_OK()
+    public async Task Todo_Addし更新_OK()
     {
-        ITodoReposity todoRepository = new TodoRepository(_todoMemDbContext);
+        ITodoReposity todoRepository = new TodoRepository(_todoDbContext);
 
         var startDate = DateTime.Now;
         var endDate = startDate.AddDays(1);
@@ -78,7 +78,7 @@ public class SaveTest : IAsyncDisposable
         TodoItem todoItem = Todo.CreateTodoItem(Guid.NewGuid().ToString(), "TodoItemTitle", startDate, endDate);
         todo.AddTodoItem(todoItem);
 
-        await todoRepository.SaveAsync(todo);
+        await todoRepository.AddAsync(todo);
 
         var savedTodo = await todoRepository.FindByIdAsync(todo.TodoId);
 
