@@ -89,4 +89,62 @@ public class TodoTest
         Assert.Equal(TodoItemStatus.完了, todo.TodoItemStatus);
     }
 
+    [Fact]
+    public void 金額設定テスト()
+    {
+        var startDate = DateTime.Now;
+        var endDate = startDate.AddDays(1);
+        TodoItem todoItem = Todo.CreateNewTodoItem("TodoItemTitle", startDate, endDate);
+
+        todoItem.SetAmount(100);
+
+        Assert.Equal(100, todoItem.Amount);
+    }
+    [Fact]
+    public void 金額設定_税プラス_テスト()
+    {
+        var startDate = DateTime.Now;
+        var endDate = startDate.AddDays(1);
+        TodoItem todoItem = Todo.CreateNewTodoItem("TodoItemTitle", startDate, endDate);
+
+        todoItem.SetAmount(100);
+
+        Assert.Equal(110, todoItem.TaxIncludedAmount);
+    }
+
+    [Fact]
+    public void 金額合計テスト_TodoItem10個()
+    {
+        var startDate = DateTime.Now;
+        var endDate = startDate.AddDays(1);
+
+        Todo todo = Todo.CreateNew("TodoTitle", "TodoDescription", startDate, endDate);
+        for (int i = 0; i < 10; i++)
+        {
+            TodoItem todoItem = Todo.CreateNewTodoItem("TodoItemTitle", startDate, endDate);
+
+            todoItem.SetAmount(100);
+            todo.AddTodoItem(todoItem);
+        }
+
+        Assert.Equal(1000, todo.TotalAmount);
+    }
+
+    [Fact]
+    public void 金額合計テスト_税プラス_TodoItem10個()
+    {
+        var startDate = DateTime.Now;
+        var endDate = startDate.AddDays(1);
+
+        Todo todo = Todo.CreateNew("TodoTitle", "TodoDescription", startDate, endDate);
+        for (int i = 0; i < 10; i++)
+        {
+            TodoItem todoItem = Todo.CreateNewTodoItem("TodoItemTitle", startDate, endDate);
+
+            todoItem.SetAmount(100);
+            todo.AddTodoItem(todoItem);
+        }
+
+        Assert.Equal(1100, todo.TotalTaxIncludedAmount);
+    }
 }

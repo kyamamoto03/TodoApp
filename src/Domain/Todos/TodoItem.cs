@@ -11,6 +11,18 @@ public class TodoItem
     public DateTime? EndDate { get; internal set; } = default!;
     public TodoItemStatus TodoItemStatus { get; internal set; } = default!;
 
+    /// <summary>
+    /// 税抜き金額
+    /// </summary>
+    public decimal Amount { get; internal set; } = 0;
+
+    public decimal TaxIncludedAmount
+    {
+        get
+        {
+            return AddTax(Amount);
+        }
+    }
     internal TodoItem()
     {
     }
@@ -34,4 +46,22 @@ public class TodoItem
         EndDate = endDate;
         TodoItemStatus = TodoItemStatus.完了;
     }
+
+    public void SetAmount(decimal amount)
+    {
+        if (amount < 0)
+        {
+            throw new ArgumentException("金額は0以上を設定してください");
+        }
+        Amount = amount;
+    }
+
+    public readonly decimal TAX = 0.1m;
+
+    //消費税TAXを加算するメソッド
+    public decimal AddTax(decimal amount)
+    {
+        return amount * (1 + TAX);
+    }
+
 }

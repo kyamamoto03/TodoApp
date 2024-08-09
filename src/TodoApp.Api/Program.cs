@@ -2,7 +2,8 @@ using Domain.Todos;
 using Infra;
 using Infra.Repository;
 using Microsoft.EntityFrameworkCore;
-using TodoApp.Api.Usecase.Todos;
+using TodoApp.Api.Usecase.Todos.Add;
+using TodoApp.Api.Usecase.Todos.FindById;
 using TodoApp.API.Apis;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -46,6 +47,7 @@ app.UseBlazorFrameworkFiles();
 app.UseStaticFiles();
 
 app.UseAuthorization();
+
 
 app.MapControllers();
 var todo = app.MapTodoApiV1();

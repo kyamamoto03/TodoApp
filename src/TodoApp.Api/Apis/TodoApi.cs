@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
-using TodoApp.Api.Usecase.Todos;
+using TodoApp.Api.Usecase.Todos.Add;
+using TodoApp.Api.Usecase.Todos.FindById;
 using TodoApp.API.DTO;
 using TodoApp.API.DTO.Todo.AddTodo;
 using TodoApp.API.DTO.Todo.FindById;
@@ -65,13 +66,13 @@ public static class TodoApi
     {
 
         //AddTodoUsecaseRequestに詰め替える
-        AddTodoUsecaseRequest addTodoUsecaseRequest = new AddTodoUsecaseRequest();
+        AddTodoCommand addTodoUsecaseRequest = new AddTodoCommand();
         addTodoUsecaseRequest.TodoId = request.TodoId;
         addTodoUsecaseRequest.Title = request.Title;
         addTodoUsecaseRequest.Description = request.Description;
         addTodoUsecaseRequest.ScheduleStartDate = request.ScheduleStartDate;
         addTodoUsecaseRequest.ScheduleEndDate = request.ScheduleEndDate;
-        addTodoUsecaseRequest.AddTodoUsecaseItemRequests = request.TodoItemRequests.Select(x => new AddTodoUsecaseRequest.AddTodoUsecaseItemRequest
+        addTodoUsecaseRequest.TodoItems = request.TodoItemRequests.Select(x => new AddTodoCommand.TodoItem
         {
             TodoItemId = x.TodoItemId,
             Title = x.Title,
@@ -88,7 +89,7 @@ public static class TodoApi
         addTodoResponse.Description = response.Description;
         addTodoResponse.ScheduleStartDate = response.ScheduleStartDate;
         addTodoResponse.ScheduleEndDate = response.ScheduleEndDate;
-        addTodoResponse.AddTodoItemResponses = response.AddTodoUsecaseItemRequests.Select(x => new AddTodoResponse.AddTodoItemResponse
+        addTodoResponse.AddTodoItemResponses = response.TodoItems.Select(x => new AddTodoResponse.AddTodoItemResponse
         {
             TodoItemId = x.TodoItemId,
             Title = x.Title,
@@ -113,7 +114,7 @@ public static class TodoApi
         findByIdResponse.Description = response.Description;
         findByIdResponse.ScheduleStartDate = response.ScheduleStartDate;
         findByIdResponse.ScheduleEndDate = response.ScheduleEndDate;
-        findByIdResponse.TodoItemResponses = response.TodoItemRequests.Select(x => new FindByIdResponse.TodoItemResponse
+        findByIdResponse.TodoItemResponses = response.TodoItemResults.Select(x => new FindByIdResponse.TodoItemResponse
         {
             TodoItemId = x.TodoItemId,
             Title = x.Title,

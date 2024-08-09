@@ -8,6 +8,28 @@ public class Todo
     public DateTime ScheduleStartDate { get; private set; } = default!;
     public DateTime ScheduleEndDate { get; private set; } = default!;
 
+    /// <summary>
+    /// 金額合計
+    /// </summary>
+    public decimal TotalAmount
+    {
+        get
+        {
+            return TodoItems.Sum(x => x.Amount);
+        }
+    }
+
+    /// <summary>
+    /// 税込み金額合計
+    /// </summary>
+    public decimal TotalTaxIncludedAmount
+    {
+        get
+        {
+            return TodoItems.Sum(x => x.TaxIncludedAmount);
+        }
+    }
+
     public TodoItemStatus TodoItemStatus
     {
         get
