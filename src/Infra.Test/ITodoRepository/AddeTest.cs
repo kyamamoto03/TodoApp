@@ -33,10 +33,32 @@ public class AddeTest : IAsyncDisposable
         todo.AddTodoItem(todoItem);
 
         await todoRepository.AddAsync(todo);
+        await todoRepository.UnitOfWork.SaveChangesAsync();
 
         var savedTodo = await todoRepository.FindByIdAsync(todo.TodoId);
+        await todoRepository.UnitOfWork.SaveChangesAsync();
+
         Assert.NotNull(savedTodo);
         Assert.Equal(todo.Title, savedTodo.Title);
+    }
+    [Fact]
+    public async Task Todo_Add_重複ID_NG()
+    {
+        ITodoReposity todoRepository = new TodoRepository(_todoDbContext);
+
+        var startDate = DateTime.Now;
+        var endDate = startDate.AddDays(1);
+
+        var id = Guid.NewGuid().ToString();
+        Todo todo = Todo.Create(id, "TodoTitle", "TodoDescription", startDate, endDate);
+        TodoItem todoItem = Todo.CreateTodoItem(Guid.NewGuid().ToString(), "TodoItemTitle", startDate, endDate);
+        todo.AddTodoItem(todoItem);
+
+        await todoRepository.AddAsync(todo);
+        await todoRepository.UnitOfWork.SaveChangesAsync();
+
+        Todo todo2 = Todo.Create(id, "TodoTitle", "TodoDescription", startDate, endDate);
+        await Assert.ThrowsAsync<ArgumentException>(async () => await todoRepository.AddAsync(todo2));
     }
 
     [Fact]
@@ -57,6 +79,7 @@ public class AddeTest : IAsyncDisposable
 
 
         await todoRepository.AddAsync(todo);
+        await todoRepository.UnitOfWork.SaveChangesAsync();
 
         var savedTodo = await todoRepository.FindByIdAsync(todo.TodoId);
         Assert.NotNull(savedTodo);
@@ -79,6 +102,7 @@ public class AddeTest : IAsyncDisposable
         todo.AddTodoItem(todoItem);
 
         await todoRepository.AddAsync(todo);
+        await todoRepository.UnitOfWork.SaveChangesAsync();
 
         var savedTodo = await todoRepository.FindByIdAsync(todo.TodoId);
 
@@ -87,6 +111,7 @@ public class AddeTest : IAsyncDisposable
         savedTodo.StartTodoItem(savedTodo.TodoItems.First().TodoItemId, todoItemStartDate);
 
         await todoRepository.UpdateAsync(savedTodo);
+        await todoRepository.UnitOfWork.SaveChangesAsync();
 
         var savedTodo2 = await todoRepository.FindByIdAsync(todo.TodoId);
 

@@ -1,6 +1,8 @@
-﻿namespace Domain.TodoModel;
+﻿using Domain.SeedOfWork;
 
-public interface ITodoReposity
+namespace Domain.TodoModel;
+
+public interface ITodoReposity : IRepository<Todo>
 {
     /// <summary>
     /// TodoIdで検索
@@ -29,4 +31,11 @@ public interface ITodoReposity
     /// <param name="todoId"></param>
     /// <returns></returns>
     Task DeleteAsync(string todoId);
+
+    /// <summary>
+    /// 存在確認
+    /// </summary>
+    /// <param name="todoId"></param>
+    /// <returns></returns>
+    ValueTask<bool> IsExistAsync(string todoId);
 }

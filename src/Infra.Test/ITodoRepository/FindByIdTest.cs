@@ -33,6 +33,7 @@ public class FindByIdTest : IAsyncDisposable
         todo.AddTodoItem(todoItem);
 
         await todoRepository.AddAsync(todo);
+        await todoRepository.UnitOfWork.SaveChangesAsync();
 
         var savedTodo = await todoRepository.FindByIdAsync(todo.TodoId);
         Assert.NotNull(savedTodo);
