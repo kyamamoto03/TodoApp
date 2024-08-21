@@ -1,4 +1,4 @@
-﻿using Domain.Todos;
+﻿using Domain.TodoModel;
 using Infra.Repository;
 using Microsoft.EntityFrameworkCore;
 

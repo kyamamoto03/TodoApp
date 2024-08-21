@@ -1,4 +1,4 @@
-﻿namespace Domain.Todos;
+﻿namespace Domain.TodoModel;
 
 public class TodoItem
 {

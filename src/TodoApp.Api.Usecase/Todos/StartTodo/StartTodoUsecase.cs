@@ -1,4 +1,4 @@
-﻿using Domain.Todos;
+﻿using Domain.TodoModel;
 
 namespace TodoApp.Api.Usecase.Todos.StartTodo;
 

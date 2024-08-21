@@ -1,6 +1,6 @@
 ﻿using Domain.SeedOfWork;
 
-namespace Domain.Todos;
+namespace Domain.TodoModel;
 
 public class TodoItemStatus : Enumeration
 {

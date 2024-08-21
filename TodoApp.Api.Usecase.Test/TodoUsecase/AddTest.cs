@@ -1,4 +1,4 @@
-﻿using Domain.Todos;
+﻿using Domain.TodoModel;
 using Moq;
 using TodoApp.Api.Usecase.Todos.Add;
 
