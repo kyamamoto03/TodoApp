@@ -21,6 +21,7 @@ public class FindByIdUsecase(ITodoReposity todoReposity) : IFindByIdUsecase
         }
         //TodoをGetAllTodoUsecaseResponseに詰め替える
         FindByIdResult todo = new FindByIdResult();
+        todo.UserId = responseTodo.UserId;
         todo.TodoId = responseTodo.TodoId;
         todo.Title = responseTodo.Title;
         todo.Description = responseTodo.Description;

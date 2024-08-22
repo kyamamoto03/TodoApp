@@ -1,6 +1,7 @@
 ﻿namespace TodoApp.API.DTO.Todo.FindById;
 public class FindByIdResponse : IResponseBase
 {
+    public string UserId { get; set; } = default!;
     public string TodoId { get; set; } = default!;
     public string Title { get; set; } = default!;
     public string Description { get; set; } = default!;

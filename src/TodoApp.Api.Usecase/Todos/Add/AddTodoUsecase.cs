@@ -30,7 +30,7 @@ public class AddTodoUsecase(ITodoReposity todoReposity) : IAddTodoUsecase
         }
 
         var saveTodo = await _todoReposity.AddAsync(todo);
-
+        await _todoReposity.UnitOfWork.SaveEntitiesAsync();
     }
 }
 

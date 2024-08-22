@@ -34,7 +34,7 @@ public static class UserApis
         }
         catch(Exception ex)
         {
-            response.Fail(ex.ToString());
+            response.Fail(ex.Message);
         }
 
         return response;

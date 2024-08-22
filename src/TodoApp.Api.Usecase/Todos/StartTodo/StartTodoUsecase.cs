@@ -23,6 +23,7 @@ public class StartTodoUsecase(ITodoReposity todoReposity) : IStartTodoUsecase
         todo.StartTodoItem(startTodoCommand.TodoItemId, startTodoCommand.StartDate);
 
         await _todoReposity.UpdateAsync(todo);
+        await _todoReposity.UnitOfWork.SaveEntitiesAsync();
 
         return new StartTodoResult();
     }

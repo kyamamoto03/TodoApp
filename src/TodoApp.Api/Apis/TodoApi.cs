@@ -30,27 +30,36 @@ public static class TodoApi
 
         try
         {
-            //AddTodoUsecaseRequestに詰め替える
-            AddTodoCommand addTodoUsecaseRequest = new AddTodoCommand();
-            addTodoUsecaseRequest.TodoId = request.TodoId;
-            addTodoUsecaseRequest.Title = request.Title;
-            addTodoUsecaseRequest.Description = request.Description;
-            addTodoUsecaseRequest.ScheduleStartDate = request.ScheduleStartDate;
-            addTodoUsecaseRequest.ScheduleEndDate = request.ScheduleEndDate;
-            addTodoUsecaseRequest.TodoItems = request.TodoItemRequests.Select(x => new AddTodoCommand.TodoItem
+            if (request.IsValid() == false)
             {
-                TodoItemId = x.TodoItemId,
-                Title = x.Title,
-                ScheduleStartDate = x.ScheduleStartDate,
-                ScheduleEndDate = x.ScheduleEndDate
-            }).ToArray();
+                addTodoResponse.Fail(request.validationResult.ToString());
+            }
+            else
+            {
 
-            await addTodoUsecase.ExecuteAsync(addTodoUsecaseRequest);
-            addTodoResponse.Success();
+                //AddTodoUsecaseRequestに詰め替える
+                AddTodoCommand addTodoUsecaseRequest = new AddTodoCommand();
+                addTodoUsecaseRequest.UserId = request.UserId;
+                addTodoUsecaseRequest.TodoId = request.TodoId;
+                addTodoUsecaseRequest.Title = request.Title;
+                addTodoUsecaseRequest.Description = request.Description;
+                addTodoUsecaseRequest.ScheduleStartDate = request.ScheduleStartDate;
+                addTodoUsecaseRequest.ScheduleEndDate = request.ScheduleEndDate;
+                addTodoUsecaseRequest.TodoItems = request.TodoItemRequests.Select(x => new AddTodoCommand.TodoItem
+                {
+                    TodoItemId = x.TodoItemId,
+                    Title = x.Title,
+                    ScheduleStartDate = x.ScheduleStartDate,
+                    ScheduleEndDate = x.ScheduleEndDate
+                }).ToArray();
+
+                await addTodoUsecase.ExecuteAsync(addTodoUsecaseRequest);
+                addTodoResponse.Success();
+            }
         }
         catch (Exception ex)
         {
-            addTodoResponse.Fail(ex.ToString());
+            addTodoResponse.Fail(ex.Message);
         }
 
         return addTodoResponse;
@@ -68,6 +77,7 @@ public static class TodoApi
                 findByIdResponse.Fail("Todoが見つかりませんでした");
                 return findByIdResponse;
             }
+            findByIdResponse.UserId = response.UserId;
             findByIdResponse.TodoId = response.TodoId;
             findByIdResponse.Title = response.Title;
             findByIdResponse.Description = response.Description;
@@ -86,7 +96,7 @@ public static class TodoApi
         }
         catch (Exception ex)
         {
-            findByIdResponse.Fail(ex.ToString());
+            findByIdResponse.Fail(ex.Message);
         }
         return findByIdResponse;
     }
@@ -101,7 +111,7 @@ public static class TodoApi
         }
         catch (Exception ex)
         {
-            response.Fail(ex.ToString());
+            response.Fail(ex.Message);
         }
 
         return response;
@@ -118,7 +128,7 @@ public static class TodoApi
         }
         catch (Exception ex)
         {
-            response.Fail(ex.ToString());
+            response.Fail(ex.Message);
         }
 
         return response;

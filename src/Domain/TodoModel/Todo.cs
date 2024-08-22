@@ -52,7 +52,7 @@ public class Todo
 
     private List<TodoItem> _todoItems = new List<TodoItem>();
 
-    public IReadOnlyCollection<TodoItem> TodoItems => _todoItems;
+    public IReadOnlyCollection<TodoItem> TodoItems => _todoItems.AsReadOnly();
 
     private Todo()
     {
