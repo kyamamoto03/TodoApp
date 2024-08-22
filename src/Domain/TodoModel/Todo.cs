@@ -2,6 +2,7 @@
 
 public class Todo
 {
+    public string UserId { get; private set; } = default!;
     public string TodoId { get; private set; } = default!;
     public string Title { get; private set; } = default!;
     public string Description { get; private set; } = default!;
@@ -57,10 +58,11 @@ public class Todo
     {
     }
 
-    public static Todo Create(string todoId, string title, string description, DateTime scheduleStartDate, DateTime scheduleEndDate)
+    public static Todo Create(string userId,string todoId, string title, string description, DateTime scheduleStartDate, DateTime scheduleEndDate)
     {
         Todo todo = new Todo();
 
+        todo.UserId = userId;
         todo.TodoId = todoId;
         todo.Title = title;
         todo.Description = description;

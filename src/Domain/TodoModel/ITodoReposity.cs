@@ -11,6 +11,8 @@ public interface ITodoReposity : IRepository<Todo>
     /// <returns></returns>
     Task<Todo?> FindByIdAsync(string todoId);
 
+    Task<IEnumerable<Todo>> FindByUserIdAsync(string userId);
+
     /// <summary>
     /// 追加
     /// </summary>

@@ -16,6 +16,7 @@ public class AddTodoUsecase(ITodoReposity todoReposity) : IAddTodoUsecase
     public async Task ExecuteAsync(AddTodoCommand addTodoUsecaseRequest)
     {
         Todo todo = Todo.Create(
+            addTodoUsecaseRequest.UserId,
             addTodoUsecaseRequest.TodoId,
             addTodoUsecaseRequest.Title,
             addTodoUsecaseRequest.Description,

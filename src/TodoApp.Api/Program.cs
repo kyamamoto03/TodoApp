@@ -1,12 +1,9 @@
 using Domain.TodoModel;
+using Domain.UserModel;
 using Infra;
 using Infra.Repository;
 using Microsoft.EntityFrameworkCore;
-using TodoApp.Api.Usecase.Todos.Add;
-using TodoApp.Api.Usecase.Todos.FindById;
-using TodoApp.Api.Usecase.Todos.GetStatus;
-using TodoApp.Api.Usecase.Todos.StartTodo;
-using TodoApp.API.Apis;
+using TodoApp.Api.Apis;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,13 +23,14 @@ builder.Services.AddDbContext<TodoDbContext>(options =>
 
 #endregion
 
-builder.Services.AddScoped<IAddTodoUsecase, AddTodoUsecase>();
-builder.Services.AddScoped<IFindByIdUsecase, FindByIdUsecase>();
-builder.Services.AddScoped<IGetStatusUsecase, GetStatusUsecase>();
-builder.Services.AddScoped<IStartTodoUsecase, StartTodoUsecase>();
+builder.Services.AddScoped<TodoApp.Api.Usecase.Todos.Add.IAddTodoUsecase, TodoApp.Api.Usecase.Todos.Add.AddTodoUsecase>();
+builder.Services.AddScoped<TodoApp.Api.Usecase.Todos.FindById.IFindByIdUsecase, TodoApp.Api.Usecase.Todos.FindById.FindByIdUsecase>();
+builder.Services.AddScoped<TodoApp.Api.Usecase.Todos.GetStatus.IGetStatusUsecase, TodoApp.Api.Usecase.Todos.GetStatus.GetStatusUsecase>();
+builder.Services.AddScoped<TodoApp.Api.Usecase.Todos.StartTodo.IStartTodoUsecase, TodoApp.Api.Usecase.Todos.StartTodo.StartTodoUsecase>();
+builder.Services.AddScoped<TodoApp.Api.Usecase.User.GetAll.IGetAllUsecase, TodoApp.Api.Usecase.User.GetAll.GetAllUsecase>();
 
 builder.Services.AddScoped<ITodoReposity, TodoRepository>();
-
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 var app = builder.Build();
 
@@ -55,6 +53,7 @@ app.UseAuthorization();
 
 app.MapControllers();
 var todo = app.MapTodoApiV1();
+var user = app.MapUserApiV1();
 
 app.MapFallbackToFile("index.html");
 

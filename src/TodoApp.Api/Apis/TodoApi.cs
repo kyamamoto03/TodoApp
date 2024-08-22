@@ -1,16 +1,14 @@
-﻿using FluentValidation;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using TodoApp.Api.DTO.Todo.GetStatus;
 using TodoApp.Api.DTO.Todo.StartTodo;
 using TodoApp.Api.Usecase.Todos.Add;
 using TodoApp.Api.Usecase.Todos.FindById;
 using TodoApp.Api.Usecase.Todos.GetStatus;
 using TodoApp.Api.Usecase.Todos.StartTodo;
-using TodoApp.API.DTO;
 using TodoApp.API.DTO.Todo.AddTodo;
 using TodoApp.API.DTO.Todo.FindById;
 
-namespace TodoApp.API.Apis;
+namespace TodoApp.Api.Apis;
 
 public static class TodoApi
 {

@@ -28,7 +28,8 @@ public class AddeTest : IAsyncDisposable
         var startDate = DateTime.Now;
         var endDate = startDate.AddDays(1);
 
-        Todo todo = Todo.Create(Guid.NewGuid().ToString(), "TodoTitle", "TodoDescription", startDate, endDate);
+        var UserId = "U01";
+        Todo todo = Todo.Create(UserId,Guid.NewGuid().ToString(), "TodoTitle", "TodoDescription", startDate, endDate);
         TodoItem todoItem = Todo.CreateTodoItem(Guid.NewGuid().ToString(), "TodoItemTitle", startDate, endDate);
         todo.AddTodoItem(todoItem);
 
@@ -49,15 +50,16 @@ public class AddeTest : IAsyncDisposable
         var startDate = DateTime.Now;
         var endDate = startDate.AddDays(1);
 
+        var UserId = "U01";
         var id = Guid.NewGuid().ToString();
-        Todo todo = Todo.Create(id, "TodoTitle", "TodoDescription", startDate, endDate);
+        Todo todo = Todo.Create(UserId,id, "TodoTitle", "TodoDescription", startDate, endDate);
         TodoItem todoItem = Todo.CreateTodoItem(Guid.NewGuid().ToString(), "TodoItemTitle", startDate, endDate);
         todo.AddTodoItem(todoItem);
 
         await todoRepository.AddAsync(todo);
         await todoRepository.UnitOfWork.SaveChangesAsync();
 
-        Todo todo2 = Todo.Create(id, "TodoTitle", "TodoDescription", startDate, endDate);
+        Todo todo2 = Todo.Create(UserId, id, "TodoTitle", "TodoDescription", startDate, endDate);
         await Assert.ThrowsAsync<ArgumentException>(async () => await todoRepository.AddAsync(todo2));
     }
 
@@ -69,7 +71,8 @@ public class AddeTest : IAsyncDisposable
         var startDate = DateTime.Now;
         var endDate = startDate.AddDays(1);
 
-        Todo todo = Todo.Create(Guid.NewGuid().ToString(), "TodoTitle", "TodoDescription", startDate, endDate);
+        var UserId = "U01";
+        Todo todo = Todo.Create(UserId, Guid.NewGuid().ToString(), "TodoTitle", "TodoDescription", startDate, endDate);
 
         TodoItem todoItem = Todo.CreateTodoItem(Guid.NewGuid().ToString(), "TodoItemTitle", startDate, endDate);
         todo.AddTodoItem(todoItem);
@@ -97,7 +100,8 @@ public class AddeTest : IAsyncDisposable
         var startDate = DateTime.Now;
         var endDate = startDate.AddDays(1);
 
-        Todo todo = Todo.Create(Guid.NewGuid().ToString(), "TodoTitle", "TodoDescription", startDate, endDate);
+        var userId = "U01";
+        Todo todo = Todo.Create(userId, Guid.NewGuid().ToString(), "TodoTitle", "TodoDescription", startDate, endDate);
         TodoItem todoItem = Todo.CreateTodoItem(Guid.NewGuid().ToString(), "TodoItemTitle", startDate, endDate);
         todo.AddTodoItem(todoItem);
 

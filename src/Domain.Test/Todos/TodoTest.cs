@@ -8,8 +8,9 @@ public class TodoTest
         var startDate = DateTime.Now;
         var endDate = startDate.AddDays(1);
 
+        var userId = "U01";
         var todoId = Guid.NewGuid().ToString();
-        Todo todo = Todo.Create(todoId,"TodoTitle", "TodoDescription", startDate, endDate);
+        Todo todo = Todo.Create(userId,todoId, "TodoTitle", "TodoDescription", startDate, endDate);
 
         var todoItemId = Guid.NewGuid().ToString();
 
@@ -25,8 +26,9 @@ public class TodoTest
         var startDate = DateTime.Now;
         var endDate = startDate.AddDays(1);
 
+        var userId = "U01";
         var todoId = Guid.NewGuid().ToString();
-        Todo todo = Todo.Create(todoId, "TodoTitle", "TodoDescription", startDate, endDate);
+        Todo todo = Todo.Create(userId, todoId, "TodoTitle", "TodoDescription", startDate, endDate);
 
         var todoItemId = Guid.NewGuid().ToString();
 
@@ -44,8 +46,9 @@ public class TodoTest
         var startDate = DateTime.Now;
         var endDate = startDate.AddDays(1);
 
+        var userId = "U01";
         var todoId = Guid.NewGuid().ToString();
-        Todo todo = Todo.Create(todoId, "TodoTitle", "TodoDescription", startDate, endDate);
+        Todo todo = Todo.Create(userId, todoId, "TodoTitle", "TodoDescription", startDate, endDate);
 
         var todoItemId = Guid.NewGuid().ToString();
 
@@ -64,8 +67,9 @@ public class TodoTest
         var startDate = DateTime.Now;
         var endDate = startDate.AddDays(1);
 
+        var userId = "U01";
         var todoId = Guid.NewGuid().ToString();
-        Todo todo = Todo.Create(todoId, "TodoTitle", "TodoDescription", startDate, endDate);
+        Todo todo = Todo.Create(userId, todoId, "TodoTitle", "TodoDescription", startDate, endDate);
 
         var todoItemId = Guid.NewGuid().ToString();
 
@@ -89,8 +93,9 @@ public class TodoTest
         var startDate = DateTime.Now;
         var endDate = startDate.AddDays(1);
 
+        var userId = "U01";
         var todoId = Guid.NewGuid().ToString();
-        Todo todo = Todo.Create(todoId, "TodoTitle", "TodoDescription", startDate, endDate);
+        Todo todo = Todo.Create(userId, todoId, "TodoTitle", "TodoDescription", startDate, endDate);
 
         var todoItemId = Guid.NewGuid().ToString();
 
@@ -144,8 +149,9 @@ public class TodoTest
         var startDate = DateTime.Now;
         var endDate = startDate.AddDays(1);
 
+        var userId = "U01";
         var todoId = Guid.NewGuid().ToString();
-        Todo todo = Todo.Create(todoId, "TodoTitle", "TodoDescription", startDate, endDate);
+        Todo todo = Todo.Create(userId, todoId, "TodoTitle", "TodoDescription", startDate, endDate);
         for (int i = 0; i < 10; i++)
         {
             var todoItemId = Guid.NewGuid().ToString();
@@ -164,8 +170,9 @@ public class TodoTest
         var startDate = DateTime.Now;
         var endDate = startDate.AddDays(1);
 
+        var userId = "U01";
         var todoId = Guid.NewGuid().ToString();
-        Todo todo = Todo.Create(todoId, "TodoTitle", "TodoDescription", startDate, endDate);
+        Todo todo = Todo.Create(userId, todoId, "TodoTitle", "TodoDescription", startDate, endDate);
         for (int i = 0; i < 10; i++)
         {
             var todoItemId = Guid.NewGuid().ToString();
@@ -185,8 +192,9 @@ public class TodoTest
         var startDate = DateTime.Now;
         var endDate = startDate.AddDays(1);
 
+        var userId = "U01";
         var todoId = Guid.NewGuid().ToString();
-        Todo todo = Todo.Create(todoId, "TodoTitle", "TodoDescription", startDate, endDate);
+        Todo todo = Todo.Create(userId, todoId, "TodoTitle", "TodoDescription", startDate, endDate);
         var todoItemId = Guid.NewGuid().ToString();
         TodoItem todoItem = Todo.CreateTodoItem(todoItemId, "TodoItemTitle", startDate, endDate);
 
@@ -211,8 +219,9 @@ public class TodoTest
         var startDate = DateTime.Now;
         var endDate = startDate.AddDays(1);
 
+        var userId = "U01";
         var todoId = Guid.NewGuid().ToString();
-        Todo todo = Todo.Create(todoId, "TodoTitle", "TodoDescription", startDate, endDate);
+        Todo todo = Todo.Create(userId, todoId, "TodoTitle", "TodoDescription", startDate, endDate);
         var todoItemId = Guid.NewGuid().ToString();
         TodoItem todoItem = Todo.CreateTodoItem(todoItemId, "TodoItemTitle", startDate, endDate);
 

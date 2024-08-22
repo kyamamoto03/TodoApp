@@ -28,7 +28,8 @@ public class FindByIdTest : IAsyncDisposable
         var startDate = DateTime.Now;
         var endDate = startDate.AddDays(1);
 
-        Todo todo = Todo.Create(Guid.NewGuid().ToString(),"TodoTitle", "TodoDescription", startDate, endDate);
+        var userId = "U01";
+        Todo todo = Todo.Create(userId, Guid.NewGuid().ToString(),"TodoTitle", "TodoDescription", startDate, endDate);
         TodoItem todoItem = Todo.CreateTodoItem(Guid.NewGuid().ToString(), "TodoItemTitle", startDate, endDate);
         todo.AddTodoItem(todoItem);
 

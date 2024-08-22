@@ -39,13 +39,22 @@ public class TodoRepository(TodoDbContext todoMemDbContext) : ITodoReposity
         return todo;
     }
 
-    public async Task UpdateAsync(Todo todo)
+    public Task UpdateAsync(Todo todo)
     {
         _todoDbContext.Entry(todo).State = EntityState.Modified;
+        return Task.CompletedTask;
     }
 
     public async ValueTask<bool> IsExistAsync(string todoId)
     {
         return await _todoDbContext.Todos.AnyAsync(x => x.TodoId == todoId);
+    }
+
+    public async Task<IEnumerable<Todo>> FindByUserIdAsync(string userId)
+    {
+        return await _todoDbContext.Todos
+            .Include(x => x.TodoItems)
+            .Where(x => x.UserId == userId)
+            .ToArrayAsync();
     }
 }
