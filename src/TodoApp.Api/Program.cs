@@ -4,6 +4,8 @@ using Infra;
 using Infra.Repository;
 using Microsoft.EntityFrameworkCore;
 using TodoApp.Api.Apis;
+using TodoApp.Api.Usecase;
+using TodoApp.Api.Usecase.User.StartTodo;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,11 +25,19 @@ builder.Services.AddDbContext<TodoDbContext>(options =>
 
 #endregion
 
+#region MediatR
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Programs).Assembly));
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Usecase).Assembly));
+
+#endregion
+
 builder.Services.AddScoped<TodoApp.Api.Usecase.Todos.Add.IAddTodoUsecase, TodoApp.Api.Usecase.Todos.Add.AddTodoUsecase>();
 builder.Services.AddScoped<TodoApp.Api.Usecase.Todos.FindById.IFindByIdUsecase, TodoApp.Api.Usecase.Todos.FindById.FindByIdUsecase>();
 builder.Services.AddScoped<TodoApp.Api.Usecase.Todos.GetStatus.IGetStatusUsecase, TodoApp.Api.Usecase.Todos.GetStatus.GetStatusUsecase>();
 builder.Services.AddScoped<TodoApp.Api.Usecase.Todos.StartTodo.IStartTodoUsecase, TodoApp.Api.Usecase.Todos.StartTodo.StartTodoUsecase>();
 builder.Services.AddScoped<TodoApp.Api.Usecase.User.GetAll.IGetAllUsecase, TodoApp.Api.Usecase.User.GetAll.GetAllUsecase>();
+builder.Services.AddScoped<TodoApp.Api.Usecase.User.StartTodo.IFirstTodoStartUsecase, TodoApp.Api.Usecase.User.StartTodo.FirstTodoStartUsecase>();
+builder.Services.AddScoped<TodoApp.Api.Usecase.User.Add.IAddUsecase, TodoApp.Api.Usecase.User.Add.AddUsecase>();
 
 builder.Services.AddScoped<ITodoReposity, TodoRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
@@ -58,3 +68,5 @@ var user = app.MapUserApiV1();
 app.MapFallbackToFile("index.html");
 
 app.Run();
+
+public class Programs() { }

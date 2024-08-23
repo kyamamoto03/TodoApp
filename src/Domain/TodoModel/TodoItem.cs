@@ -1,6 +1,8 @@
-﻿namespace Domain.TodoModel;
+﻿using Domain.SeedOfWork;
 
-public class TodoItem
+namespace Domain.TodoModel;
+
+public class TodoItem : Entity
 {
     public string TodoItemId { get; internal set; } = default!;
     public string TodoId { get; internal set; } = default!;

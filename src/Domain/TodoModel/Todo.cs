@@ -1,6 +1,9 @@
-﻿namespace Domain.TodoModel;
+﻿using Domain.SeedOfWork;
+using Domain.TodoModel.Events;
 
-public class Todo
+namespace Domain.TodoModel;
+
+public class Todo : Entity
 {
     public string UserId { get; private set; } = default!;
     public string TodoId { get; private set; } = default!;
@@ -117,6 +120,9 @@ public class Todo
         }
 
         todoItem.SetStart(startDate);
+
+        
+        AddDomainEvent(new FirstTodoStartDomainEvent(UserId));
     }
 
     public void EndTodoItem(string todoItemId, DateTime endDate)

@@ -20,7 +20,8 @@ public class GetAllUsecase(IUserRepository userRepository) : IGetAllUsecase
         {
             UserId = x.UserId,
             UserName = x.UserName,
-            Email = x.Email
+            Email = x.Email,
+            IsStarted = x.IsStarted
         });
 
         return getAllResult;

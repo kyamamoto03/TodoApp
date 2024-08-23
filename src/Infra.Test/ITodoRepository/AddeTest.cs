@@ -12,7 +12,7 @@ public class AddeTest : IAsyncDisposable
     {
         _todoDbContext = new TodoDbContext(new DbContextOptionsBuilder<TodoDbContext>()
             .UseInMemoryDatabase("TodoMemDbContext")
-            .Options);
+            .Options,null);
     }
 
     public async ValueTask DisposeAsync()
