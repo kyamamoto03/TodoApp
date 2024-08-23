@@ -1,7 +1,7 @@
 ﻿using Domain.TodoModel.Events;
 using MediatR;
 
-namespace TodoApp.Api.Usecase.User.StartTodo;
+namespace TodoApp.Api.Usecase.UserUsecase.StartTodo;
 
 public class FirstTodoStartDomainEventHandler(IFirstTodoStartUsecase firstTodoStartUsecase) : INotificationHandler<FirstTodoStartDomainEvent>
 {

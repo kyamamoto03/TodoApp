@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TodoApp.Api.DTO.Todo.GetStatus;
 using TodoApp.Api.DTO.Todo.StartTodo;
-using TodoApp.Api.Usecase.Todos.Add;
-using TodoApp.Api.Usecase.Todos.FindById;
-using TodoApp.Api.Usecase.Todos.GetStatus;
-using TodoApp.Api.Usecase.Todos.StartTodo;
+using TodoApp.Api.Usecase.TodoUsecase.Add;
+using TodoApp.Api.Usecase.TodoUsecase.FindById;
+using TodoApp.Api.Usecase.TodoUsecase.GetStatus;
+using TodoApp.Api.Usecase.TodoUsecase.StartTodo;
 using TodoApp.API.DTO.Todo.AddTodo;
 using TodoApp.API.DTO.Todo.FindById;
 

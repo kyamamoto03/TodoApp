@@ -1,6 +1,6 @@
 ﻿using Domain.UserModel;
 
-namespace TodoApp.Api.Usecase.User.StartTodo;
+namespace TodoApp.Api.Usecase.UserUsecase.StartTodo;
 
 public interface IFirstTodoStartUsecase
 {

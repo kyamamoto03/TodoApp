@@ -1,7 +1,7 @@
 ﻿
 using Domain.TodoModel;
 
-namespace TodoApp.Api.Usecase.Todos.Add;
+namespace TodoApp.Api.Usecase.TodoUsecase.Add;
 
 public interface IAddTodoUsecase
 {

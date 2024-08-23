@@ -10,7 +10,7 @@ public class IsExist : IAsyncDisposable
     public IsExist()
     {
         _todoDbContext = new TodoDbContext(new DbContextOptionsBuilder<TodoDbContext>()
-            .UseInMemoryDatabase("TodoMemDbContext")
+            .UseNpgsql("TodoMemDbContext")
             .Options, null);
     }
 

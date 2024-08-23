@@ -1,4 +1,4 @@
-﻿namespace TodoApp.Api.Usecase.User.GetAll;
+﻿namespace TodoApp.Api.Usecase.UserUsecase.GetAll;
 
 public class GetAllResult
 {

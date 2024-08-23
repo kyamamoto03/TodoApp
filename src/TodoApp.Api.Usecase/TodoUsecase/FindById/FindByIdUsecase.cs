@@ -1,7 +1,7 @@
 ﻿
 using Domain.TodoModel;
 
-namespace TodoApp.Api.Usecase.Todos.FindById;
+namespace TodoApp.Api.Usecase.TodoUsecase.FindById;
 
 public interface IFindByIdUsecase
 {

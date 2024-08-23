@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  postgresql:
+    container_name: todo-postgresql
+    build: ./todo-postgresql
+    ports:
+      - 51556:5432
+    volumes:
+      - ./todo-postgresql/init:/docker-entrypoint-initdb.d
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+    restart: always

@@ -19,7 +19,7 @@ builder.Services.AddSwaggerGen();
 #region db
 builder.Services.AddDbContext<TodoDbContext>(options =>
 {
-    options.UseInMemoryDatabase("TodoMemDb");
+    options.UseNpgsql("Server=localhost;Database=test;Port=51556;User Id=user;Password=pass");
 });
 
 #endregion
@@ -30,13 +30,13 @@ builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Useca
 
 #endregion
 
-builder.Services.AddScoped<TodoApp.Api.Usecase.Todos.Add.IAddTodoUsecase, TodoApp.Api.Usecase.Todos.Add.AddTodoUsecase>();
-builder.Services.AddScoped<TodoApp.Api.Usecase.Todos.FindById.IFindByIdUsecase, TodoApp.Api.Usecase.Todos.FindById.FindByIdUsecase>();
-builder.Services.AddScoped<TodoApp.Api.Usecase.Todos.GetStatus.IGetStatusUsecase, TodoApp.Api.Usecase.Todos.GetStatus.GetStatusUsecase>();
-builder.Services.AddScoped<TodoApp.Api.Usecase.Todos.StartTodo.IStartTodoUsecase, TodoApp.Api.Usecase.Todos.StartTodo.StartTodoUsecase>();
-builder.Services.AddScoped<TodoApp.Api.Usecase.User.GetAll.IGetAllUsecase, TodoApp.Api.Usecase.User.GetAll.GetAllUsecase>();
-builder.Services.AddScoped<TodoApp.Api.Usecase.User.StartTodo.IFirstTodoStartUsecase, TodoApp.Api.Usecase.User.StartTodo.FirstTodoStartUsecase>();
-builder.Services.AddScoped<TodoApp.Api.Usecase.User.Add.IAddUsecase, TodoApp.Api.Usecase.User.Add.AddUsecase>();
+builder.Services.AddScoped<TodoApp.Api.Usecase.TodoUsecase.Add.IAddTodoUsecase, TodoApp.Api.Usecase.TodoUsecase.Add.AddTodoUsecase>();
+builder.Services.AddScoped<TodoApp.Api.Usecase.TodoUsecase.FindById.IFindByIdUsecase, TodoApp.Api.Usecase.TodoUsecase.FindById.FindByIdUsecase>();
+builder.Services.AddScoped<TodoApp.Api.Usecase.TodoUsecase.GetStatus.IGetStatusUsecase, TodoApp.Api.Usecase.TodoUsecase.GetStatus.GetStatusUsecase>();
+builder.Services.AddScoped<TodoApp.Api.Usecase.TodoUsecase.StartTodo.IStartTodoUsecase, TodoApp.Api.Usecase.TodoUsecase.StartTodo.StartTodoUsecase>();
+builder.Services.AddScoped<TodoApp.Api.Usecase.UserUsecase.GetAll.IGetAllUsecase, TodoApp.Api.Usecase.UserUsecase.GetAll.GetAllUsecase>();
+builder.Services.AddScoped<TodoApp.Api.Usecase.UserUsecase.StartTodo.IFirstTodoStartUsecase, TodoApp.Api.Usecase.UserUsecase.StartTodo.FirstTodoStartUsecase>();
+builder.Services.AddScoped<TodoApp.Api.Usecase.UserUsecase.Add.IAddUsecase, TodoApp.Api.Usecase.UserUsecase.Add.AddUsecase>();
 
 builder.Services.AddScoped<ITodoReposity, TodoRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();

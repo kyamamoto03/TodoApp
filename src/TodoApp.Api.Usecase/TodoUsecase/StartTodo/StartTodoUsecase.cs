@@ -1,6 +1,6 @@
 ﻿using Domain.TodoModel;
 
-namespace TodoApp.Api.Usecase.Todos.StartTodo;
+namespace TodoApp.Api.Usecase.TodoUsecase.StartTodo;
 
 public interface IStartTodoUsecase
 {

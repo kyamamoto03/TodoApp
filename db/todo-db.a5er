@@ -1,0 +1,107 @@
+﻿# A5:ER FORMAT:18
+# A5:ER ENCODING:UTF8
+# A5:ER Mk-1 Copyright © 2007 m.matsubara
+# A5:SQL Mk-2 Version 2.19.1 Copyright © 1997 - 2024 m.matsubara
+#  https://a5m2.mmatsubara.com
+
+[Manager]
+ProjectName=Todo
+Author=
+MaxEntityRowShow=1000
+ReadOnlyRecommend=0
+Page=Main
+PageInfo="Main",2,"A3Landscape",$FFFFFF
+LogicalView=1
+DecodeDomain=0
+ViewModePageIndividually=1
+ViewMode=2
+ViewFormat=0
+UseNondependenceDashLine=0
+FontName=Tahoma
+FontSize=6
+PaperSize=A4Landscape
+HeaderLeft=
+HeaderCenter=
+HeaderRight=
+FooterLeft=
+FooterCenter=
+FooterRight=
+ShowPageoutRelation=1
+RDBMSType=7
+RDBMSTypeName=PostgreSQL
+DefaultPkName=%0:s_PKC
+DefaultPkIndexName=%0:s_PKI
+DefaultIndexName=%0:s_IX%1:d
+DefaultFkName=%0:s_FK%1:d
+SqlSeparator=0
+UpperCaseKeyword=0
+ShowTag=1
+ShowCommonAttributes=0
+BugFixEntityWidth=1
+
+[Entity]
+PName=todo
+LName=Todo
+Comment=
+TableInnerOption=
+TableOption=
+Page=Main
+Left=800
+Top=300
+Field="TodoId","todo_id","varchar(100)",,0,"","",$FFFFFFFF,""
+Field="UserId","user_id","varchar(100)","NOT NULL",,"","",$FFFFFFFF,""
+Field="Title","title","varchar(100)","NOT NULL",,"","",$FFFFFFFF,""
+Field="Description","description","text",,,"","",$FFFFFFFF,""
+Field="ScheduleStartDate","schedule_start_date","timestamp with time zone","NOT NULL",,"","",$FFFFFFFF,""
+Field="ScheduleEndDate","schedule_end_date","timestamp with time zone","NOT NULL",,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20240823154917
+Position="Main",800,300
+ZOrder=1
+
+[Entity]
+PName=todo_item
+LName=TodoItem
+Comment=
+TableInnerOption=
+TableOption=
+Page=Main
+Left=550
+Top=600
+Field="TodoItemId","todo_item_id","varchar(100)",,0,"","",$FFFFFFFF,""
+Field="TodoId","todo_id","varchar(100)","NOT NULL",,"","",$FFFFFFFF,""
+Field="Title","title","varchar(100)",,,"","",$FFFFFFFF,""
+Field="ScheduleStartDate","schedule_start_date","timestamp with time zone","NOT NULL",,"","",$FFFFFFFF,""
+Field="ScheduleEndDate","schedule_end_date","timestamp with time zone","NOT NULL",,"","",$FFFFFFFF,""
+Field="StartDate","start_date","timestamp with time zone",,,"","",$FFFFFFFF,""
+Field="EndDate","end_date","timestamp with time zone",,,"","",$FFFFFFFF,""
+Field="Amount","amount","decimal(10,0)","NOT NULL",,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20240823173000
+Position="Main",550,600
+ZOrder=3
+
+[Relation]
+Entity1=todo
+Entity2=todo_item
+RelationType1=2
+RelationType2=3
+Fields1=todo_id
+Fields2=todo_id
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,2228,7772,3089,R,R,""
+Dependence=0
+Caption=
+PName=
+LineMode=0
+Bar1=223
+Bar2=777
+Bar3=309
+TermPos1=R
+TermPos2=R
+ZOrder=4

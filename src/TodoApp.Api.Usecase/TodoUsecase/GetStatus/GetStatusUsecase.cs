@@ -1,6 +1,6 @@
 ﻿using Domain.TodoModel;
 
-namespace TodoApp.Api.Usecase.Todos.GetStatus;
+namespace TodoApp.Api.Usecase.TodoUsecase.GetStatus;
 
 public interface IGetStatusUsecase
 {

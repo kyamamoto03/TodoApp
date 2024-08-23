@@ -11,7 +11,7 @@ public class AddTest : IAsyncDisposable
     public AddTest()
     {
         _todoDbContext = new TodoDbContext(new DbContextOptionsBuilder<TodoDbContext>()
-            .UseInMemoryDatabase("TodoMemDbContext")
+            .UseNpgsql("TodoMemDbContext")
             .Options, null);
     }
 

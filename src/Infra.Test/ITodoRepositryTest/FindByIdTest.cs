@@ -11,7 +11,7 @@ public class FindByIdTest : IAsyncDisposable
     public FindByIdTest()
     {
         _todoDbContext = new TodoDbContext(new DbContextOptionsBuilder<TodoDbContext>()
-            .UseInMemoryDatabase("TodoMemDbContext")
+            .UseNpgsql("TodoMemDbContext")
             .Options, null);
     }
 

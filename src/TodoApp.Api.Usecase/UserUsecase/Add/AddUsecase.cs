@@ -1,6 +1,6 @@
 ﻿using Domain.UserModel;
 
-namespace TodoApp.Api.Usecase.User.Add;
+namespace TodoApp.Api.Usecase.UserUsecase.Add;
 
 public interface IAddUsecase
 {

@@ -1,6 +1,6 @@
 ﻿using Domain.UserModel;
 
-namespace TodoApp.Api.Usecase.User.GetAll;
+namespace TodoApp.Api.Usecase.UserUsecase.GetAll;
 
 public interface IGetAllUsecase
 {

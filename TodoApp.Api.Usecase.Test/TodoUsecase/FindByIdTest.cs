@@ -1,7 +1,7 @@
 ﻿using Domain.SeedOfWork;
 using Domain.TodoModel;
 using Moq;
-using TodoApp.Api.Usecase.Todos.FindById;
+using TodoApp.Api.Usecase.TodoUsecase.FindById;
 
 namespace TodoApp.Api.Usecase.Test.TodoUsecase;
 

@@ -1,8 +1,8 @@
 ﻿
 using TodoApp.Api.DTO.User.Add;
 using TodoApp.Api.DTO.User.GetAll;
-using TodoApp.Api.Usecase.User.Add;
-using TodoApp.Api.Usecase.User.GetAll;
+using TodoApp.Api.Usecase.UserUsecase.Add;
+using TodoApp.Api.Usecase.UserUsecase.GetAll;
 
 namespace TodoApp.Api.Apis;
 
