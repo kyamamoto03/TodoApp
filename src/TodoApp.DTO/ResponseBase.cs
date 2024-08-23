@@ -21,7 +21,7 @@ public abstract class IResponseBase
         _isSuccess = false;
         _message = message;
     }
-    public void Fail(ValidationResult?  validationResult)
+    public void Fail(ValidationResult? validationResult)
     {
         _isSuccess = false;
         if (validationResult != null)

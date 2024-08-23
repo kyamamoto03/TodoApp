@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using TodoApp.API.DTO.Todo.FindById;
 
 namespace TodoApp.API.DTO.Todo.AddTodo;
 

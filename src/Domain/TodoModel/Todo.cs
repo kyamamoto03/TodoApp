@@ -61,7 +61,7 @@ public class Todo : Entity
     {
     }
 
-    public static Todo Create(string userId,string todoId, string title, string description, DateTime scheduleStartDate, DateTime scheduleEndDate)
+    public static Todo Create(string userId, string todoId, string title, string description, DateTime scheduleStartDate, DateTime scheduleEndDate)
     {
         Todo todo = new Todo();
 
@@ -111,7 +111,7 @@ public class Todo : Entity
     /// <param name="todoItemId"></param>
     /// <param name="startDate"></param>
     /// <exception cref="ArgumentException"></exception>
-    public void StartTodoItem(string todoItemId,DateTime startDate)
+    public void StartTodoItem(string todoItemId, DateTime startDate)
     {
         var todoItem = _todoItems.SingleOrDefault(x => x.TodoItemId == todoItemId);
         if (todoItem == null)
@@ -121,7 +121,7 @@ public class Todo : Entity
 
         todoItem.SetStart(startDate);
 
-        
+
         AddDomainEvent(new FirstTodoStartDomainEvent(UserId));
     }
 

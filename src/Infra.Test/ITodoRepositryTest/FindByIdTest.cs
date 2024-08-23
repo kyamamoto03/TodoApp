@@ -12,7 +12,7 @@ public class FindByIdTest : IAsyncDisposable
     {
         _todoDbContext = new TodoDbContext(new DbContextOptionsBuilder<TodoDbContext>()
             .UseInMemoryDatabase("TodoMemDbContext")
-            .Options,null);
+            .Options, null);
     }
 
     public async ValueTask DisposeAsync()
@@ -29,7 +29,7 @@ public class FindByIdTest : IAsyncDisposable
         var endDate = startDate.AddDays(1);
 
         var userId = "U01";
-        Todo todo = Todo.Create(userId, Guid.NewGuid().ToString(),"TodoTitle", "TodoDescription", startDate, endDate);
+        Todo todo = Todo.Create(userId, Guid.NewGuid().ToString(), "TodoTitle", "TodoDescription", startDate, endDate);
         TodoItem todoItem = Todo.CreateTodoItem(Guid.NewGuid().ToString(), "TodoItemTitle", startDate, endDate);
         todo.AddTodoItem(todoItem);
 

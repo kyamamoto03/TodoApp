@@ -12,7 +12,7 @@ public class UserRepository(TodoDbContext todoMemDbContext) : IUserRepository
 
     public Task AddAsync(string userId, string userName, string email)
     {
-        User user = new(userId,userName,email);
+        User user = new(userId, userName, email);
 
         _todoDbContext.Users.Add(user);
         return Task.CompletedTask;

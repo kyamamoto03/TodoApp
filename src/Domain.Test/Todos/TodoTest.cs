@@ -10,7 +10,7 @@ public class TodoTest
 
         var userId = "U01";
         var todoId = Guid.NewGuid().ToString();
-        Todo todo = Todo.Create(userId,todoId, "TodoTitle", "TodoDescription", startDate, endDate);
+        Todo todo = Todo.Create(userId, todoId, "TodoTitle", "TodoDescription", startDate, endDate);
 
         var todoItemId = Guid.NewGuid().ToString();
 
@@ -124,7 +124,7 @@ public class TodoTest
         var endDate = startDate.AddDays(1);
 
         var todoItemId = Guid.NewGuid().ToString();
-        TodoItem todoItem = Todo.CreateTodoItem(todoItemId,"TodoItemTitle", startDate, endDate);
+        TodoItem todoItem = Todo.CreateTodoItem(todoItemId, "TodoItemTitle", startDate, endDate);
 
         todoItem.SetAmount(100);
 

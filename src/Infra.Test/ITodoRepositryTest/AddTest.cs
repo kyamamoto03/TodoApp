@@ -4,15 +4,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infra.Test.ITodoRepository;
 
-public class AddeTest : IAsyncDisposable
+public class AddTest : IAsyncDisposable
 {
 
     private readonly TodoDbContext _todoDbContext;
-    public AddeTest()
+    public AddTest()
     {
         _todoDbContext = new TodoDbContext(new DbContextOptionsBuilder<TodoDbContext>()
             .UseInMemoryDatabase("TodoMemDbContext")
-            .Options,null);
+            .Options, null);
     }
 
     public async ValueTask DisposeAsync()
@@ -29,7 +29,7 @@ public class AddeTest : IAsyncDisposable
         var endDate = startDate.AddDays(1);
 
         var UserId = "U01";
-        Todo todo = Todo.Create(UserId,Guid.NewGuid().ToString(), "TodoTitle", "TodoDescription", startDate, endDate);
+        Todo todo = Todo.Create(UserId, Guid.NewGuid().ToString(), "TodoTitle", "TodoDescription", startDate, endDate);
         TodoItem todoItem = Todo.CreateTodoItem(Guid.NewGuid().ToString(), "TodoItemTitle", startDate, endDate);
         todo.AddTodoItem(todoItem);
 
@@ -52,7 +52,7 @@ public class AddeTest : IAsyncDisposable
 
         var UserId = "U01";
         var id = Guid.NewGuid().ToString();
-        Todo todo = Todo.Create(UserId,id, "TodoTitle", "TodoDescription", startDate, endDate);
+        Todo todo = Todo.Create(UserId, id, "TodoTitle", "TodoDescription", startDate, endDate);
         TodoItem todoItem = Todo.CreateTodoItem(Guid.NewGuid().ToString(), "TodoItemTitle", startDate, endDate);
         todo.AddTodoItem(todoItem);
 

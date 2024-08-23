@@ -16,7 +16,7 @@ public class AddTodoCommand
         public string Title { get; set; } = default!;
         public DateTime ScheduleStartDate { get; set; } = default!;
         public DateTime ScheduleEndDate { get; set; } = default!;
-        public DateTime? StartDate{get;set;} = default!;
+        public DateTime? StartDate { get; set; } = default!;
         public DateTime? EndDate { get; set; } = default!;
     }
 }

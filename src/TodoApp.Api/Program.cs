@@ -5,7 +5,6 @@ using Infra.Repository;
 using Microsoft.EntityFrameworkCore;
 using TodoApp.Api.Apis;
 using TodoApp.Api.Usecase;
-using TodoApp.Api.Usecase.User.StartTodo;
 
 var builder = WebApplication.CreateBuilder(args);
 
