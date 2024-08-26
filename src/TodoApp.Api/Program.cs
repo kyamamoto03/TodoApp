@@ -19,7 +19,7 @@ builder.Services.AddSwaggerGen();
 #region db
 builder.Services.AddDbContext<TodoDbContext>(options =>
 {
-    options.UseNpgsql("Server=localhost;Database=test;Port=51556;User Id=user;Password=pass");
+    options.UseNpgsql("Server=localhost;Database=postgres;Port=51556;User Id=user;Password=pass");
 });
 
 #endregion

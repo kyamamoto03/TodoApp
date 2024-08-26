@@ -1,4 +1,5 @@
-﻿using Domain.TodoModel;
+﻿using Domain.Exceptions;
+using Domain.TodoModel;
 
 namespace TodoApp.Api.Usecase.TodoUsecase.GetStatus;
 
@@ -17,7 +18,7 @@ public class GetStatusUsecase(ITodoRepository todoReposity) : IGetStatusUsecase
         //todoがnullの場合、例外をスローする
         if (todo == null)
         {
-            throw new Exception("Todo not found");
+            throw new TodoDoaminExceptioon("Todo not found");
         }
 
         return new GetStatusResult(todo.TodoItemStatus.Id);

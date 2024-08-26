@@ -1,4 +1,5 @@
-﻿using Domain.TodoModel;
+﻿using Domain.Exceptions;
+using Domain.TodoModel;
 
 namespace TodoApp.Api.Usecase.TodoUsecase.StartTodo;
 
@@ -17,7 +18,7 @@ public class StartTodoUsecase(ITodoRepository todoReposity) : IStartTodoUsecase
 
         if (todo == null)
         {
-            throw new Exception("Todoが見つかりませんでした");
+            throw new TodoDoaminExceptioon("Todoが見つかりませんでした");
         }
 
         todo.StartTodoItem(startTodoCommand.TodoItemId, startTodoCommand.StartDate);

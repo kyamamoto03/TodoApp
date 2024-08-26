@@ -1,4 +1,5 @@
-﻿using Domain.UserModel;
+﻿using Domain.Exceptions;
+using Domain.UserModel;
 
 namespace TodoApp.Api.Usecase.UserUsecase.Add;
 
@@ -14,7 +15,7 @@ public class AddUsecase(IUserRepository userRepository) : IAddUsecase
     {
         if (await _userRepository.IsExist(addCommand.Email) == true)
         {
-            throw new Exception("ユーザが存在しています");
+            throw new TodoDoaminExceptioon("ユーザが存在しています");
         }
 
         await _userRepository.AddAsync(addCommand.UserId, addCommand.UserName, addCommand.Email);

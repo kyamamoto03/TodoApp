@@ -1,4 +1,5 @@
-﻿using Domain.UserModel;
+﻿using Domain.Exceptions;
+using Domain.UserModel;
 
 namespace TodoApp.Api.Usecase.UserUsecase.StartTodo;
 
@@ -16,7 +17,7 @@ public class FirstTodoStartUsecase(IUserRepository userRepository) : IFirstTodoS
         var targetUser = await _userRepository.FindByIdAsync(userId);
         if (targetUser == null)
         {
-            throw new Exception("User not found");
+            throw new TodoDoaminExceptioon("User not found");
         }
 
         targetUser.Start();

@@ -29,11 +29,6 @@ public class TodoRepository(TodoDbContext todoMemDbContext) : ITodoRepository
 
     public async Task<Todo> AddAsync(Todo todo)
     {
-        if (await IsExistAsync(todo.TodoId))
-        {
-            throw new ArgumentException("指定されたTodoは既に存在します");
-        }
-
         _todoDbContext.Todos.Add(todo);
 
         return todo;

@@ -1,0 +1,12 @@
+﻿@host = https://localhost:7113
+
+
+POST {{host}}/api/todo/FindById
+Content-Type: application/json
+
+{
+  "TodoId": "TODO01"
+}
+
+###
+

@@ -1,4 +1,5 @@
 ﻿
+using Domain.Exceptions;
 using Domain.TodoModel;
 
 namespace TodoApp.Api.Usecase.TodoUsecase.Add;
@@ -27,6 +28,11 @@ public class AddTodoUsecase(ITodoRepository todoReposity) : IAddTodoUsecase
         {
             TodoItem todoItem = Todo.CreateTodoItem(item.TodoItemId, item.Title, item.ScheduleStartDate, item.ScheduleEndDate);
             todo.AddTodoItem(todoItem);
+        }
+
+        if (await _todoReposity.IsExistAsync(todo.TodoId))
+        {
+            throw new TodoDoaminExceptioon("指定されたTodoは既に存在します");
         }
 
         var saveTodo = await _todoReposity.AddAsync(todo);

@@ -1,4 +1,6 @@
 ﻿
+using Domain.Exceptions;
+using TodoApp.Api.DTO.Todo.GetStatus;
 using TodoApp.Api.DTO.User.Add;
 using TodoApp.Api.DTO.User.GetAll;
 using TodoApp.Api.Usecase.UserUsecase.Add;
@@ -37,6 +39,10 @@ public static class UserApis
                 addResponse.Success();
             }
         }
+        catch (TodoDoaminExceptioon tde)
+        {
+            addResponse.Fail(tde.Message);
+        }
         catch (Exception ex)
         {
             addResponse.Fail(ex.Message);
@@ -60,6 +66,10 @@ public static class UserApis
             });
 
             getAllResponse.Success();
+        }
+        catch (TodoDoaminExceptioon tde)
+        {
+            getAllResponse.Fail(tde.Message);
         }
         catch (Exception ex)
         {

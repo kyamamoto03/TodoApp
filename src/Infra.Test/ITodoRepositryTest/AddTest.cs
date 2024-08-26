@@ -1,4 +1,5 @@
-﻿using Domain.TodoModel;
+﻿using Domain.Exceptions;
+using Domain.TodoModel;
 using Infra.Repository;
 using Microsoft.EntityFrameworkCore;
 
@@ -38,27 +39,6 @@ public class AddTest : DbInstance
 
         Assert.NotNull(savedTodo);
         Assert.Equal(todo.Title, savedTodo.Title);
-    }
-    [Fact]
-    public async Task Todo_Add_重複ID_NG()
-    {
-        using var _todoDbContext = CreateTodoDbContext();
-        Domain.TodoModel.ITodoRepository todoRepository = new TodoRepository(_todoDbContext);
-
-        var startDate = DateTime.Now;
-        var endDate = startDate.AddDays(1);
-
-        var UserId = "U01";
-        var id = Guid.NewGuid().ToString();
-        Todo todo = Todo.Create(UserId, id, "TodoTitle", "TodoDescription", startDate, endDate);
-        TodoItem todoItem = Todo.CreateTodoItem(Guid.NewGuid().ToString(), "TodoItemTitle", startDate, endDate);
-        todo.AddTodoItem(todoItem);
-
-        await todoRepository.AddAsync(todo);
-        await todoRepository.UnitOfWork.SaveChangesAsync();
-
-        Todo todo2 = Todo.Create(UserId, id, "TodoTitle", "TodoDescription", startDate, endDate);
-        await Assert.ThrowsAsync<ArgumentException>(async () => await todoRepository.AddAsync(todo2));
     }
 
     [Fact]

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Domain.Exceptions;
+using Microsoft.AspNetCore.Mvc;
 using TodoApp.Api.DTO.Todo.GetStatus;
 using TodoApp.Api.DTO.Todo.StartTodo;
 using TodoApp.Api.Usecase.TodoUsecase.Add;
@@ -57,6 +58,10 @@ public static class TodoApi
                 addTodoResponse.Success();
             }
         }
+        catch(TodoDoaminExceptioon tde)
+        {
+            addTodoResponse.Fail(tde.Message);
+        }
         catch (Exception ex)
         {
             addTodoResponse.Fail(ex.Message);
@@ -94,6 +99,10 @@ public static class TodoApi
             }).ToArray();
             findByIdResponse.Success();
         }
+        catch (TodoDoaminExceptioon tde)
+        {
+            findByIdResponse.Fail(tde.Message);
+        }
         catch (Exception ex)
         {
             findByIdResponse.Fail(ex.Message);
@@ -103,34 +112,42 @@ public static class TodoApi
 
     public static async Task<StartTodoResponse> StartTodoAsync([FromBody] StartTodoRequest request, IStartTodoUsecase startTodoUsecase)
     {
-        StartTodoResponse response = new StartTodoResponse();
+        StartTodoResponse startTodoResponse = new StartTodoResponse();
         try
         {
             await startTodoUsecase.ExecuteAsync(new StartTodoCommand(request.TodoId, request.TodoItemId, request.StartDate));
-            response.Success();
+            startTodoResponse.Success();
+        }
+        catch (TodoDoaminExceptioon tde)
+        {
+            startTodoResponse.Fail(tde.Message);
         }
         catch (Exception ex)
         {
-            response.Fail(ex.Message);
+            startTodoResponse.Fail(ex.Message);
         }
 
-        return response;
+        return startTodoResponse;
     }
 
     public static async Task<GetStatusResponse> GetStatusAsync([FromBody] GetStatusRequest request, IGetStatusUsecase getStatusUsecase)
     {
-        GetStatusResponse response = new GetStatusResponse();
+        GetStatusResponse getStatusResponse = new GetStatusResponse();
         try
         {
             var result = await getStatusUsecase.Execute(new GetStatusCommand(request.TodoId));
-            response.Status = result.Status;
-            response.Success();
+            getStatusResponse.Status = result.Status;
+            getStatusResponse.Success();
+        }
+        catch (TodoDoaminExceptioon tde)
+        {
+            getStatusResponse.Fail(tde.Message);
         }
         catch (Exception ex)
         {
-            response.Fail(ex.Message);
+            getStatusResponse.Fail(ex.Message);
         }
 
-        return response;
+        return getStatusResponse;
     }
 }
