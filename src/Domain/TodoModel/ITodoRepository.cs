@@ -2,7 +2,7 @@
 
 namespace Domain.TodoModel;
 
-public interface ITodoReposity : IRepository<Todo>
+public interface ITodoRepository : IRepository<Todo>
 {
     /// <summary>
     /// TodoIdで検索

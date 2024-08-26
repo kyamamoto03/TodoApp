@@ -9,11 +9,11 @@ public interface IFirstTodoStartUsecase
 public class FirstTodoStartUsecase(IUserRepository userRepository) : IFirstTodoStartUsecase
 {
     private readonly IUserRepository _userRepository = userRepository;
-    public async Task Execute(string todoId)
+    public async Task Execute(string userId)
     {
-        Console.WriteLine($"StartTodoUsecase.Execute:TodoId:{todoId}");
+        Console.WriteLine($"StartTodoUsecase.Execute:UserId:{userId}");
 
-        var targetUser = await _userRepository.FindByIdAsync(todoId);
+        var targetUser = await _userRepository.FindByIdAsync(userId);
         if (targetUser == null)
         {
             throw new Exception("User not found");

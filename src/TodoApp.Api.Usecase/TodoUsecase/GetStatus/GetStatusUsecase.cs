@@ -7,9 +7,9 @@ public interface IGetStatusUsecase
     Task<GetStatusResult> Execute(GetStatusCommand command);
 }
 
-public class GetStatusUsecase(ITodoReposity todoReposity) : IGetStatusUsecase
+public class GetStatusUsecase(ITodoRepository todoReposity) : IGetStatusUsecase
 {
-    private readonly ITodoReposity _todoReposity = todoReposity;
+    private readonly ITodoRepository _todoReposity = todoReposity;
     public async Task<GetStatusResult> Execute(GetStatusCommand command)
     {
         var todo = await _todoReposity.FindByIdAsync(command.TodoId);

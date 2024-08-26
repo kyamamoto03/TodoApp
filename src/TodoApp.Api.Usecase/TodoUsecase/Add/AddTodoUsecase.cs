@@ -9,9 +9,9 @@ public interface IAddTodoUsecase
 }
 
 
-public class AddTodoUsecase(ITodoReposity todoReposity) : IAddTodoUsecase
+public class AddTodoUsecase(ITodoRepository todoReposity) : IAddTodoUsecase
 {
-    private readonly ITodoReposity _todoReposity = todoReposity;
+    private readonly ITodoRepository _todoReposity = todoReposity;
 
     public async Task ExecuteAsync(AddTodoCommand addTodoUsecaseRequest)
     {

@@ -20,7 +20,7 @@ public class AddTest : DbInstance
     public async Task Todo_Add_OK()
     {
         using var _todoDbContext = CreateTodoDbContext();
-        ITodoReposity todoRepository = new TodoRepository(_todoDbContext);
+        Domain.TodoModel.ITodoRepository todoRepository = new TodoRepository(_todoDbContext);
 
         var startDate = DateTime.Now;
         var endDate = startDate.AddDays(1);
@@ -43,7 +43,7 @@ public class AddTest : DbInstance
     public async Task Todo_Add_重複ID_NG()
     {
         using var _todoDbContext = CreateTodoDbContext();
-        ITodoReposity todoRepository = new TodoRepository(_todoDbContext);
+        Domain.TodoModel.ITodoRepository todoRepository = new TodoRepository(_todoDbContext);
 
         var startDate = DateTime.Now;
         var endDate = startDate.AddDays(1);
@@ -65,7 +65,7 @@ public class AddTest : DbInstance
     public async Task Todo_Add_TodoItem_Save_OK()
     {
         using var _todoDbContext = CreateTodoDbContext();
-        ITodoReposity todoRepository = new TodoRepository(_todoDbContext);
+        Domain.TodoModel.ITodoRepository todoRepository = new TodoRepository(_todoDbContext);
 
         var startDate = DateTime.Now;
         var endDate = startDate.AddDays(1);
@@ -95,7 +95,7 @@ public class AddTest : DbInstance
     public async Task Todo_Addし更新_OK()
     {
         using var _todoDbContext = CreateTodoDbContext();
-        ITodoReposity todoRepository = new TodoRepository(_todoDbContext);
+        Domain.TodoModel.ITodoRepository todoRepository = new TodoRepository(_todoDbContext);
 
         var startDate = DateTime.Now;
         var endDate = startDate.AddDays(1);

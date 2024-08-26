@@ -20,7 +20,7 @@ public class FindByIdTest : DbInstance
     public async Task 保存したTodoを読み込む_OK()
     {
         using var _todoDbContext = CreateTodoDbContext();
-        ITodoReposity todoRepository = new TodoRepository(_todoDbContext);
+        Domain.TodoModel.ITodoRepository todoRepository = new TodoRepository(_todoDbContext);
 
         var startDate = DateTime.Now;
         var endDate = startDate.AddDays(1);
@@ -43,11 +43,37 @@ public class FindByIdTest : DbInstance
     public async Task 存在しないTodo読み込み_0件が返る()
     {
         using var _todoDbContext = CreateTodoDbContext();
-        ITodoReposity todoRepository = new TodoRepository(_todoDbContext);
+        Domain.TodoModel.ITodoRepository todoRepository = new TodoRepository(_todoDbContext);
 
         var todoId = Guid.NewGuid().ToString();
         var savedTodo = await todoRepository.FindByIdAsync(todoId);
         Assert.Null(savedTodo);
 
     }
+
+    [Fact]
+    public async Task 存在確認_Trueが返る_Test()
+    {
+        // Arrange
+        using var _todoDbContext = CreateTodoDbContext();
+        Domain.TodoModel.ITodoRepository todoRepository = new TodoRepository(_todoDbContext);
+
+        var startDate = DateTime.Now;
+        var endDate = startDate.AddDays(1);
+
+        var UserId = "U01";
+        Todo todo = Todo.Create(UserId, Guid.NewGuid().ToString(), "TodoTitle", "TodoDescription", startDate, endDate);
+        TodoItem todoItem = Todo.CreateTodoItem(Guid.NewGuid().ToString(), "TodoItemTitle", startDate, endDate);
+        todo.AddTodoItem(todoItem);
+
+        await todoRepository.AddAsync(todo);
+        await todoRepository.UnitOfWork.SaveChangesAsync();
+
+
+        // Act
+        var exist = await todoRepository.IsExistAsync(todo.TodoId);
+        // Assert
+        Assert.True(exist);
+    }
+
 }

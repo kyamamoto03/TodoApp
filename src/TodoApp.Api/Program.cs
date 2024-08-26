@@ -38,7 +38,7 @@ builder.Services.AddScoped<TodoApp.Api.Usecase.UserUsecase.GetAll.IGetAllUsecase
 builder.Services.AddScoped<TodoApp.Api.Usecase.UserUsecase.StartTodo.IFirstTodoStartUsecase, TodoApp.Api.Usecase.UserUsecase.StartTodo.FirstTodoStartUsecase>();
 builder.Services.AddScoped<TodoApp.Api.Usecase.UserUsecase.Add.IAddUsecase, TodoApp.Api.Usecase.UserUsecase.Add.AddUsecase>();
 
-builder.Services.AddScoped<ITodoReposity, TodoRepository>();
+builder.Services.AddScoped<ITodoRepository, TodoRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 var app = builder.Build();

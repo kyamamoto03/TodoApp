@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infra.Repository;
 
-public class TodoRepository(TodoDbContext todoMemDbContext) : ITodoReposity
+public class TodoRepository(TodoDbContext todoMemDbContext) : ITodoRepository
 {
     private readonly TodoDbContext _todoDbContext = todoMemDbContext;
 

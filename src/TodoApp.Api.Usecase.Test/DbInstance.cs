@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using Testcontainers.PostgreSql;
 
-namespace Infra.Test;
+namespace TodoApp.Api.Usecase.Test;
 
 public class DbInstance : IAsyncLifetime
 {

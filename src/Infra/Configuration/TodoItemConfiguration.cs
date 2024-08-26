@@ -15,7 +15,7 @@ internal class TodoItemConfiguration : IEntityTypeConfiguration<TodoItem>
         builder.Property(x => x.Title).HasColumnName("title");
         builder.Property(x => x.ScheduleStartDate).HasColumnName("schedule_start_date");
         builder.Property(x => x.ScheduleEndDate).HasColumnName("schedule_end_date");
-        builder.Property(x => x.StartDate).HasColumnName("start_date") ;
+        builder.Property(x => x.StartDate).HasColumnName("start_date");
         builder.Property(x => x.EndDate).HasColumnName("end_date");
         builder.Property(x => x.Amount).HasColumnName("amount");
     }

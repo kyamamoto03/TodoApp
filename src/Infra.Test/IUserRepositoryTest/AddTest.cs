@@ -32,7 +32,8 @@ public class AddTest : DbInstance
         try
         {
             await userRepository.UnitOfWork.SaveEntitiesAsync();
-        }catch(Exception ex)
+        }
+        catch (Exception ex)
         {
             Debug.WriteLine(ex.Message);
         }

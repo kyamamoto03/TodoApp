@@ -8,9 +8,9 @@ public interface IStartTodoUsecase
 }
 
 
-public class StartTodoUsecase(ITodoReposity todoReposity) : IStartTodoUsecase
+public class StartTodoUsecase(ITodoRepository todoReposity) : IStartTodoUsecase
 {
-    private readonly ITodoReposity _todoReposity = todoReposity;
+    private readonly ITodoRepository _todoReposity = todoReposity;
     public async Task<StartTodoResult> ExecuteAsync(StartTodoCommand startTodoCommand)
     {
         var todo = await _todoReposity.FindByIdAsync(startTodoCommand.TodoId);

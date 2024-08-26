@@ -7,9 +7,9 @@ public interface IFindByIdUsecase
 {
     Task<FindByIdResult?> ExecuteAsync(string todoId);
 }
-public class FindByIdUsecase(ITodoReposity todoReposity) : IFindByIdUsecase
+public class FindByIdUsecase(ITodoRepository todoReposity) : IFindByIdUsecase
 {
-    private readonly ITodoReposity _todoReposity = todoReposity;
+    private readonly ITodoRepository _todoReposity = todoReposity;
 
     public async Task<FindByIdResult?> ExecuteAsync(string todoId)
     {
