@@ -1,10 +1,9 @@
 ﻿
 using Domain.Exceptions;
-using TodoApp.Api.DTO.Todo.GetStatus;
 using TodoApp.Api.DTO.User.Add;
 using TodoApp.Api.DTO.User.GetAll;
-using TodoApp.Api.Usecase.UserUsecase.Add;
-using TodoApp.Api.Usecase.UserUsecase.GetAll;
+using TodoApp.Api.Service.UserService.Add;
+using TodoApp.Api.Service.UserService.GetAll;
 
 namespace TodoApp.Api.Apis;
 
@@ -19,7 +18,7 @@ public static class UserApis
         return api;
     }
 
-    private static async Task<AddResponse> AddAsync(AddRequest addRequest, IAddUsecase addUsecase)
+    private static async Task<AddResponse> AddAsync(AddRequest addRequest, IAddService addUsecase)
     {
         AddResponse addResponse = new();
         try
@@ -49,7 +48,7 @@ public static class UserApis
         }
         return addResponse;
     }
-    private static async Task<GetAllResponse> GetAllAsync(IGetAllUsecase getAllUsecase)
+    private static async Task<GetAllResponse> GetAllAsync(IGetAllService getAllUsecase)
     {
         GetAllResponse getAllResponse = new();
         try

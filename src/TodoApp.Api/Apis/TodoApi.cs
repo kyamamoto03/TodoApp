@@ -2,10 +2,10 @@
 using Microsoft.AspNetCore.Mvc;
 using TodoApp.Api.DTO.Todo.GetStatus;
 using TodoApp.Api.DTO.Todo.StartTodo;
-using TodoApp.Api.Usecase.TodoUsecase.Add;
-using TodoApp.Api.Usecase.TodoUsecase.FindById;
-using TodoApp.Api.Usecase.TodoUsecase.GetStatus;
-using TodoApp.Api.Usecase.TodoUsecase.StartTodo;
+using TodoApp.Api.Service.TodoService.Add;
+using TodoApp.Api.Service.TodoService.FindById;
+using TodoApp.Api.Service.TodoService.GetStatus;
+using TodoApp.Api.Service.TodoService.StartTodo;
 using TodoApp.API.DTO.Todo.AddTodo;
 using TodoApp.API.DTO.Todo.FindById;
 
@@ -25,7 +25,7 @@ public static class TodoApi
         return api;
     }
 
-    public static async Task<AddTodoResponse> AddTodoAsync([FromBody] AddTodoRequest request, IAddTodoUsecase addTodoUsecase)
+    public static async Task<AddTodoResponse> AddTodoAsync([FromBody] AddTodoRequest request, IAddTodoService addTodoService)
     {
         var addTodoResponse = new AddTodoResponse();
 
@@ -54,11 +54,11 @@ public static class TodoApi
                     ScheduleEndDate = x.ScheduleEndDate
                 }).ToArray();
 
-                await addTodoUsecase.ExecuteAsync(addTodoUsecaseRequest);
+                await addTodoService.ExecuteAsync(addTodoUsecaseRequest);
                 addTodoResponse.Success();
             }
         }
-        catch(TodoDoaminExceptioon tde)
+        catch (TodoDoaminExceptioon tde)
         {
             addTodoResponse.Fail(tde.Message);
         }
@@ -69,13 +69,13 @@ public static class TodoApi
 
         return addTodoResponse;
     }
-    public static async Task<FindByIdResponse> FindByIdAsync([FromBody] FindByIdRequest findByIdRequest, IFindByIdUsecase findByIdUsecase)
+    public static async Task<FindByIdResponse> FindByIdAsync([FromBody] FindByIdRequest findByIdRequest, IFindByIdService findByIdService)
     {
         FindByIdResponse findByIdResponse = new FindByIdResponse();
 
         try
         {
-            var response = await findByIdUsecase.ExecuteAsync(findByIdRequest.TodoId);
+            var response = await findByIdService.ExecuteAsync(findByIdRequest.TodoId);
             //FindByIdResponseにresponseを詰め替える
             if (response == null)
             {
@@ -110,12 +110,12 @@ public static class TodoApi
         return findByIdResponse;
     }
 
-    public static async Task<StartTodoResponse> StartTodoAsync([FromBody] StartTodoRequest request, IStartTodoUsecase startTodoUsecase)
+    public static async Task<StartTodoResponse> StartTodoAsync([FromBody] StartTodoRequest request, IStartTodoService startTodoService)
     {
         StartTodoResponse startTodoResponse = new StartTodoResponse();
         try
         {
-            await startTodoUsecase.ExecuteAsync(new StartTodoCommand(request.TodoId, request.TodoItemId, request.StartDate));
+            await startTodoService.ExecuteAsync(new StartTodoCommand(request.TodoId, request.TodoItemId, request.StartDate));
             startTodoResponse.Success();
         }
         catch (TodoDoaminExceptioon tde)
@@ -130,12 +130,12 @@ public static class TodoApi
         return startTodoResponse;
     }
 
-    public static async Task<GetStatusResponse> GetStatusAsync([FromBody] GetStatusRequest request, IGetStatusUsecase getStatusUsecase)
+    public static async Task<GetStatusResponse> GetStatusAsync([FromBody] GetStatusRequest request, IGetStatusService getStatusService)
     {
         GetStatusResponse getStatusResponse = new GetStatusResponse();
         try
         {
-            var result = await getStatusUsecase.Execute(new GetStatusCommand(request.TodoId));
+            var result = await getStatusService.Execute(new GetStatusCommand(request.TodoId));
             getStatusResponse.Status = result.Status;
             getStatusResponse.Success();
         }

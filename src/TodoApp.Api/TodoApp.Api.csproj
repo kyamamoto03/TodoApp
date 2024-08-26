@@ -15,7 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Infra\Infra.csproj" />
-    <ProjectReference Include="..\TodoApp.Api.Usecase\TodoApp.Api.Usecase.csproj" />
+    <ProjectReference Include="..\TodoApp.Api.Service\TodoApp.Api.Service.csproj" />
     <ProjectReference Include="..\TodoApp.Client\TodoApp.Client.csproj" />
     <ProjectReference Include="..\TodoApp.DTO\TodoApp.Api.DTO.csproj" />
   </ItemGroup>
