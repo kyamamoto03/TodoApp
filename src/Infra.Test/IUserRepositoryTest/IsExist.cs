@@ -4,24 +4,21 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infra.Test.IUserRepositoryTest;
 
-public class IsExist : IAsyncDisposable
+public class IsExist : DbInstance
 {
-    private readonly TodoDbContext _todoDbContext;
-    public IsExist()
+    public TodoDbContext CreateTodoDbContext()
     {
-        _todoDbContext = new TodoDbContext(new DbContextOptionsBuilder<TodoDbContext>()
-            .UseNpgsql("TodoMemDbContext")
-            .Options, null);
-    }
+        var _db = new TodoDbContext(new DbContextOptionsBuilder<TodoDbContext>()
+       .UseNpgsql(DbConnectionString)
+       .Options, null);
 
-    public async ValueTask DisposeAsync()
-    {
-        await _todoDbContext.DisposeAsync();
-    }
+        return _db;
 
+    }
     [Fact]
     public async Task ユーザが存在_OK_Test()
     {
+        using var _todoDbContext = CreateTodoDbContext();
 
         IUserRepository userRepository = new UserRepository(_todoDbContext);
 
@@ -40,6 +37,7 @@ public class IsExist : IAsyncDisposable
     [Fact]
     public async Task ユーザが存在しない_OK_Test()
     {
+        using var _todoDbContext = CreateTodoDbContext();
 
         IUserRepository userRepository = new UserRepository(_todoDbContext);
 

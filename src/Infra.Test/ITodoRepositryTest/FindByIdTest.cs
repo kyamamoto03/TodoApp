@@ -4,25 +4,22 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infra.Test.ITodoRepository;
 
-public class FindByIdTest : IAsyncDisposable
+public class FindByIdTest : DbInstance
 {
-    private readonly TodoDbContext _todoDbContext;
 
-    public FindByIdTest()
+    public TodoDbContext CreateTodoDbContext()
     {
-        _todoDbContext = new TodoDbContext(new DbContextOptionsBuilder<TodoDbContext>()
-            .UseNpgsql("TodoMemDbContext")
-            .Options, null);
-    }
+        var _db = new TodoDbContext(new DbContextOptionsBuilder<TodoDbContext>()
+       .UseNpgsql(DbConnectionString)
+       .Options, null);
 
-    public async ValueTask DisposeAsync()
-    {
-        await _todoDbContext.DisposeAsync();
-    }
+        return _db;
 
+    }
     [Fact]
     public async Task 保存したTodoを読み込む_OK()
     {
+        using var _todoDbContext = CreateTodoDbContext();
         ITodoReposity todoRepository = new TodoRepository(_todoDbContext);
 
         var startDate = DateTime.Now;
@@ -39,11 +36,13 @@ public class FindByIdTest : IAsyncDisposable
         var savedTodo = await todoRepository.FindByIdAsync(todo.TodoId);
         Assert.NotNull(savedTodo);
         Assert.Equal(todo.Title, savedTodo.Title);
+
     }
 
     [Fact]
     public async Task 存在しないTodo読み込み_0件が返る()
     {
+        using var _todoDbContext = CreateTodoDbContext();
         ITodoReposity todoRepository = new TodoRepository(_todoDbContext);
 
         var todoId = Guid.NewGuid().ToString();

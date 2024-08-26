@@ -1,15 +1,10 @@
   --ユーザーの作成
-CREATE USER test WITH PASSWORD 'test';
---DBの作成
-CREATE DATABASE test;
---ユーザーにDBの権限をまとめて付与
-GRANT ALL PRIVILEGES ON DATABASE test TO test;
 --ユーザーを切り替え
-\c test
+\c postgres
 
 
 -- Project Name : Todo
--- Date/Time    : 2024/08/23 17:30:08
+-- Date/Time    : 2024/08/24 14:48:42
 -- Author       : es_win11_user
 -- RDBMS Type   : PostgreSQL
 -- Application  : A5:SQL Mk-2
@@ -22,16 +17,26 @@ GRANT ALL PRIVILEGES ON DATABASE test TO test;
   この機能は A5:SQL Mk-2でのみ有効であることに注意してください。
 */
 
+-- User
+-- * RestoreFromTempTable
+create table user_info (
+  user_id varchar(100)
+  , user_name varchar(100) not null
+  , email varchar(100) not null
+  , is_started boolean not null
+  , constraint user_info_PKC primary key (user_id)
+) ;
+
 -- TodoItem
 -- * RestoreFromTempTable
 create table todo_item (
   todo_item_id varchar(100)
   , todo_id varchar(100) not null
   , title varchar(100)
-  , schedule_start_date timestamp with time zone not null
-  , schedule_end_date timestamp with time zone not null
-  , start_date timestamp with time zone
-  , end_date timestamp with time zone
+  , schedule_start_date timestamp not null
+  , schedule_end_date timestamp not null
+  , start_date timestamp
+  , end_date timestamp
   , amount decimal(10,0) not null
   , constraint todo_item_PKC primary key (todo_item_id)
 ) ;
@@ -43,10 +48,16 @@ create table todo (
   , user_id varchar(100) not null
   , title varchar(100) not null
   , description text
-  , schedule_start_date timestamp with time zone not null
-  , schedule_end_date timestamp with time zone not null
+  , schedule_start_date timestamp not null
+  , schedule_end_date timestamp not null
   , constraint todo_PKC primary key (todo_id)
 ) ;
+
+comment on table user_info is 'User';
+comment on column user_info.user_id is 'UserId';
+comment on column user_info.user_name is 'UserName';
+comment on column user_info.email is 'EMail';
+comment on column user_info.is_started is 'IsStarted';
 
 comment on table todo_item is 'TodoItem';
 comment on column todo_item.todo_item_id is 'TodoItemId';
@@ -72,9 +83,8 @@ comment on column todo.schedule_end_date is 'ScheduleEndDate';
 
 
 
-
 insert into public.todo(todo_id,user_id,title,description,schedule_start_date,schedule_end_date) values 
-    ('TODO01','USER01','タイトル','詳細',TIMESTAMP '2024-08-01 00:00:00.000',TIMESTAMP '2024-08-02 00:00:00.000');
+    ('TODO01','USER01','タイトル3','詳細',TIMESTAMP '2024-08-01 00:00:00.000',TIMESTAMP '2024-08-02 00:00:00.000');
 
 
 

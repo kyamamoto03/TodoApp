@@ -4,25 +4,22 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infra.Test.ITodoRepository;
 
-public class AddTest : IAsyncDisposable
+public class AddTest : DbInstance
 {
-
-    private readonly TodoDbContext _todoDbContext;
-    public AddTest()
+    public TodoDbContext CreateTodoDbContext()
     {
-        _todoDbContext = new TodoDbContext(new DbContextOptionsBuilder<TodoDbContext>()
-            .UseNpgsql("TodoMemDbContext")
-            .Options, null);
-    }
+        var _db = new TodoDbContext(new DbContextOptionsBuilder<TodoDbContext>()
+       .UseNpgsql(DbConnectionString)
+       .Options, null);
 
-    public async ValueTask DisposeAsync()
-    {
-        await _todoDbContext.DisposeAsync();
+        return _db;
+
     }
 
     [Fact]
     public async Task Todo_Add_OK()
     {
+        using var _todoDbContext = CreateTodoDbContext();
         ITodoReposity todoRepository = new TodoRepository(_todoDbContext);
 
         var startDate = DateTime.Now;
@@ -45,6 +42,7 @@ public class AddTest : IAsyncDisposable
     [Fact]
     public async Task Todo_Add_重複ID_NG()
     {
+        using var _todoDbContext = CreateTodoDbContext();
         ITodoReposity todoRepository = new TodoRepository(_todoDbContext);
 
         var startDate = DateTime.Now;
@@ -66,6 +64,7 @@ public class AddTest : IAsyncDisposable
     [Fact]
     public async Task Todo_Add_TodoItem_Save_OK()
     {
+        using var _todoDbContext = CreateTodoDbContext();
         ITodoReposity todoRepository = new TodoRepository(_todoDbContext);
 
         var startDate = DateTime.Now;
@@ -95,6 +94,7 @@ public class AddTest : IAsyncDisposable
     [Fact]
     public async Task Todo_Addし更新_OK()
     {
+        using var _todoDbContext = CreateTodoDbContext();
         ITodoReposity todoRepository = new TodoRepository(_todoDbContext);
 
         var startDate = DateTime.Now;

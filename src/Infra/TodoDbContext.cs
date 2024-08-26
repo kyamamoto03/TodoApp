@@ -14,6 +14,7 @@ public class TodoDbContext : DbContext, IUnitOfWork
     public TodoDbContext(DbContextOptions<TodoDbContext> options, IMediator mediator) : base(options)
     {
         _mediator = mediator;
+        AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
     }
 
     public DbSet<Todo> Todos { get; set; } = default!;

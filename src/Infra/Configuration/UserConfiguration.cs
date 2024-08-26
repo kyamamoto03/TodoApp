@@ -8,9 +8,11 @@ internal class UserConfiguration : IEntityTypeConfiguration<User>
 {
     public void Configure(EntityTypeBuilder<User> builder)
     {
+        builder.ToTable("user_info");
         builder.HasKey(x => x.UserId);
-        builder.Property(x => x.UserId).UsePropertyAccessMode(PropertyAccessMode.Field);
-        builder.Property(x => x.UserName).UsePropertyAccessMode(PropertyAccessMode.Field);
-        builder.Property(x => x.Email).UsePropertyAccessMode(PropertyAccessMode.Field);
+        builder.Property(x => x.UserId).HasColumnName("user_id");
+        builder.Property(x => x.UserName).HasColumnName("user_name");
+        builder.Property(x => x.Email).HasColumnName("email");
+        builder.Property(x => x.IsStarted).HasColumnName("is_started");
     }
 }
