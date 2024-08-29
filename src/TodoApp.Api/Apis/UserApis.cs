@@ -1,9 +1,7 @@
-﻿
-using Domain.Exceptions;
+﻿using Domain.Exceptions;
+using Domain.UserModel;
 using TodoApp.Api.DTO.User.Add;
 using TodoApp.Api.DTO.User.GetAll;
-using TodoApp.Api.Service.UserService.Add;
-using TodoApp.Api.Service.UserService.GetAll;
 
 namespace TodoApp.Api.Apis;
 
@@ -18,7 +16,7 @@ public static class UserApis
         return api;
     }
 
-    private static async Task<AddResponse> AddAsync(AddRequest addRequest, IAddService addUsecase)
+    private static async Task<AddResponse> AddAsync(AddRequest addRequest, IUserRepository userRepository)
     {
         AddResponse addResponse = new();
         try
@@ -26,17 +24,18 @@ public static class UserApis
             if (addRequest.IsValid() == false)
             {
                 addResponse.Fail(addRequest.validationResult.ToString());
+                return addResponse;
             }
-            else
+            if (await userRepository.IsExist(addRequest.Email) == true)
             {
-
-                //addRequestをAddCommandに詰め替える
-                var addCommand = new AddCommand(addRequest.UserId, addRequest.UserName, addRequest.Email);
-
-                await addUsecase.ExecuteAsync(addCommand);
-
-                addResponse.Success();
+                addResponse.Fail("ユーザが存在しています");
+                return addResponse;
             }
+
+            await userRepository.AddAsync(addRequest.UserId, addRequest.UserName, addRequest.Email);
+            await userRepository.UnitOfWork.SaveEntitiesAsync();
+
+            addResponse.Success();
         }
         catch (TodoDoaminExceptioon tde)
         {
@@ -48,15 +47,16 @@ public static class UserApis
         }
         return addResponse;
     }
-    private static async Task<GetAllResponse> GetAllAsync(IGetAllService getAllUsecase)
+
+    private static async Task<GetAllResponse> GetAllAsync(IUserRepository userRepository)
     {
         GetAllResponse getAllResponse = new();
         try
         {
-            var getAllResult = await getAllUsecase.ExecuteAsync();
+            var getAllResult = await userRepository.GetAllAsync();
 
             //getAllResultをGetAllResponseに詰め替える
-            getAllResponse.Users = getAllResult.Users.Select(x => new GetAllResponse.User
+            getAllResponse.Users = getAllResult.Select(x => new GetAllResponse.User
             {
                 UserId = x.UserId,
                 UserName = x.UserName,

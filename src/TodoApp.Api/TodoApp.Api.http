@@ -16,3 +16,13 @@ Content-Type: application/json
 {
   "UserId": "USER01"
 }
+
+###
+POST {{host}}/api/todo/StartTodo
+Content-Type: application/json
+
+{
+  "TodoItemId": "TODOITEM01",
+  "StartDate":"2024-08-29"
+}
+###

@@ -1,14 +1,9 @@
 ﻿using Domain.Exceptions;
-using MediatR;
+using Domain.TodoModel;
 using Microsoft.AspNetCore.Mvc;
 using TodoApp.Api.DTO.Todo.FindByUserId;
 using TodoApp.Api.DTO.Todo.GetStatus;
 using TodoApp.Api.DTO.Todo.StartTodo;
-using TodoApp.Api.Service.TodoService.Add;
-using TodoApp.Api.Service.TodoService.FindById;
-using TodoApp.Api.Service.TodoService.FindByUserId;
-using TodoApp.Api.Service.TodoService.GetStatus;
-using TodoApp.Api.Service.TodoService.StartTodo;
 using TodoApp.API.DTO.Todo.AddTodo;
 using TodoApp.API.DTO.Todo.FindById;
 
@@ -28,7 +23,7 @@ public static class TodoApi
         return api;
     }
 
-    private static async Task<FindByUserIdResponse> FindByUserIdAsync([FromBody] FindByUserIdRequest findByUserIdRequest, IFindByUserIdService findByUserIdService)
+    private static async Task<FindByUserIdResponse> FindByUserIdAsync([FromBody] FindByUserIdRequest findByUserIdRequest, ITodoRepository _todoReposity)
     {
         FindByUserIdResponse findByUserIdResponse = new FindByUserIdResponse();
         try
@@ -39,9 +34,9 @@ public static class TodoApi
                 return findByUserIdResponse;
             }
 
-            var response = await findByUserIdService.Execute(findByUserIdRequest.UserId);
-            //responseをFindByUserIdResponseに詰め替える
-            findByUserIdResponse.Todos = response.Select(x => new FindByUserIdResponse.Todo
+            var repositoryResponse = await _todoReposity.FindByUserIdAsync(findByUserIdRequest.UserId);
+            //responseTodoをFindByUserIdResponseに詰め替える
+            findByUserIdResponse.Todos = repositoryResponse.Select(x => new FindByUserIdResponse.Todo
             {
                 UserId = x.UserId,
                 TodoId = x.TodoId,
@@ -49,7 +44,7 @@ public static class TodoApi
                 Description = x.Description,
                 ScheduleStartDate = x.ScheduleStartDate,
                 ScheduleEndDate = x.ScheduleEndDate,
-                TodoItemResponses = x.TodoItemResults.Select(y => new FindByUserIdResponse.Todo.TodoItemResponse
+                TodoItemResponses = x.TodoItems.Select(y => new FindByUserIdResponse.Todo.TodoItemResponse
                 {
                     TodoItemId = y.TodoItemId,
                     Title = y.Title,
@@ -72,35 +67,41 @@ public static class TodoApi
         return findByUserIdResponse;
     }
 
-    public static async Task<AddTodoResponse> AddTodoAsync([FromBody] AddTodoRequest request, IAddTodoService addTodoService)
+    public static async Task<AddTodoResponse> AddTodoAsync([FromBody] AddTodoRequest addTodoRequest, ITodoRepository _todoReposity)
     {
         var addTodoResponse = new AddTodoResponse();
 
         try
         {
-            if (request.IsValid() == false)
+            if (addTodoRequest.IsValid() == false)
             {
-                addTodoResponse.Fail(request.validationResult.ToString());
+                addTodoResponse.Fail(addTodoRequest.validationResult.ToString());
             }
             else
             {
                 //AddTodoUsecaseRequestに詰め替える
-                AddTodoCommand addTodoUsecaseRequest = new AddTodoCommand();
-                addTodoUsecaseRequest.UserId = request.UserId;
-                addTodoUsecaseRequest.TodoId = request.TodoId;
-                addTodoUsecaseRequest.Title = request.Title;
-                addTodoUsecaseRequest.Description = request.Description;
-                addTodoUsecaseRequest.ScheduleStartDate = request.ScheduleStartDate;
-                addTodoUsecaseRequest.ScheduleEndDate = request.ScheduleEndDate;
-                addTodoUsecaseRequest.TodoItems = request.TodoItemRequests.Select(x => new AddTodoCommand.TodoItem
-                {
-                    TodoItemId = x.TodoItemId,
-                    Title = x.Title,
-                    ScheduleStartDate = x.ScheduleStartDate,
-                    ScheduleEndDate = x.ScheduleEndDate
-                }).ToArray();
+                Todo todo = Todo.Create(
+                    addTodoRequest.UserId,
+                    addTodoRequest.TodoId,
+                    addTodoRequest.Title,
+                    addTodoRequest.Description,
+                    addTodoRequest.ScheduleStartDate,
+                    addTodoRequest.ScheduleEndDate);
 
-                await addTodoService.ExecuteAsync(addTodoUsecaseRequest);
+                foreach (var item in addTodoRequest.TodoItemRequests)
+                {
+                    TodoItem todoItem = Todo.CreateTodoItem(item.TodoItemId, item.Title, item.ScheduleStartDate, item.ScheduleEndDate);
+                    todo.AddTodoItem(todoItem);
+                }
+
+                if (await _todoReposity.IsExistAsync(todo.TodoId))
+                {
+                    throw new TodoDoaminExceptioon("指定されたTodoは既に存在します");
+                }
+
+                var saveTodo = await _todoReposity.AddAsync(todo);
+                await _todoReposity.UnitOfWork.SaveEntitiesAsync();
+
                 addTodoResponse.Success();
             }
         }
@@ -116,26 +117,27 @@ public static class TodoApi
         return addTodoResponse;
     }
 
-    public static async Task<FindByIdResponse> FindByIdAsync([FromBody] FindByIdRequest findByIdRequest, IFindByIdService findByIdService)
+    public static async Task<FindByIdResponse> FindByIdAsync([FromBody] FindByIdRequest findByIdRequest, ITodoRepository _todoReposity)
     {
         FindByIdResponse findByIdResponse = new FindByIdResponse();
 
         try
         {
-            var response = await findByIdService.ExecuteAsync(findByIdRequest.TodoId);
+            var responseTodo = await _todoReposity.FindByIdAsync(findByIdRequest.TodoId);
+
             //FindByIdResponseにresponseを詰め替える
-            if (response == null)
+            if (responseTodo == null)
             {
                 findByIdResponse.Fail("Todoが見つかりませんでした");
                 return findByIdResponse;
             }
-            findByIdResponse.UserId = response.UserId;
-            findByIdResponse.TodoId = response.TodoId;
-            findByIdResponse.Title = response.Title;
-            findByIdResponse.Description = response.Description;
-            findByIdResponse.ScheduleStartDate = response.ScheduleStartDate;
-            findByIdResponse.ScheduleEndDate = response.ScheduleEndDate;
-            findByIdResponse.TodoItemResponses = response.TodoItemResults.Select(x => new FindByIdResponse.TodoItemResponse
+            findByIdResponse.UserId = responseTodo.UserId;
+            findByIdResponse.TodoId = responseTodo.TodoId;
+            findByIdResponse.Title = responseTodo.Title;
+            findByIdResponse.Description = responseTodo.Description;
+            findByIdResponse.ScheduleStartDate = responseTodo.ScheduleStartDate;
+            findByIdResponse.ScheduleEndDate = responseTodo.ScheduleEndDate;
+            findByIdResponse.TodoItemResponses = responseTodo.TodoItems.Select(x => new FindByIdResponse.TodoItemResponse
             {
                 TodoItemId = x.TodoItemId,
                 Title = x.Title,
@@ -157,12 +159,24 @@ public static class TodoApi
         return findByIdResponse;
     }
 
-    public static async Task<StartTodoResponse> StartTodoAsync([FromBody] StartTodoRequest request, IStartTodoService startTodoService)
+    public static async Task<StartTodoResponse> StartTodoAsync([FromBody] StartTodoRequest startTodoRequest, ITodoRepository _todoReposity)
     {
         StartTodoResponse startTodoResponse = new StartTodoResponse();
         try
         {
-            await startTodoService.ExecuteAsync(new StartTodoCommand(request.TodoId, request.TodoItemId, request.StartDate));
+            var todo = await _todoReposity.FindByItemIdAsync(startTodoRequest.TodoItemId);
+
+            if (todo == null)
+            {
+                startTodoResponse.Fail("Todoが見つかりませんでした");
+                return startTodoResponse;
+            }
+
+            todo.StartTodoItem(startTodoRequest.TodoItemId, startTodoRequest.StartDate);
+
+            await _todoReposity.UpdateAsync(todo);
+            await _todoReposity.UnitOfWork.SaveEntitiesAsync();
+
             startTodoResponse.Success();
         }
         catch (TodoDoaminExceptioon tde)
@@ -177,13 +191,20 @@ public static class TodoApi
         return startTodoResponse;
     }
 
-    public static async Task<GetStatusResponse> GetStatusAsync([FromBody] GetStatusRequest request, IGetStatusService getStatusService)
+    public static async Task<GetStatusResponse> GetStatusAsync([FromBody] GetStatusRequest getStatusRequest, ITodoRepository _todoReposity)
     {
         GetStatusResponse getStatusResponse = new GetStatusResponse();
         try
         {
-            var result = await getStatusService.Execute(new GetStatusCommand(request.TodoId));
-            getStatusResponse.Status = result.Status;
+            var todo = await _todoReposity.FindByIdAsync(getStatusRequest.TodoId);
+
+            //todoがnullの場合、例外をスローする
+            if (todo == null)
+            {
+                throw new TodoDoaminExceptioon("Todo not found");
+            }
+
+            getStatusResponse.Status = todo.TodoItemStatus.Id;
             getStatusResponse.Success();
         }
         catch (TodoDoaminExceptioon tde)

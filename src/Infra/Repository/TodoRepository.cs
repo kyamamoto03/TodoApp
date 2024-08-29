@@ -27,6 +27,14 @@ public class TodoRepository(TodoDbContext todoMemDbContext) : ITodoRepository
             .FirstOrDefaultAsync(x => x.TodoId == todoId);
     }
 
+    public Task<Todo?> FindByItemIdAsync(string todoItemId)
+    {
+        return _todoDbContext.Todos
+            .Include(x => x.TodoItems)
+            .Where(x => x.TodoItems.Any(x => x.TodoItemId.Contains(todoItemId)))
+            .SingleOrDefaultAsync();
+    }
+
     public async Task<Todo> AddAsync(Todo todo)
     {
         _todoDbContext.Todos.Add(todo);

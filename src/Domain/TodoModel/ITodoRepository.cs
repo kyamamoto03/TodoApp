@@ -11,6 +11,13 @@ public interface ITodoRepository : IRepository<Todo>
     /// <returns></returns>
     Task<Todo?> FindByIdAsync(string todoId);
 
+    /// <summary>
+    /// TodoItemIdを含むTodoを検索
+    /// </summary>
+    /// <param name="todoId"></param>
+    /// <returns></returns>
+    Task<Todo?> FindByItemIdAsync(string todoItemId);
+
     Task<IEnumerable<Todo>> FindByUserIdAsync(string userId);
 
     /// <summary>

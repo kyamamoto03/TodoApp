@@ -1,17 +1,18 @@
 ﻿using Domain.Exceptions;
+using Domain.TodoModel.Events;
 using Domain.UserModel;
+using MediatR;
 
-namespace TodoApp.Api.Service.UserService.StartTodo;
+namespace TodoApp.Api.DomainEvent.FirstTodoStart;
 
-public interface IFirstTodoStartService
-{
-    Task Execute(string todoId);
-}
-public class FirstTodoStartService(IUserRepository userRepository) : IFirstTodoStartService
+public class FirstTodoStartDomainEventHandler(IUserRepository userRepository) : INotificationHandler<FirstTodoStartDomainEvent>
 {
     private readonly IUserRepository _userRepository = userRepository;
-    public async Task Execute(string userId)
+
+    public async Task Handle(FirstTodoStartDomainEvent notification, CancellationToken cancellationToken)
     {
+        var userId = notification.UserId;
+
         Console.WriteLine($"StartTodoService.Execute:UserId:{userId}");
 
         var targetUser = await _userRepository.FindByIdAsync(userId);
@@ -23,6 +24,5 @@ public class FirstTodoStartService(IUserRepository userRepository) : IFirstTodoS
         targetUser.Start();
         await _userRepository.UpdateAsync(targetUser);
         await _userRepository.UnitOfWork.SaveEntitiesAsync();
-
     }
 }
