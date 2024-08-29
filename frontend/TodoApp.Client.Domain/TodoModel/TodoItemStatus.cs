@@ -1,6 +1,7 @@
-﻿using TodoApp.Client.SeedOfWork;
+﻿
+using TodoApp.Client.Domain.SeedOfWork;
 
-namespace TodoApp.Client.Models;
+namespace TodoApp.Client.Domain.TodoModel;
 
 public class TodoItemStatus : Enumeration
 {

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using MudBlazor.Services;
 using TodoApp.Client;
 using TodoApp.Client.PageModel;
+using TodoApp.Client.WebApiRepository;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
@@ -12,5 +13,11 @@ builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.
 builder.Services.AddMudServices();
 
 builder.Services.AddScoped<HomePageModel>();
+
+#region DI
+
+builder.Services.AddScoped<ITodoWebApi, TodoWebApi>();
+
+#endregion DI
 
 await builder.Build().RunAsync();

@@ -1,9 +1,12 @@
 ﻿using Domain.Exceptions;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using TodoApp.Api.DTO.Todo.FindByUserId;
 using TodoApp.Api.DTO.Todo.GetStatus;
 using TodoApp.Api.DTO.Todo.StartTodo;
 using TodoApp.Api.Service.TodoService.Add;
 using TodoApp.Api.Service.TodoService.FindById;
+using TodoApp.Api.Service.TodoService.FindByUserId;
 using TodoApp.Api.Service.TodoService.GetStatus;
 using TodoApp.Api.Service.TodoService.StartTodo;
 using TodoApp.API.DTO.Todo.AddTodo;
@@ -21,8 +24,52 @@ public static class TodoApi
         api.MapPost("/FindById", FindByIdAsync);
         api.MapPost("/StartTodo", StartTodoAsync);
         api.MapPost("/GetStatus", GetStatusAsync);
-
+        api.MapPost("/FindByUserId", FindByUserIdAsync);
         return api;
+    }
+
+    private static async Task<FindByUserIdResponse> FindByUserIdAsync([FromBody] FindByUserIdRequest findByUserIdRequest, IFindByUserIdService findByUserIdService)
+    {
+        FindByUserIdResponse findByUserIdResponse = new FindByUserIdResponse();
+        try
+        {
+            if (findByUserIdRequest.IsValid() == false)
+            {
+                findByUserIdResponse.Fail(findByUserIdRequest.validationResult.ToString());
+                return findByUserIdResponse;
+            }
+
+            var response = await findByUserIdService.Execute(findByUserIdRequest.UserId);
+            //responseをFindByUserIdResponseに詰め替える
+            findByUserIdResponse.Todos = response.Select(x => new FindByUserIdResponse.Todo
+            {
+                UserId = x.UserId,
+                TodoId = x.TodoId,
+                Title = x.Title,
+                Description = x.Description,
+                ScheduleStartDate = x.ScheduleStartDate,
+                ScheduleEndDate = x.ScheduleEndDate,
+                TodoItemResponses = x.TodoItemResults.Select(y => new FindByUserIdResponse.Todo.TodoItemResponse
+                {
+                    TodoItemId = y.TodoItemId,
+                    Title = y.Title,
+                    ScheduleStartDate = y.ScheduleStartDate,
+                    ScheduleEndDate = y.ScheduleEndDate,
+                    StartDate = y.StartDate,
+                    EndDate = y.EndDate
+                }).ToArray()
+            }).ToArray();
+        }
+        catch (TodoDoaminExceptioon tde)
+        {
+            findByUserIdResponse.Fail(tde.Message);
+        }
+        catch (Exception ex)
+        {
+            findByUserIdResponse.Fail(ex.Message);
+        }
+
+        return findByUserIdResponse;
     }
 
     public static async Task<AddTodoResponse> AddTodoAsync([FromBody] AddTodoRequest request, IAddTodoService addTodoService)
@@ -37,7 +84,6 @@ public static class TodoApi
             }
             else
             {
-
                 //AddTodoUsecaseRequestに詰め替える
                 AddTodoCommand addTodoUsecaseRequest = new AddTodoCommand();
                 addTodoUsecaseRequest.UserId = request.UserId;
@@ -69,6 +115,7 @@ public static class TodoApi
 
         return addTodoResponse;
     }
+
     public static async Task<FindByIdResponse> FindByIdAsync([FromBody] FindByIdRequest findByIdRequest, IFindByIdService findByIdService)
     {
         FindByIdResponse findByIdResponse = new FindByIdResponse();

@@ -1,4 +1,4 @@
-﻿namespace TodoApp.Client.Models;
+﻿namespace TodoApp.Client.Domain.TodoModel;
 
 public class TodoItem
 {

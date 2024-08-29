@@ -10,3 +10,9 @@ Content-Type: application/json
 
 ###
 
+POST {{host}}/api/todo/FindByUserId
+Content-Type: application/json
+
+{
+  "UserId": "USER01"
+}

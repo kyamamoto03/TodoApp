@@ -1,5 +1,4 @@
-﻿using Domain.Exceptions;
-using Domain.TodoModel;
+﻿using Domain.TodoModel;
 using Infra.Repository;
 using Microsoft.EntityFrameworkCore;
 
