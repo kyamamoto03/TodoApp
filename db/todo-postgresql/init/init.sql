@@ -90,3 +90,7 @@ insert into public.todo(todo_id,user_id,title,description,schedule_start_date,sc
 
 insert into public.todo_item(todo_item_id,todo_id,title,schedule_start_date,schedule_end_date,start_date,end_date,amount) values 
     ('TODOITEM01','TODO01','アイテムタイトル1',TIMESTAMP '2024-08-01 10:00:00.000',TIMESTAMP '2024-08-02 17:31:52.264',TIMESTAMP '2024-08-01 17:32:00.285',null,0);
+
+
+insert into public.user_info(user_id,user_name,email,is_started) values 
+    ('USER01','TodoUser','todo@example.com',False);
