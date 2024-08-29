@@ -23,7 +23,7 @@ public static class TodoApi
         return api;
     }
 
-    private static async Task<FindByUserIdResponse> FindByUserIdAsync([FromBody] FindByUserIdRequest findByUserIdRequest, ITodoRepository _todoReposity)
+    public static async Task<FindByUserIdResponse> FindByUserIdAsync([FromBody] FindByUserIdRequest findByUserIdRequest, ITodoRepository _todoReposity)
     {
         FindByUserIdResponse findByUserIdResponse = new FindByUserIdResponse();
         try

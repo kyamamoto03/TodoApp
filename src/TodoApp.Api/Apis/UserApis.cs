@@ -16,7 +16,7 @@ public static class UserApis
         return api;
     }
 
-    private static async Task<AddResponse> AddAsync(AddRequest addRequest, IUserRepository userRepository)
+    public static async Task<AddResponse> AddAsync(AddRequest addRequest, IUserRepository userRepository)
     {
         AddResponse addResponse = new();
         try
@@ -48,7 +48,7 @@ public static class UserApis
         return addResponse;
     }
 
-    private static async Task<GetAllResponse> GetAllAsync(IUserRepository userRepository)
+    public static async Task<GetAllResponse> GetAllAsync(IUserRepository userRepository)
     {
         GetAllResponse getAllResponse = new();
         try
