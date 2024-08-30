@@ -1,5 +1,3 @@
-using Domain.TodoModel;
-using Domain.UserModel;
 using Infra;
 using Infra.Repository;
 using Microsoft.EntityFrameworkCore;
@@ -30,8 +28,7 @@ builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Progr
 
 #endregion MediatR
 
-builder.Services.AddScoped<ITodoRepository, TodoRepository>();
-builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddRepositories();
 
 var app = builder.Build();
 
