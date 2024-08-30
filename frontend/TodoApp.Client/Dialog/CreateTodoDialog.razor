@@ -1,12 +1,11 @@
-﻿@using Blazored.FluentValidation
-@using FluentValidation.Results
+﻿
 <MudDialog>
     <TitleContent>
         Todo 作成
     </TitleContent>
     <DialogContent>
         <EditForm Model="createTodoDialogPageModel" OnSubmit="CreateTodo" Context="context">
-            <h4>Todo作成</h4>
+            <MudText Typo="Typo.h4">Todo作成</MudText>
 
             <FluentValidationValidator @ref="_fluentValidationValidator" />
             <ValidationSummary />
@@ -26,30 +25,3 @@
         </EditForm>
     </DialogContent>
 </MudDialog>
-
-@code {
-    [CascadingParameter]
-    private MudDialogInstance MudDialog { get; set; } = default!;
-
-    private CreateTodoDialogPageModel createTodoDialogPageModel = new();
-    private bool _isProcessing { get; set; } = false;
-
-    FluentValidationValidator? _fluentValidationValidator;
-
-    private async Task CreateTodo()
-    {
-        try
-        {
-            _isProcessing = true;
-
-            if (await _fluentValidationValidator!.ValidateAsync())
-            {
-                MudDialog.Close(DialogResult.Ok(true));
-            }
-
-        }finally
-        {
-            _isProcessing = false;
-        }
-    }
-}
