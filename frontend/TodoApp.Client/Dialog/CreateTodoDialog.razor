@@ -1,22 +1,24 @@
-﻿<MudDialog>
+﻿@using Blazored.FluentValidation
+@using FluentValidation.Results
+<MudDialog>
     <TitleContent>
         Todo 作成
     </TitleContent>
     <DialogContent>
         <EditForm Model="createTodoDialogPageModel" OnSubmit="CreateTodo" Context="context">
-
             <h4>Todo作成</h4>
+
+            <FluentValidationValidator @ref="_fluentValidationValidator" />
+            <ValidationSummary />
+
             <MudPaper Class="d-flex flex-column justify-content-end pa-2" Elevation="0">
 
                 <MudTextField T="string" @bind-value="createTodoDialogPageModel.Title" Placeholder="タイトル(必須)" />
                 <MudTextField T="string" @bind-value="createTodoDialogPageModel.Description" Placeholder="詳細" />
 
-                @if (string.IsNullOrEmpty(errorMessage) == false)
-                {
-                    <MudText Color="Color.Error">
-                        @errorMessage
-                    </MudText>
-                }
+                <MudDatePicker Label="開始日(必須)" @bind-Date="createTodoDialogPageModel.ScheduleStartDate" />
+                <MudDatePicker Label="終了日(必須)" @bind-Date="createTodoDialogPageModel.ScheduleEndDate" />
+
             </MudPaper>
             <MudPaper Class="d-flex justify-content-end pa-2" Elevation="0">
                 <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Disabled="@_isProcessing">作成</MudButton>
@@ -31,27 +33,23 @@
 
     private CreateTodoDialogPageModel createTodoDialogPageModel = new();
     private bool _isProcessing { get; set; } = false;
-    private string errorMessage { get; set; } = string.Empty;
 
-    private Task CreateTodo()
+    FluentValidationValidator? _fluentValidationValidator;
+
+    private async Task CreateTodo()
     {
         try
         {
             _isProcessing = true;
 
-            errorMessage = string.Empty;
-            if (createTodoDialogPageModel.IsValid() == false)
-            {
-                errorMessage = createTodoDialogPageModel.ValidationResult.ToString();
-            }else
+            if (await _fluentValidationValidator!.ValidateAsync())
             {
                 MudDialog.Close(DialogResult.Ok(true));
             }
+
         }finally
         {
             _isProcessing = false;
         }
-
-        return Task.CompletedTask;
     }
 }

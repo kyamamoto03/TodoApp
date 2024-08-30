@@ -1,28 +1,28 @@
 ﻿using FluentValidation;
-using FluentValidation.Results;
 
 namespace TodoApp.Client.Dialog;
 
+public class CreateTodoDialogPageModelValidator : AbstractValidator<CreateTodoDialogPageModel>
+{
+    public CreateTodoDialogPageModelValidator()
+    {
+        RuleFor(x => x.Title)
+               .NotEmpty().WithMessage("タイトルを入力してください");
+        RuleFor(x => x.ScheduleStartDate)
+                .NotEmpty()
+                .WithMessage("開始日を入力してください");
+        RuleFor(x => x.ScheduleEndDate)
+                .NotEmpty()
+                .WithMessage("終了日を入力してください");
+    }
+}
+
 public class CreateTodoDialogPageModel
 {
-    [System.ComponentModel.DataAnnotations.Required]
-    public string Title { get; set; }
+    public string Title { get; set; } = string.Empty;
 
-    public string Description { get; set; }
-    public DateTime ScheduleStartDate { get; set; }
-    public DateTime ScheduleEndDate { get; set; }
+    public string Description { get; set; } = string.Empty;
 
-    public bool IsValid()
-    {
-        var validator = new InlineValidator<CreateTodoDialogPageModel>
-            {
-                v => v.RuleFor(x => x.Title)
-                .NotEmpty().WithMessage("タイトルを入力してください"),
-            };
-        ValidationResult = validator.Validate(this);
-
-        return ValidationResult.IsValid;
-    }
-
-    public ValidationResult? ValidationResult { get; set; } = null;
+    public DateTime? ScheduleStartDate { get; set; } = null;
+    public DateTime? ScheduleEndDate { get; set; } = null;
 }
