@@ -1,4 +1,6 @@
-﻿namespace TodoApp.Client.Domain.TodoModel;
+﻿using TodoApp.Api.DTO.Todo.FindByUserId;
+
+namespace TodoApp.Client.Domain.TodoModel;
 
 public class Todo
 {
@@ -69,6 +71,7 @@ public class Todo
 
         return todo;
     }
+
     public static Todo Create(string todoId, string title, string description, DateTime scheduleStartDate, DateTime scheduleEndDate)
     {
         Todo todo = new Todo();
@@ -82,6 +85,36 @@ public class Todo
         return todo;
     }
 
+    public static IEnumerable<Todo> Create(FindByUserIdResponse findByUserIdResponse)
+    {
+        List<Todo> todos = new();
+        foreach (var responseTodo in findByUserIdResponse.Todos)
+        {
+            Todo todo = new Todo();
+            todo.TodoId = responseTodo.TodoId;
+            todo.Title = responseTodo.Title;
+            todo.Description = responseTodo.Description;
+            todo.ScheduleStartDate = responseTodo.ScheduleStartDate;
+            todo.ScheduleEndDate = responseTodo.ScheduleEndDate;
+            todos.Add(todo);
+
+            foreach (var item in responseTodo.TodoItemResponses)
+            {
+                TodoItem todoItem = new();
+                todoItem.TodoItemId = item.TodoItemId;
+                todoItem.Title = item.Title;
+                todoItem.ScheduleStartDate = item.ScheduleStartDate;
+                todoItem.ScheduleEndDate = item.ScheduleEndDate;
+                todoItem.ScheduleStartDate = item.ScheduleStartDate;
+                todoItem.ScheduleEndDate = item.ScheduleEndDate;
+
+                todo.AddTodoItem(todoItem);
+            };
+        }
+
+        return todos.ToArray();
+    }
+
     public static TodoItem CreateNewTodoItem(string title, DateTime shceduleStartDate, DateTime shceduleEndDate)
     {
         TodoItem todoItem = new TodoItem();
@@ -92,26 +125,6 @@ public class Todo
 
         todoItem.StartDate = null;
         todoItem.EndDate = null;
-        todoItem.TodoItemStatus = TodoItemStatus.未開始;
-
-        if (todoItem.ScheduleStartDate > todoItem.ScheduleEndDate)
-        {
-            throw new ArgumentException("開始日よりも前の日付は設定できません");
-        }
-
-        return todoItem;
-    }
-    public static TodoItem CreateTodoItem(string todoItemId, string title, DateTime shceduleStartDate, DateTime shceduleEndDate)
-    {
-        TodoItem todoItem = new TodoItem();
-        todoItem.TodoItemId = todoItemId;
-        todoItem.Title = title;
-        todoItem.ScheduleStartDate = shceduleStartDate;
-        todoItem.ScheduleEndDate = shceduleEndDate;
-
-        todoItem.StartDate = null;
-        todoItem.EndDate = null;
-        todoItem.TodoItemStatus = TodoItemStatus.未開始;
 
         if (todoItem.ScheduleStartDate > todoItem.ScheduleEndDate)
         {
@@ -127,4 +140,3 @@ public class Todo
         _todoItems.Add(todoItem);
     }
 }
-

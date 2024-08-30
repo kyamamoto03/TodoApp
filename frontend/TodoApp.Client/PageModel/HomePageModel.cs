@@ -26,15 +26,7 @@ public class HomePageModel(ITodoWebApi todoWebApi)
         var findByUserIdResponse = await todoWebApi.FindByUserIdAsync("USER01");
 
         _todos.Clear();
-        foreach (var item in findByUserIdResponse.Todos)
-        {
-            Todo todo = Todo.Create(item.TodoId,
-                item.Title,
-                item.Description,
-                item.ScheduleStartDate,
-                item.ScheduleEndDate);
-
-            _todos.Add(todo);
-        }
+        var todos = Todo.Create(findByUserIdResponse);
+        _todos.AddRange(todos);
     }
 }
