@@ -16,6 +16,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\frontend\TodoApp.Client\TodoApp.Client.csproj" />
     <ProjectReference Include="..\Infra\Infra.csproj" />
+    <ProjectReference Include="..\TodoApp.Api.ServiceDefaults\TodoApp.Api.ServiceDefaults.csproj" />
     <ProjectReference Include="..\TodoApp.DTO\TodoApp.Api.DTO.csproj" />
   </ItemGroup>
 

@@ -8,6 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 
+builder.AddServiceDefaults();
+
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -52,6 +54,8 @@ var todo = app.MapTodoApiV1();
 var user = app.MapUserApiV1();
 
 app.MapFallbackToFile("index.html");
+
+app.MapDefaultEndpoints();
 
 app.Run();
 
