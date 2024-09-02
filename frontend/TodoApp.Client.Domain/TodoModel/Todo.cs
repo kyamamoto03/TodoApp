@@ -72,19 +72,6 @@ public class Todo
         return todo;
     }
 
-    public static Todo Create(string todoId, string title, string description, DateTime scheduleStartDate, DateTime scheduleEndDate)
-    {
-        Todo todo = new Todo();
-
-        todo.TodoId = todoId;
-        todo.Title = title;
-        todo.Description = description;
-        todo.ScheduleStartDate = scheduleStartDate;
-        todo.ScheduleEndDate = scheduleEndDate;
-
-        return todo;
-    }
-
     public static IEnumerable<Todo> Create(FindByUserIdResponse findByUserIdResponse)
     {
         List<Todo> todos = new();
