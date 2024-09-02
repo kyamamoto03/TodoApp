@@ -23,18 +23,25 @@ public static class TodoApi
         return api;
     }
 
-    public static async Task<FindByUserIdResponse> FindByUserIdAsync([FromBody] FindByUserIdRequest findByUserIdRequest, ITodoRepository _todoReposity)
+    public static async Task<FindByUserIdResponse> FindByUserIdAsync([FromBody] FindByUserIdRequest findByUserIdRequest,
+        ITodoRepository _todoReposity,
+        [AsParameters] ApiService apiService)
     {
         FindByUserIdResponse findByUserIdResponse = new FindByUserIdResponse();
         try
         {
+            apiService.Logger.LogInformation("Start:FindByUserIdAsync");
+
             if (findByUserIdRequest.IsValid() == false)
             {
                 findByUserIdResponse.Fail(findByUserIdRequest.validationResult.ToString());
+                apiService.Logger.LogWarning(findByUserIdRequest.validationResult.ToString());
+
                 return findByUserIdResponse;
             }
 
             var repositoryResponse = await _todoReposity.FindByUserIdAsync(findByUserIdRequest.UserId);
+
             //responseTodoをFindByUserIdResponseに詰め替える
             findByUserIdResponse.Todos = repositoryResponse.Select(x => new FindByUserIdResponse.Todo
             {
@@ -67,15 +74,19 @@ public static class TodoApi
         return findByUserIdResponse;
     }
 
-    public static async Task<AddTodoResponse> AddTodoAsync([FromBody] AddTodoRequest addTodoRequest, ITodoRepository _todoReposity)
+    public static async Task<AddTodoResponse> AddTodoAsync([FromBody] AddTodoRequest addTodoRequest,
+        ITodoRepository _todoReposity,
+        [AsParameters] ApiService apiService)
     {
         var addTodoResponse = new AddTodoResponse();
 
         try
         {
+            apiService.Logger.LogInformation("Start:AddTodoAsync");
             if (addTodoRequest.IsValid() == false)
             {
                 addTodoResponse.Fail(addTodoRequest.validationResult.ToString());
+                apiService.Logger.LogWarning(addTodoRequest.validationResult.ToString());
             }
             else
             {
@@ -117,18 +128,23 @@ public static class TodoApi
         return addTodoResponse;
     }
 
-    public static async Task<FindByIdResponse> FindByIdAsync([FromBody] FindByIdRequest findByIdRequest, ITodoRepository _todoReposity)
+    public static async Task<FindByIdResponse> FindByIdAsync([FromBody] FindByIdRequest findByIdRequest,
+        ITodoRepository _todoReposity,
+        [AsParameters] ApiService apiService)
     {
         FindByIdResponse findByIdResponse = new FindByIdResponse();
 
         try
         {
+            apiService.Logger.LogInformation("Start:FindByIdAsync");
             var responseTodo = await _todoReposity.FindByIdAsync(findByIdRequest.TodoId);
 
             //FindByIdResponseにresponseを詰め替える
             if (responseTodo == null)
             {
                 findByIdResponse.Fail("Todoが見つかりませんでした");
+                apiService.Logger.LogWarning("Todoが見つかりませんでした");
+
                 return findByIdResponse;
             }
             findByIdResponse.UserId = responseTodo.UserId;
@@ -159,16 +175,22 @@ public static class TodoApi
         return findByIdResponse;
     }
 
-    public static async Task<StartTodoResponse> StartTodoAsync([FromBody] StartTodoRequest startTodoRequest, ITodoRepository _todoReposity)
+    public static async Task<StartTodoResponse> StartTodoAsync([FromBody] StartTodoRequest startTodoRequest,
+        ITodoRepository _todoReposity,
+        [AsParameters] ApiService apiService)
     {
         StartTodoResponse startTodoResponse = new StartTodoResponse();
         try
         {
+            apiService.Logger.LogInformation("Start:StartTodoAsync");
+
             var todo = await _todoReposity.FindByItemIdAsync(startTodoRequest.TodoItemId);
 
             if (todo == null)
             {
                 startTodoResponse.Fail("Todoが見つかりませんでした");
+                apiService.Logger.LogWarning("Todoが見つかりませんでした");
+
                 return startTodoResponse;
             }
 
@@ -191,17 +213,24 @@ public static class TodoApi
         return startTodoResponse;
     }
 
-    public static async Task<GetStatusResponse> GetStatusAsync([FromBody] GetStatusRequest getStatusRequest, ITodoRepository _todoReposity)
+    public static async Task<GetStatusResponse> GetStatusAsync([FromBody] GetStatusRequest getStatusRequest,
+        ITodoRepository _todoReposity,
+        [AsParameters] ApiService apiService)
     {
         GetStatusResponse getStatusResponse = new GetStatusResponse();
         try
         {
+            apiService.Logger.LogInformation("Start:StartTodoAsync");
+
             var todo = await _todoReposity.FindByIdAsync(getStatusRequest.TodoId);
 
             //todoがnullの場合、例外をスローする
             if (todo == null)
             {
-                throw new TodoDoaminExceptioon("Todo not found");
+                getStatusResponse.Fail("Todoが見つかりませんでした");
+                apiService.Logger.LogWarning("Todoが見つかりませんでした");
+
+                return getStatusResponse;
             }
 
             getStatusResponse.Status = todo.TodoItemStatus.Id;

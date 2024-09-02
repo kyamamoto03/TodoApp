@@ -2,6 +2,10 @@
 using Infra;
 using Infra.Repository;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using Moq;
+using NSubstitute;
+using TodoApp.Api.Apis;
 using TodoApp.API.DTO.Todo.AddTodo;
 
 namespace TodoApp.Api.Test.TodoApi;
@@ -15,6 +19,17 @@ public class FindByIdTest : DbInstance
        .Options, null);
 
         return _db;
+    }
+
+    public ApiService CreateApiServer()
+    {
+        var loggerMoq = Substitute.For<ILogger<ApiService>>();
+        loggerMoq.LogInformation(It.IsAny<string>());
+        loggerMoq.LogWarning(It.IsAny<string>());
+        loggerMoq.LogError(It.IsAny<string>());
+
+        var _apiService = new ApiService(loggerMoq);
+        return _apiService;
     }
 
     [Fact]
@@ -46,7 +61,7 @@ public class FindByIdTest : DbInstance
                 }
             }
         };
-        await Apis.TodoApi.AddTodoAsync(addTodoRequest, todoRepository);
+        await Apis.TodoApi.AddTodoAsync(addTodoRequest, todoRepository, CreateApiServer());
 
         // Act
         var findTodo = await todoRepository.FindByIdAsync(todoId);

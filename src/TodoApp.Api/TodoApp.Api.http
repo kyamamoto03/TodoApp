@@ -14,7 +14,7 @@ POST {{host}}/api/todo/FindByUserId
 Content-Type: application/json
 
 {
-  "UserId": "USER01"
+  "UserIda": "USER01"
 }
 
 ###
