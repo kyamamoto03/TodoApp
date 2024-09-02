@@ -14,7 +14,6 @@ public static class TodoApi
     public static RouteGroupBuilder MapTodoApiV1(this IEndpointRouteBuilder app)
     {
         var api = app.MapGroup("api/todo");
-
         api.MapPost("/AddTodo", AddTodoAsync);
         api.MapPost("/FindById", FindByIdAsync);
         api.MapPost("/StartTodo", StartTodoAsync);

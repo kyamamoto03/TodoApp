@@ -14,7 +14,7 @@ POST {{host}}/api/todo/FindByUserId
 Content-Type: application/json
 
 {
-  "UserIda": "USER01"
+  "UserId": "USER01"
 }
 
 ###
@@ -26,3 +26,9 @@ Content-Type: application/json
   "StartDate":"2024-08-29"
 }
 ###
+POST {{host}}/api/todo/FindByUserId2
+Content-Type: application/json
+
+{
+  "UserId": "USER01"
+}
