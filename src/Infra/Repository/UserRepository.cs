@@ -37,10 +37,4 @@ public class UserRepository(TodoDbContext todoMemDbContext) : IUserRepository
         }
         return true;
     }
-
-    public Task UpdateAsync(User user)
-    {
-        _todoDbContext.Entry(user).State = EntityState.Modified;
-        return Task.CompletedTask;
-    }
 }
