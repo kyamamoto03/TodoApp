@@ -28,13 +28,6 @@ public interface ITodoRepository : IRepository<Todo>
     Task<Todo> AddAsync(Todo todo);
 
     /// <summary>
-    /// 更新
-    /// </summary>
-    /// <param name="todo"></param>
-    /// <returns></returns>
-    Task UpdateAsync(Todo todo);
-
-    /// <summary>
     /// 削除
     /// </summary>
     /// <param name="todoId"></param>

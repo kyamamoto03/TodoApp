@@ -13,7 +13,6 @@ public class AddTest : DbInstance
        .Options, null);
 
         return _db;
-
     }
 
     [Fact]
@@ -58,7 +57,6 @@ public class AddTest : DbInstance
         TodoItem todoItem2 = Todo.CreateTodoItem(Guid.NewGuid().ToString(), "TodoItemTitle2", startDate, endDate);
         todo.AddTodoItem(todoItem2);
 
-
         await todoRepository.AddAsync(todo);
         await todoRepository.UnitOfWork.SaveChangesAsync();
 
@@ -93,7 +91,6 @@ public class AddTest : DbInstance
 
         savedTodo.StartTodoItem(savedTodo.TodoItems.First().TodoItemId, todoItemStartDate);
 
-        await todoRepository.UpdateAsync(savedTodo);
         await todoRepository.UnitOfWork.SaveChangesAsync();
 
         var savedTodo2 = await todoRepository.FindByIdAsync(todo.TodoId);
@@ -101,5 +98,4 @@ public class AddTest : DbInstance
         Assert.NotNull(savedTodo2);
         Assert.Equal(todoItemStartDate, savedTodo2.TodoItems.First().StartDate);
     }
-
 }

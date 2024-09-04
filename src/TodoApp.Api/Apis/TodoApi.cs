@@ -195,7 +195,6 @@ public static class TodoApi
 
             todo.StartTodoItem(startTodoRequest.TodoItemId, startTodoRequest.StartDate);
 
-            await _todoReposity.UpdateAsync(todo);
             await _todoReposity.UnitOfWork.SaveEntitiesAsync();
 
             startTodoResponse.Success();

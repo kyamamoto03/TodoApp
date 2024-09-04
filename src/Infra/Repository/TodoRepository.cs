@@ -42,12 +42,6 @@ public class TodoRepository(TodoDbContext todoMemDbContext) : ITodoRepository
         return todo;
     }
 
-    public Task UpdateAsync(Todo todo)
-    {
-        _todoDbContext.Entry(todo).State = EntityState.Modified;
-        return Task.CompletedTask;
-    }
-
     public async ValueTask<bool> IsExistAsync(string todoId)
     {
         return await _todoDbContext.Todos.AnyAsync(x => x.TodoId == todoId);
