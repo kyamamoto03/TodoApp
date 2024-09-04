@@ -2,7 +2,7 @@
 using Infra;
 using Infra.Repository;
 using Microsoft.EntityFrameworkCore;
-using TodoApp.Api.DomainEvent.FirstTodoStart;
+using TodoApp.Api.DomainEventHandler;
 
 namespace TodoApp.Api.Test.DomanEventTest;
 

@@ -3,7 +3,7 @@ using Domain.TodoModel.Events;
 using Domain.UserModel;
 using MediatR;
 
-namespace TodoApp.Api.DomainEvent.FirstTodoStart;
+namespace TodoApp.Api.DomainEventHandler;
 
 public class FirstTodoStartDomainEventHandler(IUserRepository userRepository) : INotificationHandler<FirstTodoStartDomainEvent>
 {
