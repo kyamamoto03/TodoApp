@@ -22,7 +22,5 @@ public class FirstTodoStartDomainEventHandler(IUserRepository userRepository) : 
         }
 
         targetUser.Start();
-        await _userRepository.UpdateAsync(targetUser);
-        await _userRepository.UnitOfWork.SaveEntitiesAsync();
     }
 }
