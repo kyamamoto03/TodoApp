@@ -1,8 +1,9 @@
-﻿using MediatR;
+﻿using Domain.TodoModel;
+using MediatR;
 
 namespace Domain.SeedOfWork;
 
-public abstract class Entity
+public abstract class Entity : IModelBase
 {
     private List<INotification> _domainEvents;
     public IReadOnlyCollection<INotification> DomainEvents => _domainEvents?.AsReadOnly();

@@ -29,6 +29,8 @@ FooterRight=
 ShowPageoutRelation=1
 RDBMSType=7
 RDBMSTypeName=PostgreSQL
+CommonField="作成日","create_date","timestamp","NOT NULL",,"","",$FFFFFFFF
+CommonField="更新日","update_date","timestamp","NOT NULL",,"","",$FFFFFFFF
 DefaultPkName=%0:s_PKC
 DefaultPkIndexName=%0:s_PKI
 DefaultIndexName=%0:s_IX%1:d
@@ -45,7 +47,7 @@ LName=Todo
 Comment=
 TableInnerOption=
 TableOption=
-Page=Main
+Page=MAIN
 Left=800
 Top=300
 Field="TodoId","todo_id","varchar(100)",,0,"","",$FFFFFFFF,""
@@ -58,7 +60,7 @@ EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
 ModifiedDateTime=20240824144825
-Position="Main",800,300
+Position="MAIN",800,300
 ZOrder=1
 
 [Entity]
@@ -67,7 +69,7 @@ LName=TodoItem
 Comment=
 TableInnerOption=
 TableOption=
-Page=Main
+Page=MAIN
 Left=550
 Top=600
 Field="TodoItemId","todo_item_id","varchar(100)",,0,"","",$FFFFFFFF,""
@@ -82,7 +84,7 @@ EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
 ModifiedDateTime=20240824144834
-Position="Main",550,600
+Position="MAIN",550,600
 ZOrder=3
 
 [Relation]
@@ -112,7 +114,7 @@ LName=User
 Comment=
 TableInnerOption=
 TableOption=
-Page=Main
+Page=MAIN
 Left=1300
 Top=350
 Field="UserId","user_id","varchar(100)",,0,"","",$FFFFFFFF,""
@@ -123,7 +125,7 @@ EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
 ModifiedDateTime=20240823174648
-Position="Main",1300,350
+Position="MAIN",1300,350
 ZOrder=5
 
 [Relation]

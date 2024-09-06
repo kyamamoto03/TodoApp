@@ -16,7 +16,8 @@ internal class TodoConfiguration : IEntityTypeConfiguration<Todo>
         builder.Property(x => x.Description).HasColumnName("description");
         builder.Property(x => x.ScheduleStartDate).HasColumnName("schedule_start_date");
         builder.Property(x => x.ScheduleEndDate).HasColumnName("schedule_end_date");
+        builder.Property(x => x.CreateDate).HasColumnName("create_date");
+        builder.Property(x => x.UpdateDate).HasColumnName("update_date");
         builder.HasMany(x => x.TodoItems).WithOne().HasForeignKey("TodoId");
-
     }
 }

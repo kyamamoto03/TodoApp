@@ -1,18 +1,25 @@
 ﻿using Domain.TodoModel;
 using Infra;
 using Infra.Repository;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
+using NSubstitute;
 using TodoApp.API.DTO.Todo.AddTodo;
 
 namespace TodoApp.Api.Test.TodoApi;
 
 public class FindByIdTest : DbInstance
 {
+    private IMediator _mediatorMock = default!;
+
     public TodoDbContext CreateTodoDbContext()
     {
+        _mediatorMock = Substitute.For<IMediator>();
+
         var _db = new TodoDbContext(new DbContextOptionsBuilder<TodoDbContext>()
-       .UseNpgsql(DbConnectionString)
-       .Options, null);
+           .UseNpgsql(DbConnectionString)
+           .Options,
+           _mediatorMock);
 
         return _db;
     }

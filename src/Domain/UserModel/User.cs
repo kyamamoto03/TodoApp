@@ -1,6 +1,8 @@
-﻿namespace Domain.UserModel;
+﻿using Domain.SeedOfWork;
 
-public class User
+namespace Domain.UserModel;
+
+public class User : Entity
 {
     public string UserId { get; private set; } = default!;
 

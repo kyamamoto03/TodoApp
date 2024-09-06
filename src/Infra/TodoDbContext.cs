@@ -26,6 +26,7 @@ public class TodoDbContext : DbContext, IUnitOfWork
     {
         await _mediator.DispatchDomainEventsAsync(this);
 
+        SupportTimeStampHelper.UpdateTimeStamps(this, DateTime.Now);
         _ = await base.SaveChangesAsync(cancellationToken);
 
         return true;
@@ -36,5 +37,30 @@ public class TodoDbContext : DbContext, IUnitOfWork
         modelBuilder.ApplyConfiguration(new TodoConfiguration());
         modelBuilder.ApplyConfiguration(new TodoItemConfiguration());
         modelBuilder.ApplyConfiguration(new UserConfiguration());
+    }
+}
+
+/// <summary>
+/// SaveChanges時にTimeStampを更新するためのヘルパークラス
+/// </summary>
+public class SupportTimeStampHelper
+{
+    public static void UpdateTimeStamps(DbContext dbContext, DateTime now)
+    {
+        foreach (var entity in dbContext.ChangeTracker.Entries())
+        {
+            if (!(entity.Entity is IModelBase e))
+                continue;
+            switch (entity.State)
+            {
+                case EntityState.Added:
+                    e.Created(now);
+                    break;
+
+                case EntityState.Modified:
+                    e.Updated(now);
+                    break;
+            };
+        }
     }
 }

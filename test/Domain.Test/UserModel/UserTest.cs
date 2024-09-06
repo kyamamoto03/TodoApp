@@ -1,6 +1,6 @@
 ﻿using Domain.UserModel;
 
-namespace Domain.Test.UseModel;
+namespace Domain.Test.UserModel;
 
 public class UserTest
 {
