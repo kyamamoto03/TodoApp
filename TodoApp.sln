@@ -25,11 +25,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoApp.Client.Domain", "fr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoApp.Client", "frontend\TodoApp.Client\TodoApp.Client.csproj", "{22B9D1C4-0A67-4732-90B3-77E1A5420A50}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoApp.Api.Test", "test\TodoApp.Api.Test\TodoApp.Api.Test.csproj", "{E0EB21CA-BBEB-4818-9A34-581750F42729}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoApp.Api.Test", "test\TodoApp.Api.Test\TodoApp.Api.Test.csproj", "{E0EB21CA-BBEB-4818-9A34-581750F42729}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoApp.Client.Test", "test\TodoApp.Client.Test\TodoApp.Client.Test.csproj", "{8263AD43-5435-4BA7-A37A-EF016D3E9B06}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoApp.Client.Test", "test\TodoApp.Client.Test\TodoApp.Client.Test.csproj", "{8263AD43-5435-4BA7-A37A-EF016D3E9B06}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoApp.Api.ServiceDefaults", "src\TodoApp.Api.ServiceDefaults\TodoApp.Api.ServiceDefaults.csproj", "{68C157D2-7F23-43BE-8782-31750E86DA13}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoApp.Api.ServiceDefaults", "src\TodoApp.Api.ServiceDefaults\TodoApp.Api.ServiceDefaults.csproj", "{68C157D2-7F23-43BE-8782-31750E86DA13}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomainService", "src\DomainService\DomainService.csproj", "{60C58BB8-E23B-48B9-B15A-4C6F2146E499}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,6 +83,10 @@ Global
 		{68C157D2-7F23-43BE-8782-31750E86DA13}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{68C157D2-7F23-43BE-8782-31750E86DA13}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{68C157D2-7F23-43BE-8782-31750E86DA13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60C58BB8-E23B-48B9-B15A-4C6F2146E499}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60C58BB8-E23B-48B9-B15A-4C6F2146E499}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60C58BB8-E23B-48B9-B15A-4C6F2146E499}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60C58BB8-E23B-48B9-B15A-4C6F2146E499}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -97,6 +103,7 @@ Global
 		{E0EB21CA-BBEB-4818-9A34-581750F42729} = {808849BD-94FA-46DF-B2C8-8F1C7BA61424}
 		{8263AD43-5435-4BA7-A37A-EF016D3E9B06} = {808849BD-94FA-46DF-B2C8-8F1C7BA61424}
 		{68C157D2-7F23-43BE-8782-31750E86DA13} = {0EFE11CB-F13F-4CAF-87DF-30300ACE64E4}
+		{60C58BB8-E23B-48B9-B15A-4C6F2146E499} = {0EFE11CB-F13F-4CAF-87DF-30300ACE64E4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F190021A-F2B9-4EF9-B77D-BD035C0D94D6}
