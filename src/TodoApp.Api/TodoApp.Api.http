@@ -18,6 +18,9 @@ Content-Type: application/json
 }
 
 ###
+POST {{host}}/api/user/GetAll
+
+###
 POST {{host}}/api/todo/StartTodo
 Content-Type: application/json
 

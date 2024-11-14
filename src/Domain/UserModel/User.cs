@@ -2,7 +2,7 @@
 
 namespace Domain.UserModel;
 
-public class User : Entity
+public class User : IModelBase
 {
     public string UserId { get; private set; } = default!;
 

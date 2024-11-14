@@ -10,11 +10,11 @@ public class IsExist : DbInstance
     {
         var _db = new TodoDbContext(new DbContextOptionsBuilder<TodoDbContext>()
        .UseNpgsql(DbConnectionString)
-       .Options, null);
+       .Options);
 
         return _db;
-
     }
+
     [Fact]
     public async Task ユーザが存在_OK_Test()
     {
@@ -52,5 +52,4 @@ public class IsExist : DbInstance
 
         Assert.False(isExist);
     }
-
 }

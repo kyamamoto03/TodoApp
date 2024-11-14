@@ -6,16 +6,15 @@ namespace Infra.Test.ITodoRepository;
 
 public class FindByIdTest : DbInstance
 {
-
     public TodoDbContext CreateTodoDbContext()
     {
         var _db = new TodoDbContext(new DbContextOptionsBuilder<TodoDbContext>()
        .UseNpgsql(DbConnectionString)
-       .Options, null);
+       .Options);
 
         return _db;
-
     }
+
     [Fact]
     public async Task 保存したTodoを読み込む_OK()
     {
@@ -36,7 +35,6 @@ public class FindByIdTest : DbInstance
         var savedTodo = await todoRepository.FindByIdAsync(todo.TodoId);
         Assert.NotNull(savedTodo);
         Assert.Equal(todo.Title, savedTodo.Title);
-
     }
 
     [Fact]
@@ -48,7 +46,6 @@ public class FindByIdTest : DbInstance
         var todoId = Guid.NewGuid().ToString();
         var savedTodo = await todoRepository.FindByIdAsync(todoId);
         Assert.Null(savedTodo);
-
     }
 
     [Fact]
@@ -69,11 +66,9 @@ public class FindByIdTest : DbInstance
         await todoRepository.AddAsync(todo);
         await todoRepository.UnitOfWork.SaveChangesAsync();
 
-
         // Act
         var exist = await todoRepository.IsExistAsync(todo.TodoId);
         // Assert
         Assert.True(exist);
     }
-
 }

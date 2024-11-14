@@ -2,7 +2,7 @@
 
 namespace Domain.TodoModel;
 
-public class TodoItem : Entity
+public class TodoItem : IModelBase
 {
     public string TodoItemId { get; internal set; } = default!;
     public string TodoId { get; internal set; } = default!;
@@ -11,6 +11,7 @@ public class TodoItem : Entity
     public DateTime ScheduleEndDate { get; internal set; } = default!;
     public DateTime? StartDate { get; internal set; } = default!;
     public DateTime? EndDate { get; internal set; } = default!;
+
     public TodoItemStatus TodoItemStatus
     {
         get
@@ -42,6 +43,7 @@ public class TodoItem : Entity
             return AddTax(Amount);
         }
     }
+
     internal TodoItem()
     {
     }

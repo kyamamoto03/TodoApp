@@ -11,10 +11,9 @@ public class AddTest : DbInstance
     {
         var _db = new TodoDbContext(new DbContextOptionsBuilder<TodoDbContext>()
        .UseNpgsql(DbConnectionString)
-       .Options, null);
+       .Options);
 
         return _db;
-
     }
 
     [Fact]
@@ -44,6 +43,4 @@ public class AddTest : DbInstance
         Assert.Equal(userName, findUser.UserName);
         Assert.Equal(email, findUser.Email);
     }
-
-
 }

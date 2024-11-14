@@ -1,5 +1,6 @@
 ﻿using Domain.Exceptions;
 using Domain.TodoModel;
+using Domain.UserModel;
 using Microsoft.AspNetCore.Mvc;
 using TodoApp.Api.DTO.Todo.FindByUserId;
 using TodoApp.Api.DTO.Todo.GetStatus;
@@ -176,6 +177,7 @@ public static class TodoApi
 
     public static async Task<StartTodoResponse> StartTodoAsync([FromBody] StartTodoRequest startTodoRequest,
         ITodoRepository _todoReposity,
+        IUserRepository _userRepository,
         [AsParameters] ApiService apiService)
     {
         StartTodoResponse startTodoResponse = new StartTodoResponse();
@@ -194,6 +196,14 @@ public static class TodoApi
             }
 
             todo.StartTodoItem(startTodoRequest.TodoItemId, startTodoRequest.StartDate);
+
+            //ユーザを開始状態にする
+            var targetUser = await _userRepository.FindByIdAsync(todo.UserId);
+            if (targetUser == null)
+            {
+                throw new TodoDoaminExceptioon("User not found");
+            }
+            targetUser.Start();
 
             await _todoReposity.UnitOfWork.SaveEntitiesAsync();
 

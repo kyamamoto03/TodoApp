@@ -2,18 +2,14 @@
 using Domain.TodoModel;
 using Domain.UserModel;
 using Infra.Configuration;
-using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infra;
 
 public class TodoDbContext : DbContext, IUnitOfWork
 {
-    private readonly IMediator _mediator;
-
-    public TodoDbContext(DbContextOptions<TodoDbContext> options, IMediator mediator) : base(options)
+    public TodoDbContext(DbContextOptions<TodoDbContext> options) : base(options)
     {
-        _mediator = mediator;
         AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
     }
 
@@ -24,8 +20,6 @@ public class TodoDbContext : DbContext, IUnitOfWork
 
     public async Task<bool> SaveEntitiesAsync(CancellationToken cancellationToken = default)
     {
-        await _mediator.DispatchDomainEventsAsync(this);
-
         SupportTimeStampHelper.UpdateTimeStamps(this, DateTime.Now);
         _ = await base.SaveChangesAsync(cancellationToken);
 

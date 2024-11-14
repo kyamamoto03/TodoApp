@@ -25,12 +25,6 @@ builder.Services.AddDbContext<TodoDbContext>(options =>
 
 #endregion db
 
-#region MediatR
-
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Programs).Assembly));
-
-#endregion MediatR
-
 builder.Services.AddRepositories();
 
 var app = builder.Build();

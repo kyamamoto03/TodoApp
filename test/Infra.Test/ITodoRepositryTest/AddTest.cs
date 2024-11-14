@@ -10,7 +10,7 @@ public class AddTest : DbInstance
     {
         var _db = new TodoDbContext(new DbContextOptionsBuilder<TodoDbContext>()
        .UseNpgsql(DbConnectionString)
-       .Options, null);
+       .Options);
 
         return _db;
     }
