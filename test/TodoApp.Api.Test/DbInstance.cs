@@ -23,9 +23,8 @@ public class DbInstance : IAsyncLifetime
         try
         {
             _postgres = new PostgreSqlBuilder()
-            .WithImage("postgres:15-alpine")
-            .WithBindMount(Dir, @"/docker-entrypoint-initdb.d")
-            //.WithPortBinding(15432, 5432)
+            .WithImage("postgres:16-alpine")
+            .WithResourceMapping(Dir, @"/docker-entrypoint-initdb.d")
             .Build();
         }
         catch (Exception ex)
