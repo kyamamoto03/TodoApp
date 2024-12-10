@@ -1,6 +1,5 @@
 using Infra;
 using Infra.Repository;
-using Microsoft.EntityFrameworkCore;
 using TodoApp.Api.Apis;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,10 +17,7 @@ builder.Services.AddHttpClient();
 
 #region db
 
-builder.Services.AddDbContext<TodoDbContext>(options =>
-{
-    options.UseNpgsql("Server=localhost;Database=postgres;Port=51556;User Id=user;Password=pass");
-});
+builder.AddNpgsqlDbContext<TodoDbContext>("tododb");
 
 #endregion db
 

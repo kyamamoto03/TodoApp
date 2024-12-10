@@ -33,6 +33,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoApp.Api.ServiceDefaults
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomainService", "src\DomainService\DomainService.csproj", "{60C58BB8-E23B-48B9-B15A-4C6F2146E499}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoApp.Api.AppHost", "TodoApp.Api.AppHost\TodoApp.Api.AppHost.csproj", "{EBCFF110-9575-46F3-AF54-36B8C12214DC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +89,10 @@ Global
 		{60C58BB8-E23B-48B9-B15A-4C6F2146E499}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{60C58BB8-E23B-48B9-B15A-4C6F2146E499}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{60C58BB8-E23B-48B9-B15A-4C6F2146E499}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EBCFF110-9575-46F3-AF54-36B8C12214DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EBCFF110-9575-46F3-AF54-36B8C12214DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EBCFF110-9575-46F3-AF54-36B8C12214DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EBCFF110-9575-46F3-AF54-36B8C12214DC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -104,6 +110,7 @@ Global
 		{8263AD43-5435-4BA7-A37A-EF016D3E9B06} = {808849BD-94FA-46DF-B2C8-8F1C7BA61424}
 		{68C157D2-7F23-43BE-8782-31750E86DA13} = {0EFE11CB-F13F-4CAF-87DF-30300ACE64E4}
 		{60C58BB8-E23B-48B9-B15A-4C6F2146E499} = {0EFE11CB-F13F-4CAF-87DF-30300ACE64E4}
+		{EBCFF110-9575-46F3-AF54-36B8C12214DC} = {0EFE11CB-F13F-4CAF-87DF-30300ACE64E4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F190021A-F2B9-4EF9-B77D-BD035C0D94D6}
