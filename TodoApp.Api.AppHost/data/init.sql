@@ -29,6 +29,7 @@ create table user_info (
   , user_name varchar(100) not null
   , email varchar(100) not null
   , is_started boolean not null
+  , zip_code varchar(100) not null
   , create_date timestamp not null
   , update_date timestamp not null
   , constraint user_info_PKC primary key (user_id)
@@ -107,5 +108,5 @@ insert into public.todo_item(todo_item_id,todo_id,title,schedule_start_date,sche
     ('TODOITEM01','TODO01','アイテムタイトル1',TIMESTAMP '2024-08-01 10:00:00.000',TIMESTAMP '2024-08-02 17:31:52.264',null,null,0,TIMESTAMP '2024-08-01 00:00:00.000',TIMESTAMP '2024-08-01 00:00:00.000');
 
 
-insert into public.user_info(user_id,user_name,email,is_started,create_date,update_date) values 
-    ('USER01','TodoUser','todo@example.com',False,TIMESTAMP '2024-08-01 00:00:00.000',TIMESTAMP '2024-08-01 00:00:00.000');
+insert into public.user_info(user_id,user_name,email,is_started,zip_code,create_date,update_date) values 
+    ('USER01','TodoUser','todo@example.com',False,'110-1234',TIMESTAMP '2024-08-01 00:00:00.000',TIMESTAMP '2024-08-01 00:00:00.000');

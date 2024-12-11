@@ -1,4 +1,5 @@
 ﻿using Domain.UserModel;
+using Domain.ValueObject;
 
 namespace Domain.Test.UserModel;
 
@@ -11,7 +12,7 @@ public class UserTest
         var userName = "ユーザ１";
         var email = "test@example.com";
 
-        User user = new User(userId, userName, email);
+        User user = User.CreateNew(userId, userName, email, Address.CreateNew("123-0123"));
 
         Assert.False(user.IsStarted);
 

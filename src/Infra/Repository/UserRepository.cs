@@ -1,5 +1,6 @@
 ﻿using Domain.SeedOfWork;
 using Domain.UserModel;
+using Domain.ValueObject;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infra.Repository;
@@ -12,7 +13,7 @@ public class UserRepository(TodoDbContext todoMemDbContext) : IUserRepository
 
     public Task AddAsync(string userId, string userName, string email)
     {
-        User user = new(userId, userName, email);
+        User user = User.CreateNew(userId, userName, email, Address.CreateNew("123-0123"));
 
         _todoDbContext.Users.Add(user);
         return Task.CompletedTask;

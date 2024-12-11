@@ -61,6 +61,7 @@ public static class UserApis
                 UserId = x.UserId,
                 UserName = x.UserName,
                 Email = x.Email,
+                ZipCode = x.Address.ZipCode,
                 IsStarted = x.IsStarted,
             });
 

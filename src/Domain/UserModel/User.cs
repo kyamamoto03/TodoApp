@@ -1,4 +1,5 @@
 ﻿using Domain.SeedOfWork;
+using Domain.ValueObject;
 
 namespace Domain.UserModel;
 
@@ -11,13 +12,19 @@ public class User : IModelBase
 
     public bool IsStarted { get; private set; } = default!;
 
-    public User(string userId, string userName, string email)
-    {
-        UserId = userId;
-        UserName = userName;
-        Email = email;
+    public Address Address { get; private set; } = default!;
 
-        IsStarted = false;
+    public static User CreateNew(string userId, string userName, string email, Address Address)
+    {
+        User User = new User();
+        User.UserId = userId;
+        User.UserName = userName;
+        User.Email = email;
+        User.Address = Address;
+
+        User.IsStarted = false;
+
+        return User;
     }
 
     public void Start()
