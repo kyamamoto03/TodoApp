@@ -15,7 +15,7 @@ public class DbInstance : IAsyncLifetime
         get
         {
             var dir = System.Environment.CurrentDirectory;
-            return $"{dir}/../../../../../db/todo-postgresql/init";
+            return $"{dir}/../../../../../src/TodoApp.Api.AppHost/data";
         }
     }
 

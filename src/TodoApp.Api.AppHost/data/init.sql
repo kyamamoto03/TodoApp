@@ -1,12 +1,3 @@
-  --ユーザーの作成
---ユーザーを切り替え
-CREATE DATABASE tododb;
---ユーザーにDBの権限をまとめて付与
-
---ユーザーを切り替え
-\c tododb
-
-
 
 -- Project Name : Todo
 -- Date/Time    : 2024/09/06 13:04:04

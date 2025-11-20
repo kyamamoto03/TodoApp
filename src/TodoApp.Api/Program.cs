@@ -17,7 +17,7 @@ builder.Services.AddHttpClient();
 
 #region db
 
-builder.AddNpgsqlDbContext<TodoDbContext>("tododb");
+builder.AddNpgsqlDbContext<TodoDbContext>("postgres");
 
 #endregion db
 

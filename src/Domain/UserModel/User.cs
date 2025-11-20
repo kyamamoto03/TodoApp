@@ -11,16 +11,16 @@ public class User : IModelBase
     public string Email { get; private set; } = default!;
 
     public bool IsStarted { get; private set; } = default!;
+    public string ZipCode { get; private set; } = string.Empty;
 
-    public Address Address { get; private set; } = default!;
 
-    public static User CreateNew(string userId, string userName, string email, Address Address)
+    public static User CreateNew(string userId, string userName, string email, string zipCode)
     {
         User User = new User();
         User.UserId = userId;
         User.UserName = userName;
         User.Email = email;
-        User.Address = Address;
+        User.ZipCode = zipCode;
 
         User.IsStarted = false;
 
