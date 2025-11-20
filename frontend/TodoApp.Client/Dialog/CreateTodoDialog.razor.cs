@@ -7,7 +7,7 @@ namespace TodoApp.Client.Dialog;
 public partial class CreateTodoDialog
 {
     [CascadingParameter]
-    private MudDialogInstance MudDialog { get; set; } = default!;
+    IMudDialogInstance MudDialog { get; set; } = default!;
 
     private CreateTodoDialogPageModel createTodoDialogPageModel = new();
     private bool _isProcessing { get; set; } = false;
@@ -20,7 +20,7 @@ public partial class CreateTodoDialog
         {
             _isProcessing = true;
 
-            if (await _fluentValidationValidator!.ValidateAsync())
+            if (_fluentValidationValidator != null && await _fluentValidationValidator.ValidateAsync())
             {
                 MudDialog.Close(DialogResult.Ok(true));
             }

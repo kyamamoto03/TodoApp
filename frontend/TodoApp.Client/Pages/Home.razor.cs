@@ -13,10 +13,16 @@ public partial class Home
     [Inject]
     public HomePageModel _homePageModel { get; set; } = default!;
 
-    private Task CreateTodo()
+    private async Task CreateTodo()
     {
         var options = new DialogOptions { CloseOnEscapeKey = true };
 
-        return DialogService.ShowAsync<CreateTodoDialog>("Create Todo Dialog", options);
+        var dialog = await DialogService.ShowAsync<CreateTodoDialog>("Create Todo Dialog", options);
+        var result = await dialog.Result;
+
+        if (!result.Canceled)
+        {
+            await _homePageModel.LoadTodo();
+        }
     }
 }
