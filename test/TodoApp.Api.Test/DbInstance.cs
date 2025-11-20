@@ -5,38 +5,24 @@ namespace TodoApp.Api.Test;
 
 public class DbInstance : IAsyncLifetime
 {
-    private PostgreSqlContainer _postgres;
+    private readonly PostgreSqlContainer _postgres = new PostgreSqlBuilder()
+            .WithImage("postgres:15-alpine")
+            .WithBindMount(Dir, @"/docker-entrypoint-initdb.d")
+            .Build();
 
-    private string Dir
+    private static string Dir
     {
         get
         {
             var dir = System.Environment.CurrentDirectory;
-            return $"{dir}/../../../../../db/todo-postgresql/init";
+            return $"{dir}/../../../../../src/TodoApp.Api.AppHost/data";
         }
     }
 
     public string DbConnectionString => _postgres.GetConnectionString();
-
-    public Task CreateAsync()
-    {
-        try
-        {
-            _postgres = new PostgreSqlBuilder()
-            .WithImage("postgres:16-alpine")
-            .WithResourceMapping(Dir, @"/docker-entrypoint-initdb.d")
-            .Build();
-        }
-        catch (Exception ex)
-        {
-            Debug.WriteLine(ex.Message);
-        }
-        return _postgres.StartAsync();
-    }
-
     public Task InitializeAsync()
     {
-        return CreateAsync();
+        return _postgres.StartAsync();
     }
 
     public async Task DisposeAsync()
