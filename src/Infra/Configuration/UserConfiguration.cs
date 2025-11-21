@@ -14,10 +14,7 @@ internal class UserConfiguration : IEntityTypeConfiguration<User>
         builder.Property(x => x.UserName).HasColumnName("user_name");
         builder.Property(x => x.Email).HasColumnName("email");
         builder.Property(x => x.IsStarted).HasColumnName("is_started");
-        builder.OwnsOne(x => x.Address, addressBuilder =>
-        {
-            addressBuilder.Property(a => a.ZipCode).HasColumnName("zip_code");
-        });
+        builder.OwnsOne(x => x.Address).ConfigureAddress();
         builder.Property(x => x.CreateDate).HasColumnName("create_date");
         builder.Property(x => x.UpdateDate).HasColumnName("update_date");
     }
